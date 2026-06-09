@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>真宗大谷派 真照寺 | 横浜市都筑区</title>
+<meta name="description" content="横浜市都筑区の真宗大谷派真照寺。豊かな自然と文学歴史に囲まれた地域に根ざしたお寺。法事・葬儀・法話会・お寺カウンセリングなど、どうぞご相談ください。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #2c4a2e;
+    --primary-light: #3d6b40;
+    --gold: #b8913a;
+    --gold-light: #d4a84b;
+    --gold-pale: #f5e6c8;
+    --cream: #faf6ef;
+    --dark: #1a1a1a;
+    --text: #3a3a3a;
+    --text-light: #6b6b6b;
+    --white: #ffffff;
+    --border: #e0d5c0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Serif JP', 'Meiryo UI', serif;
+    color: var(--text);
+    background: var(--cream);
+    overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(26, 26, 26, 0.92);
+    backdrop-filter: blur(12px);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    border-bottom: 1px solid rgba(184, 145, 58, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .nav-logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+  .nav-logo .sub { font-size: 10px; color: var(--gold); font-weight: 300; letter-spacing: 2px; font-family: 'Noto Sans JP', sans-serif; }
+  .nav-logo .main { font-size: 18px; color: var(--white); font-weight: 500; letter-spacing: 3px; }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 13px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-tel {
+    color: var(--gold);
+    font-size: 14px;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 1px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba(20,35,20,0.85) 0%, rgba(44,74,46,0.75) 50%, rgba(26,20,10,0.85) 100%),
+      url('https://static.wixstatic.com/media/911b8f_6a9af45067fa4b559c5a03436d1edb74~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/%E9%96%802.jpg') center/cover no-repeat;
+    animation: slowZoom 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes slowZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.06); }
+  }
+
+  /* 和風装飾パターン */
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(184,145,58,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(60,107,64,0.15) 0%, transparent 50%);
+  }
+
+  /* 四隅の装飾 */
+  .hero-corner {
+    position: absolute;
+    width: 80px; height: 80px;
+    border-color: rgba(184,145,58,0.5);
+    border-style: solid;
+  }
+  .hero-corner.tl { top: 32px; left: 32px; border-width: 2px 0 0 2px; }
+  .hero-corner.tr { top: 32px; right: 32px; border-width: 2px 2px 0 0; }
+  .hero-corner.bl { bottom: 32px; left: 32px; border-width: 0 0 2px 2px; }
+  .hero-corner.br { bottom: 32px; right: 32px; border-width: 0 2px 2px 0; }
+
+  .hero-content {
+    position: relative;
+    text-align: center;
+    color: var(--white);
+    z-index: 1;
+    animation: fadeInUp 1.2s ease;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-sect {
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: var(--gold-light);
+    font-weight: 300;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-size: clamp(56px, 10vw, 96px);
+    font-weight: 300;
+    letter-spacing: 12px;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    text-shadow: 0 4px 40px rgba(0,0,0,0.5);
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+    letter-spacing: 8px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-bottom: 48px;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 24px auto;
+  }
+
+  .hero-tagline {
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 300;
+    letter-spacing: 3px;
+    margin-bottom: 56px;
+    font-style: italic;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 36px;
+    font-size: 13px;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 3px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: all 0.35s ease;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-gold {
+    background: var(--gold);
+    color: var(--dark);
+  }
+  .btn-gold:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(184,145,58,0.4);
+  }
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.6);
+    color: var(--white);
+    background: transparent;
+  }
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.5);
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-family: 'Noto Sans JP', sans-serif;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .scroll-hint span { display: block; width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4)); }
+  @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+  /* ===== SECTION COMMON ===== */
+  section { position: relative; }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 40px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: var(--dark);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .section-title-en {
+    font-size: 11px;
+    color: var(--text-light);
+    letter-spacing: 4px;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-bottom: 48px;
+  }
+
+  .gold-line {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    margin: 20px 0 48px;
+  }
+
+  /* ===== QUOTE STRIP ===== */
+  .quote-strip {
+    background: var(--primary);
+    padding: 64px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .quote-strip::before {
+    content: '卍';
+    position: absolute;
+    font-size: 200px;
+    color: rgba(255,255,255,0.03);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    letter-spacing: 0;
+  }
+  .quote-strip blockquote {
+    font-size: clamp(18px, 3vw, 26px);
+    color: var(--white);
+    font-weight: 300;
+    letter-spacing: 4px;
+    line-height: 2;
+    max-width: 700px;
+    margin: 0 auto 16px;
+  }
+  .quote-strip cite {
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    font-style: normal;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  /* ===== ABOUT ===== */
+  .about { background: var(--white); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-text p {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .about-image-wrap {
+    position: relative;
+  }
+  .about-image-wrap img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+  .about-image-wrap::before {
+    content: '';
+    position: absolute;
+    top: -16px; right: -16px;
+    width: 100%; height: 100%;
+    border: 2px solid var(--gold);
+    z-index: -1;
+  }
+
+  .about-facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  .about-fact {
+    background: var(--cream);
+    padding: 16px 20px;
+  }
+  .about-fact dt {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .about-fact dd {
+    font-size: 14px;
+    color: var(--dark);
+  }
+
+  /* ===== LITERARY ===== */
+  .literary {
+    background: var(--cream);
+    padding: 0;
+  }
+  .literary-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 40px;
+  }
+  .literary-card {
+    background: linear-gradient(135deg, var(--primary) 0%, #1e3520 100%);
+    padding: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .literary-card::after {
+    content: '詩';
+    position: absolute;
+    font-size: 300px;
+    color: rgba(255,255,255,0.03);
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 1;
+  }
+  .literary-text .section-label { color: var(--gold-light); }
+  .literary-text .section-title { color: var(--white); }
+  .literary-text .section-title-en { color: rgba(255,255,255,0.4); }
+  .literary-text p {
+    color: rgba(255,255,255,0.8);
+    font-size: 15px;
+    line-height: 2;
+    margin-bottom: 16px;
+  }
+  .poet-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .poet-card {
+    border-left: 2px solid var(--gold);
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.05);
+  }
+  .poet-card .name {
+    font-size: 17px;
+    color: var(--white);
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .poet-card .desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 1px;
+  }
+
+  /* ===== FILM LOCATION CARD ===== */
+  .film-location-section {
+    background: var(--cream);
+    padding: 0 0 100px;
+  }
+  .film-location-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .film-card {
+    position: relative;
+    background: linear-gradient(135deg, #1a0a00 0%, #3a1800 60%, #1a0800 100%);
+    overflow: hidden;
+    padding: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .film-card::before {
+    content: '映';
+    position: absolute;
+    font-size: 320px;
+    color: rgba(255,255,255,0.03);
+    right: -30px; top: 50%;
+    transform: translateY(-50%);
+    line-height: 1;
+  }
+  .film-card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #c8860a;
+    color: #fff;
+    padding: 6px 16px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-bottom: 20px;
+  }
+  .film-card .section-label { color: #e8a030; }
+  .film-card .section-title { color: var(--white); font-size: clamp(20px, 3vw, 30px); }
+  .film-card .section-title-en { color: rgba(255,255,255,0.35); }
+  .film-card-text p {
+    color: rgba(255,255,255,0.8);
+    font-size: 15px;
+    line-height: 2;
+    margin-bottom: 14px;
+  }
+  .film-card-text a.film-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #e8a030;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(232,160,48,0.4);
+    padding-bottom: 2px;
+    transition: color 0.3s, border-color 0.3s;
+    margin-top: 8px;
+  }
+  .film-card-text a.film-link:hover { color: #ffc040; border-color: #ffc040; }
+  .film-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .film-detail-row {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .film-detail-row dt {
+    min-width: 88px;
+    padding: 12px 16px;
+    background: rgba(200,134,10,0.25);
+    color: #e8a030;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .film-detail-row dd {
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+  }
+  .film-award {
+    margin-top: 8px;
+    padding: 16px 20px;
+    background: rgba(200,134,10,0.15);
+    border-left: 3px solid #c8860a;
+    color: rgba(255,255,255,0.8);
+    font-size: 13px;
+    line-height: 1.8;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 1px;
+  }
+  .film-award strong { color: #e8a030; font-weight: 400; }
+
+  @media (max-width: 900px) {
+    .film-card { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; }
+    .film-location-inner { padding: 0 24px; }
+  }
+
+  /* ===== SERVICES ===== */
+  .services { background: var(--white); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 48px;
+  }
+
+  .service-card {
+    background: var(--white);
+    padding: 48px 36px;
+    position: relative;
+    transition: all 0.4s ease;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover { background: var(--cream); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    font-size: 36px;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .service-card h3 {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .service-card .en {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .service-card p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--text-light);
+  }
+
+  /* ===== EVENTS ===== */
+  .events { background: var(--cream); }
+
+  .events-timeline {
+    position: relative;
+    margin-top: 64px;
+  }
+  .events-timeline::before {
+    content: '';
+    position: absolute;
+    left: 120px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+
+  .event-item {
+    display: flex;
+    gap: 48px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+    transition: all 0.3s;
+  }
+  .event-item:hover .event-content { transform: translateX(8px); }
+
+  .event-date {
+    min-width: 120px;
+    text-align: right;
+    padding-right: 0;
+  }
+  .event-date .month {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+    display: block;
+  }
+  .event-date .day {
+    font-size: 36px;
+    color: var(--primary);
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  .event-dot {
+    position: relative;
+    flex-shrink: 0;
+  }
+  .event-dot::before {
+    content: '';
+    display: block;
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    margin-top: 8px;
+    box-shadow: 0 0 0 4px rgba(184,145,58,0.2);
+  }
+
+  .event-content {
+    flex: 1;
+    transition: transform 0.3s;
+  }
+  .event-content h3 {
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .event-content p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--text-light);
+  }
+  .event-content .time {
+    font-size: 12px;
+    color: var(--gold);
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 2px;
+    margin-top: 8px;
+    display: block;
+  }
+
+  /* ===== COUNSELING ===== */
+  .counseling {
+    background: linear-gradient(135deg, #f9f3e8 0%, #f0e8d5 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .counseling-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .counseling-content p {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  .counseling-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--primary);
+    color: var(--white);
+    padding: 10px 20px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .counseling-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .cf-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--white);
+    border-left: 3px solid var(--gold);
+  }
+  .cf-item .icon { font-size: 24px; flex-shrink: 0; }
+  .cf-item h4 {
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: var(--dark);
+    margin-bottom: 4px;
+    font-weight: 400;
+  }
+  .cf-item p { font-size: 13px; color: var(--text-light); line-height: 1.7; }
+
+  /* ===== TEACHINGS ===== */
+  .teachings { background: var(--white); }
+  .teachings-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 48px;
+  }
+  .teaching-card {
+    padding: 40px;
+    border: 1px solid var(--border);
+    position: relative;
+    transition: all 0.3s;
+  }
+  .teaching-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 8px 32px rgba(184,145,58,0.12);
+  }
+  .teaching-card .number {
+    font-size: 48px;
+    color: rgba(184,145,58,0.15);
+    font-weight: 700;
+    position: absolute;
+    top: 16px; right: 24px;
+    line-height: 1;
+  }
+  .teaching-card h3 {
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: var(--dark);
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+  .teaching-card p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--text-light);
+  }
+
+  /* ===== PHOTO STRIP ===== */
+  .photo-strip {
+    background: var(--dark);
+    padding: 80px 0;
+    overflow: hidden;
+  }
+  .photo-strip-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .photo-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 8px;
+    margin-top: 40px;
+  }
+  .photo-item {
+    overflow: hidden;
+    position: relative;
+  }
+  .photo-item img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+    filter: brightness(0.85);
+  }
+  .photo-item:first-child img { height: 568px; }
+  .photo-item:hover img { transform: scale(1.05); filter: brightness(1); }
+  .photo-item .caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: rgba(255,255,255,0.8);
+    padding: 24px 16px 12px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .photo-item:hover .caption { opacity: 1; }
+
+  /* ===== ACCESS ===== */
+  .access { background: var(--cream); }
+  .access-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+    margin-top: 48px;
+  }
+  .access-map {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #e8e4da, #d5cfc0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .access-map iframe {
+    width: 100%; height: 100%;
+    border: none;
+  }
+  .access-info-title {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-bottom: 24px;
+  }
+  .access-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+  .access-row {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+  }
+  .access-row:last-child { border-bottom: none; }
+  .access-row dt {
+    min-width: 100px;
+    padding: 16px 20px;
+    background: var(--primary);
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+  }
+  .access-row dd {
+    padding: 16px 20px;
+    background: var(--white);
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+    display: flex;
+    align-items: center;
+  }
+  .bus-routes {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .bus-route {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--white);
+    border-left: 3px solid var(--primary-light);
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .bus-route .route-num {
+    background: var(--primary);
+    color: var(--white);
+    padding: 2px 8px;
+    font-size: 11px;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ===== CONTACT ===== */
+  .contact { background: var(--primary); }
+  .contact .section-inner { padding: 100px 40px; }
+  .contact .section-label { color: var(--gold-light); }
+  .contact .section-title { color: var(--white); }
+  .contact .section-title-en { color: rgba(255,255,255,0.3); }
+  .contact .gold-line { background: linear-gradient(90deg, var(--gold-light), var(--gold)); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .contact-info p {
+    color: rgba(255,255,255,0.75);
+    font-size: 14px;
+    line-height: 2;
+    margin-bottom: 32px;
+  }
+  .contact-tel-box {
+    border: 1px solid rgba(184,145,58,0.4);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    background: rgba(255,255,255,0.04);
+  }
+  .contact-tel-box .label {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .contact-tel-box .tel {
+    font-size: 28px;
+    color: var(--white);
+    letter-spacing: 4px;
+    font-weight: 300;
+  }
+  .contact-tel-box .hours {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-top: 6px;
+    letter-spacing: 1px;
+  }
+
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label {
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .form-group input,
+  .form-group textarea {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--white);
+    padding: 12px 16px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    transition: border-color 0.3s;
+    outline: none;
+    resize: vertical;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.08);
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+  .form-submit {
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    padding: 16px 40px;
+    font-size: 14px;
+    letter-spacing: 4px;
+    font-family: 'Noto Serif JP', serif;
+    cursor: pointer;
+    transition: all 0.3s;
+    align-self: flex-start;
+  }
+  .form-submit:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(184,145,58,0.3);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #111;
+    padding: 64px 40px 32px;
+    text-align: center;
+  }
+  .footer-logo-sub { font-size: 11px; color: var(--gold); letter-spacing: 4px; margin-bottom: 4px; font-family: 'Noto Sans JP', sans-serif; }
+  .footer-logo-main { font-size: 28px; color: var(--white); letter-spacing: 6px; font-weight: 300; }
+  .footer-divider { width: 48px; height: 1px; background: var(--gold); margin: 24px auto; }
+  .footer-address { font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 2px; font-family: 'Noto Sans JP', sans-serif; margin-bottom: 8px; }
+  .footer-tel { font-size: 14px; color: rgba(255,255,255,0.5); letter-spacing: 2px; font-family: 'Noto Sans JP', sans-serif; margin-bottom: 32px; }
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .footer-nav a {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+    transition: color 0.3s;
+  }
+  .footer-nav a:hover { color: var(--gold); }
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); font-family: 'Noto Sans JP', sans-serif; letter-spacing: 2px; }
+
+  /* ===== ANIMATIONS ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .section-inner { padding: 72px 24px; }
+    .about-grid,
+    .literary-card,
+    .counseling-inner,
+    .access-grid,
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .teachings-grid { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-item:first-child img { height: 280px; }
+    .events-timeline::before { left: 60px; }
+    .event-date { min-width: 60px; }
+    .literary-inner { padding: 72px 24px; }
+    .literary-card { padding: 40px 24px; }
+    .hero-corner { display: none; }
+    .about-image-wrap::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">
+    <span class="sub">真宗大谷派</span>
+    <span class="main">真照寺</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">真照寺について</a></li>
+    <li><a href="#services">ご法事・葬儀</a></li>
+    <li><a href="#events">年中行事</a></li>
+    <li><a href="#counseling">カウンセリング</a></li>
+    <li><a href="#access">アクセス</a></li>
+    <li><a href="#contact">お問い合わせ</a></li>
+  </ul>
+  <span class="nav-tel">☎ 045-941-9736</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-corner tl"></div>
+  <div class="hero-corner tr"></div>
+  <div class="hero-corner bl"></div>
+  <div class="hero-corner br"></div>
+  <div class="hero-content">
+    <p class="hero-sect">真宗大谷派 ｜ 横浜市都筑区</p>
+    <h1 class="hero-title">真照寺</h1>
+    <p class="hero-subtitle">Shinshouji Temple</p>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">豊かな自然に囲まれ、詩人たちも愛した地に佇むお寺</p>
+    <div class="hero-cta">
+      <a href="#about" class="btn btn-gold">お寺を知る</a>
+      <a href="#contact" class="btn btn-outline">ご相談・お問い合わせ</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span></span>
+    SCROLL
+  </div>
+</section>
+
+<!-- QUOTE STRIP -->
+<div class="quote-strip">
+  <blockquote>
+    「善人なをもて往生をとぐ、<br>いはんや悪人をや」
+  </blockquote>
+  <cite>— 親鸞聖人 『歎異抄』より</cite>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p class="section-label">About</p>
+        <h2 class="section-title">真照寺について</h2>
+        <p class="section-title-en">SHINSHOUJI TEMPLE</p>
+        <div class="gold-line"></div>
+        <p>横浜市都筑区の折本町に位置する真照寺は、豊かな自然に囲まれた真宗大谷派のお寺です。詩人・佐藤惣之助や俳人・大野林火、中戸川朝人らが訪れた文学歴史散歩の地として、地域の人々に長年親しまれてきました。</p>
+        <p>宗祖・親鸞聖人の教えを礎に、法事・葬儀のご相談から法話会・カウンセリングまで、皆さまの日々の歩みに寄り添うお寺であり続けることを願っています。</p>
+        <p>初めての方でも、どうぞ気軽にお声がけください。</p>
+        <dl class="about-facts">
+          <div class="about-fact">
+            <dt>宗旨</dt>
+            <dd>浄土真宗</dd>
+          </div>
+          <div class="about-fact">
+            <dt>宗派</dt>
+            <dd>真宗大谷派</dd>
+          </div>
+          <div class="about-fact">
+            <dt>宗祖</dt>
+            <dd>親鸞聖人</dd>
+          </div>
+          <div class="about-fact">
+            <dt>本山</dt>
+            <dd>東本願寺（真宗本廟）</dd>
+          </div>
+          <div class="about-fact">
+            <dt>本尊</dt>
+            <dd>阿弥陀如来</dd>
+          </div>
+          <div class="about-fact">
+            <dt>所在地</dt>
+            <dd>横浜市都筑区折本町</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="about-image-wrap reveal reveal-delay-2">
+        <img src="https://static.wixstatic.com/media/911b8f_f8aaa33e52234923940cf84eafc4a141~mv2.jpg/v1/fill/w_800,h_600,al_c,q_85,enc_avif,quality_auto/%E4%BB%8F%E5%83%8F2.jpg" alt="真照寺 本堂" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LITERARY -->
+<section class="literary">
+  <div class="literary-inner">
+    <div class="literary-card reveal">
+      <div class="literary-text">
+        <p class="section-label">Literary Heritage</p>
+        <h2 class="section-title">文学の薫り漂う地</h2>
+        <p class="section-title-en">A PLACE BELOVED BY POETS</p>
+        <div class="gold-line"></div>
+        <p>真照寺が建つ折本の地は、近代日本の詩人・俳人たちが足を運んだ文学歴史散歩のゆかりの場所。境内にはその足跡が今も息づいています。</p>
+        <p>句碑には大野林火・中戸川朝人の俳句が刻まれ、文学と信仰が交差する唯一無二の空間をご体感いただけます。</p>
+      </div>
+      <div class="poet-list">
+        <div class="poet-card">
+          <div class="name">佐藤 惣之助</div>
+          <div class="desc">詩人 ／ 1890–1942｜「酒は涙か溜息か」作詞者としても知られる</div>
+        </div>
+        <div class="poet-card">
+          <div class="name">大野 林火</div>
+          <div class="desc">俳人 ／ 1904–1982｜ホトトギス系の代表的俳人。句碑が境内に</div>
+        </div>
+        <div class="poet-card">
+          <div class="name">中戸川 朝人</div>
+          <div class="desc">俳人 ／ 大野林火と並び境内に句碑を残す</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILM LOCATION -->
+<section class="film-location-section">
+  <div class="film-location-inner">
+    <div class="film-card reveal">
+      <div class="film-card-text">
+        <span class="film-card-badge">🎬 映画ロケ地</span>
+        <p class="section-label">Film Location</p>
+        <h2 class="section-title">映画『てっぺんの向こうに<br>あなたがいる』ロケ地</h2>
+        <p class="section-title-en">SHINSHOUJI AS A FILMING LOCATION</p>
+        <div class="gold-line" style="background:linear-gradient(90deg,#c8860a,#e8a030);"></div>
+        <p>2025年10月に公開された話題作のお墓参りシーンが、この真照寺にて撮影されました。主演・吉永小百合、監督・阪本順治という日本映画界が誇る黄金コンビによる感動大作の一場面が、境内に刻まれています。</p>
+        <p>女性登山家・田部井淳子の実話をもとに、家族への愛と命の輝きを描いたこの作品。そのロケ地として選ばれた真照寺の境内が、スクリーンを通じて全国の観客の記憶に残っています。</p>
+        <a href="https://www.teppen-movie.jp/" target="_blank" rel="noopener" class="film-link">公式サイトを見る →</a>
+      </div>
+      <div class="film-details">
+        <dl class="film-detail-row">
+          <dt>作品名</dt>
+          <dd>てっぺんの向こうにあなたがいる</dd>
+        </dl>
+        <dl class="film-detail-row">
+          <dt>公開</dt>
+          <dd>2025年10月31日（金）全国公開</dd>
+        </dl>
+        <dl class="film-detail-row">
+          <dt>主演</dt>
+          <dd>吉永小百合</dd>
+        </dl>
+        <dl class="film-detail-row">
+          <dt>監督</dt>
+          <dd>阪本順治</dd>
+        </dl>
+        <dl class="film-detail-row">
+          <dt>撮影箇所</dt>
+          <dd>お墓参りシーン（境内）</dd>
+        </dl>
+        <dl class="film-detail-row">
+          <dt>原案</dt>
+          <dd>田部井淳子「人生、山あり"時々"谷あり」</dd>
+        </dl>
+        <div class="film-award">
+          🏆 <strong>カトマンズ国際山岳映画祭 観客賞受賞</strong>（2026年6月）<br>
+          第38回 東京国際映画祭 出品作品
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <p class="section-label reveal">Services</p>
+    <h2 class="section-title reveal">ご法事・お葬儀のご相談</h2>
+    <p class="section-title-en reveal">MEMORIAL SERVICES & FUNERALS</p>
+    <div class="gold-line reveal"></div>
+    <p class="reveal" style="max-width:600px; font-size:15px; line-height:2; color:var(--text-light); margin-bottom:0;">
+      いろいろな形の葬儀・法事にお応えできるよう、柔軟に対応しております。<br>初めての方でも安心してご相談ください。
+    </p>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-icon">🪷</span>
+        <h3>葬儀・通夜</h3>
+        <span class="en">FUNERAL SERVICE</span>
+        <p>真宗大谷派の作法に則り、故人を丁重にお送りします。家族葬・一日葬など、ご要望に合わせた形でお受けします。まずはお気軽にご連絡ください。</p>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-icon">🕯️</span>
+        <h3>法事・法要</h3>
+        <span class="en">MEMORIAL SERVICE</span>
+        <p>初七日・四十九日・一周忌・三回忌など、各種法要を承ります。自宅へのご訪問も可能です。ご予算・日程など、まずはご相談ください。</p>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <span class="service-icon">📿</span>
+        <h3>仏事相談</h3>
+        <span class="en">BUDDHIST CONSULTATION</span>
+        <p>「何から始めればいいか分からない」という方も大歓迎です。仏壇・お位牌・戒名など、仏事全般についてわかりやすくご説明します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="events" id="events">
+  <div class="section-inner">
+    <p class="section-label reveal">Annual Events</p>
+    <h2 class="section-title reveal">年中行事</h2>
+    <p class="section-title-en reveal">TEMPLE EVENTS</p>
+    <div class="gold-line reveal"></div>
+    <p class="reveal" style="font-size:15px; color:var(--text-light); line-height:2; margin-bottom:0; max-width:560px;">
+      どなたでもご参加いただけます。地域の皆さまとともに、季節の行事を大切にしています。
+    </p>
+    <div class="events-timeline">
+      <div class="event-item reveal">
+        <div class="event-date">
+          <span class="month">毎日</span>
+          <span class="day" style="font-size:28px;">晨朝</span>
+        </div>
+        <div class="event-dot"></div>
+        <div class="event-content">
+          <h3>晨朝勤行</h3>
+          <p>毎朝、阿弥陀如来の御前でお勤めを行っています。どなたでも自由にご参加いただけます。特別な作法は不要です。静かな朝のひとときに、どうぞお気軽にお立ち寄りください。</p>
+          <span class="time">毎日 午前8時より ／ ご自由にお入りください</span>
+        </div>
+      </div>
+      <div class="event-item reveal">
+        <div class="event-date">
+          <span class="month">8月</span>
+          <span class="day">15</span>
+        </div>
+        <div class="event-dot"></div>
+        <div class="event-content">
+          <h3>盂蘭盆会</h3>
+          <p>亡くなった方々を偲びながら法話を聞き、茶話会を催します。夏の暑い季節に、故人への思いを語り合う大切なひとときです。</p>
+          <span class="time">午前8時より</span>
+        </div>
+      </div>
+      <div class="event-item reveal">
+        <div class="event-date">
+          <span class="month">11月</span>
+          <span class="day">3</span>
+        </div>
+        <div class="event-dot"></div>
+        <div class="event-content">
+          <h3>報恩講</h3>
+          <p>宗祖・親鸞聖人のご法事を毎年厳かに勤めます。お斎（お食事）とお勤め、ご法話があり、一年で最も大切な行事のひとつです。</p>
+          <span class="time">午前11時より</span>
+        </div>
+      </div>
+      <div class="event-item reveal">
+        <div class="event-date">
+          <span class="month">12月</span>
+          <span class="day">31</span>
+        </div>
+        <div class="event-dot"></div>
+        <div class="event-content">
+          <h3>除夜の鐘</h3>
+          <p>大晦日の夜、梵鐘を108回打ちます。甘酒や子どもたちへのお菓子もご用意。家族みんなで年越しの鐘をついてみませんか。どなたでも参加できます。</p>
+          <span class="time">午後11時30分より</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNSELING -->
+<section class="counseling" id="counseling">
+  <div class="counseling-inner">
+    <div class="counseling-content reveal">
+      <p class="section-label">Temple Counseling</p>
+      <h2 class="section-title" style="color:var(--dark);">法話会・<br>お寺カウンセリング</h2>
+      <p class="section-title-en">DHARMA TALKS & COUNSELING</p>
+      <div class="gold-line"></div>
+      <span class="counseling-badge">✅ 産業カウンセラー資格取得</span>
+      <p>悩みを抱えたまま一人でいませんか。仏さまのお心に触れながら、あなたの声をしっかり聴きます。傾聴法を主な手法とし、専門的なカウンセリングを提供しています。</p>
+      <p>面接はお寺にて。メールでのご相談も承っております。</p>
+      <a href="mailto:takusuisan.shinshoji@gmail.com" style="display:inline-block; margin-top:8px; color:var(--primary); font-size:13px; letter-spacing:2px; font-family:'Noto Sans JP',sans-serif;">📧 takusuisan.shinshoji@gmail.com</a>
+    </div>
+    <div class="counseling-features reveal reveal-delay-1">
+      <div class="cf-item">
+        <span class="icon">🏛️</span>
+        <div>
+          <h4>法話会（隔月開催）</h4>
+          <p>『お釈迦様の話』『親鸞聖人と私』など。京都・東京から先生をお招きします。参加費300円（お茶代込）。どなたでも歓迎です。</p>
+        </div>
+      </div>
+      <div class="cf-item">
+        <span class="icon">🤝</span>
+        <div>
+          <h4>お寺カウンセリング（面接）</h4>
+          <p>お寺に来てじっくり話したい方へ。電話またはメールでご予約ください。秘密は厳守いたします。</p>
+        </div>
+      </div>
+      <div class="cf-item">
+        <span class="icon">✉️</span>
+        <div>
+          <h4>メール相談</h4>
+          <p>外に出づらい方も、メールでお悩みをお送りください。丁寧にお返事いたします。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHINGS -->
+<section class="teachings">
+  <div class="section-inner">
+    <p class="section-label reveal">Our Faith</p>
+    <h2 class="section-title reveal">浄土真宗・真宗大谷派</h2>
+    <p class="section-title-en reveal">JODO SHINSHU</p>
+    <div class="gold-line reveal"></div>
+    <div class="teachings-grid">
+      <div class="teaching-card reveal">
+        <span class="number">01</span>
+        <h3>親鸞聖人の教え</h3>
+        <p>平安末期の混沌の中に生まれ、比叡山で20年修業した後に独自の教えを開いた宗祖・親鸞聖人。「悪人正機」に象徴されるその思想は、すべての人に等しく開かれた救いを説きます。</p>
+      </div>
+      <div class="teaching-card reveal reveal-delay-1">
+        <span class="number">02</span>
+        <h3>阿弥陀如来の本願</h3>
+        <p>本尊・阿弥陀如来の「すべての存在を救う」という願いを信じ、「南無阿弥陀仏」と称えることで浄土へと生まれ変わると説く。難しい修行を必要としない、日常に根ざした信仰です。</p>
+      </div>
+      <div class="teaching-card reveal reveal-delay-2">
+        <span class="number">03</span>
+        <h3>正信偈・和讃</h3>
+        <p>お勤めでは『正信偈』『阿弥陀経』『和讃』『御文』などを唱えます。美しい漢文・和文のお経は、親鸞聖人の感謝と喜びの言葉が凝縮されたものです。</p>
+      </div>
+      <div class="teaching-card reveal reveal-delay-3">
+        <span class="number">04</span>
+        <h3>東本願寺を本山に</h3>
+        <p>真宗大谷派は、京都の東本願寺（真宗本廟）を本山とします。全国に約8,900の寺院を擁し、真照寺もその一員として地域に根ざした活動を続けています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO STRIP -->
+<div class="photo-strip">
+  <div class="photo-strip-inner">
+    <p class="section-label" style="color:var(--gold);">Gallery</p>
+    <h2 class="section-title" style="color:var(--white);">境内の風景</h2>
+    <div class="photo-grid">
+      <div class="photo-item">
+        <img src="https://static.wixstatic.com/media/911b8f_6a9af45067fa4b559c5a03436d1edb74~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_85,enc_avif,quality_auto/%E9%96%802.jpg" alt="真照寺 山門">
+        <div class="caption">山門</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div class="photo-item">
+          <img src="https://static.wixstatic.com/media/911b8f_f8aaa33e52234923940cf84eafc4a141~mv2.jpg/v1/fill/w_600,h_450,al_c,q_85,enc_avif,quality_auto/%E4%BB%8F%E5%83%8F2.jpg" alt="仏像">
+          <div class="caption">本堂</div>
+        </div>
+        <div class="photo-item">
+          <img src="https://static.wixstatic.com/media/911b8f_f9d8538a65394182b984442178c91fc5~mv2.jpg/v1/fill/w_600,h_450,al_c,q_85,enc_avif,quality_auto/%E4%BB%8F%E5%83%8F3.jpg" alt="仏像">
+          <div class="caption">阿弥陀如来</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div class="photo-item">
+          <img src="https://static.wixstatic.com/media/911b8f_df4940869240499fb87b2f6b9e627f28~mv2.jpg/v1/fill/w_600,h_450,al_c,q_85,enc_avif,quality_auto/%E5%8F%A5%E7%A2%912.jpg" alt="句碑">
+          <div class="caption">大野林火・中戸川朝人の句碑</div>
+        </div>
+        <div class="photo-item">
+          <img src="https://static.wixstatic.com/media/911b8f_63739f991d644bdd954d68ed85842f98~mv2.jpg/v1/fill/w_600,h_450,al_c,q_85,enc_avif,quality_auto/%E8%A6%AA%E9%B8%9E%E8%81%96%E4%BA%BA2.jpg" alt="親鸞聖人">
+          <div class="caption">宗祖 親鸞聖人</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACCESS -->
+<section class="access" id="access">
+  <div class="section-inner">
+    <p class="section-label reveal">Access</p>
+    <h2 class="section-title reveal">アクセス</h2>
+    <p class="section-title-en reveal">LOCATION & DIRECTIONS</p>
+    <div class="gold-line reveal"></div>
+    <div class="access-grid">
+      <div class="reveal">
+        <div class="access-map">
+          <iframe
+            src="https://maps.google.com/maps?q=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%83%BD%E7%AD%91%E5%8C%BA%E6%8A%98%E6%9C%AC%E7%94%BA1604&t=&z=16&ie=UTF8&iwloc=&output=embed"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="真照寺 地図">
+          </iframe>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <p class="access-info-title">寺院情報</p>
+        <dl class="access-detail">
+          <div class="access-row">
+            <dt>住所</dt>
+            <dd>〒224-0043<br>神奈川県横浜市都筑区折本町1604</dd>
+          </div>
+          <div class="access-row">
+            <dt>電話</dt>
+            <dd>045-941-9736</dd>
+          </div>
+          <div class="access-row">
+            <dt>FAX</dt>
+            <dd>045-943-9801</dd>
+          </div>
+          <div class="access-row">
+            <dt>駐車場</dt>
+            <dd>あり（無料）</dd>
+          </div>
+        </dl>
+        <div class="bus-routes" style="margin-top:24px;">
+          <div class="bus-route">
+            <span class="route-num">300系統</span>
+            新横浜 → 仲町台　「折本橋」停留所下車、徒歩8分
+          </div>
+          <div class="bus-route">
+            <span class="route-num">308系統</span>
+            仲町台 → センター南　「観音前」停留所下車、徒歩5分
+          </div>
+          <div class="bus-route">
+            <span class="route-num">41系統</span>
+            新横浜 → 川向町　「折本町」停留所下車、徒歩8分
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">お問い合わせ</h2>
+    <p class="section-title-en">GET IN TOUCH</p>
+    <div class="gold-line"></div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>法事・葬儀のご相談、法話会・カウンセリングへのお問い合わせなど、どんな小さなことでもお気軽にご連絡ください。</p>
+        <div class="contact-tel-box">
+          <span class="label">お電話でのご相談</span>
+          <div class="tel">045-941-9736</div>
+          <div class="hours">受付時間 ／ 随時対応</div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <form class="contact-form" onsubmit="return false;">
+          <div class="form-group">
+            <label>お名前 *</label>
+            <input type="text" placeholder="山田 太郎">
+          </div>
+          <div class="form-group">
+            <label>電話番号 *</label>
+            <input type="tel" placeholder="090-0000-0000">
+          </div>
+          <div class="form-group">
+            <label>メールアドレス *</label>
+            <input type="email" placeholder="example@mail.com">
+          </div>
+          <div class="form-group">
+            <label>お問い合わせ内容 *</label>
+            <textarea rows="5" placeholder="ご相談内容をご記入ください"></textarea>
+          </div>
+          <button type="submit" class="form-submit">送　信</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo-sub">真宗大谷派</div>
+  <div class="footer-logo-main">真照寺</div>
+  <div class="footer-divider"></div>
+  <div class="footer-address">〒224-0043 神奈川県横浜市都筑区折本町1604</div>
+  <div class="footer-tel">Tel: 045-941-9736 ／ Fax: 045-943-9801</div>
+  <nav class="footer-nav">
+    <a href="#about">真照寺について</a>
+    <a href="#services">ご法事・葬儀</a>
+    <a href="#events">年中行事</a>
+    <a href="#counseling">法話会・カウンセリング</a>
+    <a href="#access">アクセス</a>
+    <a href="#contact">お問い合わせ</a>
+  </nav>
+  <div class="footer-copy">© 真宗大谷派 真照寺 All Rights Reserved.</div>
+</footer>
+
+<script>
+  // スクロール時のフェードイン
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ナビゲーション スクロール時の背景変化
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 80) {
+      nav.style.background = 'rgba(10,10,10,0.97)';
+    } else {
+      nav.style.background = 'rgba(26,26,26,0.92)';
+    }
+  });
+
+  // スムーズスクロール
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
