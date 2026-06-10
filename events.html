@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>行事案内 – 真照寺</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --col-main: #7c3d1e; --col-accent: #c8902a;
+    --col-light: #f8f1e8; --col-dark: #3a2510;
+    --col-gray: #8a7a6a; --col-green: #4a6741;
+    --font-main: 'Meiryo UI', 'メイリオ', Meiryo, sans-serif;
+    --font-serif: 'Yu Mincho', '游明朝', 'YuMincho', 'Hiragino Mincho Pro', serif;
+    --radius: 8px; --shadow: 0 2px 16px rgba(60,30,0,.10);
+  }
+  body { font-family: var(--font-main); background: var(--col-light); color: var(--col-dark); line-height: 1.8; font-size: 15px; }
+  a { color: inherit; text-decoration: none; }
+
+  header { background: var(--col-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+  .logo { font-family: var(--font-serif); font-size: 22px; letter-spacing: .2em; color: #f0dfc0; }
+  .logo small { display: block; font-size: 11px; letter-spacing: .15em; color: var(--col-accent); font-family: var(--font-main); margin-top: -4px; }
+  nav { display: flex; gap: 4px; }
+  nav a { color: #e8d5b0; font-size: 14px; padding: 8px 14px; border-radius: var(--radius); transition: background .2s, color .2s; letter-spacing: .05em; }
+  nav a:hover, nav a.active { background: var(--col-main); color: #fff; }
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+  .menu-toggle span { display: block; width: 26px; height: 2px; background: #e8d5b0; border-radius: 2px; }
+
+  .page-hero { background: linear-gradient(160deg, #3a2510 0%, #7c3d1e 60%, #a0602a 100%); color: #f8f1e8; text-align: center; padding: 64px 24px 56px; }
+  .page-hero h1 { font-family: var(--font-serif); font-size: clamp(24px, 4vw, 42px); letter-spacing: .25em; }
+  .page-hero p { margin-top: 10px; color: #f0dfc0; font-size: 14px; letter-spacing: .1em; }
+
+  .section { max-width: 1000px; margin: 0 auto; padding: 64px 24px; }
+  .section-title { margin-bottom: 36px; }
+  .section-title h2 { font-family: var(--font-serif); font-size: clamp(20px, 3vw, 30px); letter-spacing: .2em; color: var(--col-main); padding-left: 16px; border-left: 4px solid var(--col-accent); }
+
+  /* 季節タブ */
+  .season-tabs { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+  .season-tab {
+    padding: 8px 20px; border-radius: 24px; font-size: 14px;
+    cursor: pointer; border: 2px solid #e0d0b8; background: #fff;
+    color: var(--col-gray); transition: all .2s; letter-spacing: .05em;
+  }
+  .season-tab.active, .season-tab:hover { background: var(--col-main); color: #fff; border-color: var(--col-main); }
+
+  /* イベントタイムライン */
+  .events-timeline { position: relative; }
+  .events-timeline::before {
+    content: ''; position: absolute; left: 68px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--col-accent), #e0d0b8);
+  }
+  .event-item {
+    display: flex; gap: 24px; margin-bottom: 32px; position: relative;
+  }
+  .event-date-col { width: 60px; text-align: center; flex-shrink: 0; position: relative; z-index: 1; }
+  .event-month { font-family: var(--font-serif); font-size: 22px; color: var(--col-main); line-height: 1; }
+  .event-day { font-size: 11px; color: var(--col-gray); margin-top: 2px; }
+  .event-dot {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--col-accent); border: 3px solid var(--col-light);
+    position: absolute; right: -16px; top: 6px;
+    box-shadow: 0 0 0 2px var(--col-accent);
+  }
+  .event-card {
+    flex: 1; background: #fff; border-radius: var(--radius);
+    box-shadow: var(--shadow); border: 1px solid #e8ddd0;
+    padding: 20px 24px; transition: transform .2s, box-shadow .2s;
+  }
+  .event-card:hover { transform: translateX(4px); box-shadow: 0 4px 20px rgba(60,30,0,.15); }
+  .event-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .event-icon { font-size: 24px; }
+  .event-card h3 { font-family: var(--font-serif); font-size: 18px; color: var(--col-main); letter-spacing: .08em; }
+  .event-type {
+    margin-left: auto; font-size: 11px; padding: 2px 10px;
+    border-radius: 12px; white-space: nowrap; font-weight: bold;
+  }
+  .type-hoyou { background: #fce8d0; color: var(--col-main); }
+  .type-event { background: #e8f0e0; color: var(--col-green); }
+  .type-study { background: #e8e0f0; color: #6050a0; }
+  .event-card p { font-size: 14px; color: #5a4530; line-height: 1.8; }
+  .event-detail { margin-top: 12px; font-size: 13px; color: var(--col-gray); }
+  .event-detail span { margin-right: 16px; }
+
+  /* 定期イベント */
+  .regular-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+  .regular-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid #e8ddd0; padding: 24px; }
+  .regular-card h3 { font-family: var(--font-serif); font-size: 18px; color: var(--col-main); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .regular-card .schedule { font-size: 13px; color: var(--col-accent); margin-bottom: 10px; font-weight: bold; }
+  .regular-card p { font-size: 13px; color: var(--col-gray); line-height: 1.8; }
+
+  .notice-box { background: linear-gradient(135deg, #fff8f0, #fff); border: 1px solid #e8ddd0; border-radius: var(--radius); padding: 20px 24px; margin-top: 40px; }
+  .notice-box h4 { color: var(--col-main); font-family: var(--font-serif); margin-bottom: 8px; }
+  .notice-box p { font-size: 14px; color: var(--col-gray); }
+
+  .bg-warm { background: #f0e8d8; }
+  .bg-white { background: #fff; }
+
+  footer { background: var(--col-dark); color: #c8b89a; padding: 48px 24px 24px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(200,184,154,.2); }
+  .footer-brand .logo { font-size: 20px; }
+  .footer-brand p { margin-top: 12px; font-size: 13px; line-height: 1.8; color: #a89880; }
+  footer h4 { color: #f0dfc0; font-size: 14px; margin-bottom: 12px; letter-spacing: .1em; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; }
+  footer ul li a { font-size: 13px; color: #a89880; transition: color .2s; }
+  footer ul li a:hover { color: var(--col-accent); }
+  .footer-bottom { max-width: 1100px; margin: 20px auto 0; text-align: center; font-size: 12px; color: #6a5840; }
+
+  @media (max-width: 768px) {
+    nav { display: none; flex-direction: column; width: 100%; }
+    nav.open { display: flex; }
+    .header-inner { flex-wrap: wrap; height: auto; padding: 12px 16px; gap: 8px; }
+    .menu-toggle { display: flex; }
+    nav a { width: 100%; padding: 12px 16px; border-radius: 0; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .events-timeline::before { left: 44px; }
+    .event-date-col { width: 40px; }
+    .event-month { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">真照寺<small>Shinsho-ji Temple</small></a>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="main-nav">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">お寺の紹介</a>
+      <a href="teaching.html">法話・教え</a>
+      <a href="events.html" class="active">行事案内</a>
+      <a href="news.html">お知らせ</a>
+      <a href="masters.html">偉大な師たち</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <h1>🗓️ 行事案内</h1>
+  <p>年間行事・定期イベントのご案内</p>
+</div>
+
+<!-- 年間行事 -->
+<div class="bg-white">
+  <div class="section">
+    <div class="section-title">
+      <h2>年間行事カレンダー（令和8年）</h2>
+    </div>
+
+    <div class="events-timeline">
+
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-month">1月</div>
+          <div class="event-day">1日</div>
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-header">
+            <span class="event-icon">🎍</span>
+            <h3>修正会（しゅしょうえ）</h3>
+            <span class="event-type type-hoyou">法要</span>
+          </div>
+          <p>新年最初の法要。前年の過ちを正し、新しい年が人々にとって良い年となるよう祈ります。</p>
+          <div class="event-detail"><span>📅 1月1日 午前10時</span><span>📍 本堂</span></div>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-month">2月</div>
+          <div class="event-day">15日</div>
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-header">
+            <span class="event-icon">☸️</span>
+            <h3>涅槃会（ねはんえ）</h3>
+            <span class="event-type type-hoyou">法要</span>
+          </div>
+          <p>お釈迦様がご入滅された日を偲ぶ法要です。静かにお釈迦様の生涯と教えに思いを馳せる大切な日です。</p>
+          <div class="event-detail"><span>📅 2月15日 午後2時</span><span>📍 本堂</span></div>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-month">3月</div>
+          <div class="event-day">彼岸</div>
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-header">
+            <span class="event-icon">🌸</span>
+            <h3>春彼岸法要</h3>
+            <span class="event-type type-hoyou">法要</span>
+          </div>
+          <p>春分の日を中日とした彼岸の期間に、ご先祖様への供養を行います。どなたでもご参加いただけます。</p>
+          <div class="event-detail"><span>📅 春分前後の7日間</span><span>📍 本堂・墓地</span></div>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-month">4月</div>
+          <div class="event-day">8日</div>
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-header">
+            <span class="event-icon">🌸</span>
+            <h3>花まつり（仏生会）</h3>
+            <span class="event-type type-event">行事</span>
+          </div>
+          <p>お釈迦様のお誕生日をお祝いする行事です。花御堂に安置した誕生仏に甘茶を注ぎ、お釈迦様の御誕生をお祝いします。子どもたちに大人気の行事です。</p>
+          <div class="event-detail"><span>📅 4月8日 午前11時</span><span>📍 境内・本堂</span></div>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-month">8月</div>
+          <div class="event-day">お盆</div>
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-header">
+            <span class="event-icon">🌊</span>
+            <h3>お盆法要・施餓鬼会</h3>
+            <span class="event-type type-hoyou">法要</span>
+          </div>
+          <p>ご先祖様をお迎えし、感謝と供養の心を捧げる一年でもっとも大切な法要です。施餓鬼法要ではすべての霊への供養を行います。詳細はお問い合わせください。</p>
+          <div class="event-detail"><span>📅 8月13〜16日</span><span>📍 本堂・墓地</span></div>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-month">9月</div>
+          <div class="event-day">彼岸</div>
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-header">
+            <span class="event-icon">🍁</span>
+            <h3>秋彼岸法要</h3>
+            <span class="event-type type-hoyou">法要</span>
+          </div>
+          <p>秋分の日を中日とした彼岸の期間。実りの秋に感謝しながら、ご先祖様への供養を行います。</p>
+          <div class="event-detail"><span>📅 秋分前後の7日間</span><span>📍 本堂・墓地</span></div>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-month">11月</div>
+          <div class="event-day">28日</div>
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-header">
+            <span class="event-icon">🙏</span>
+            <h3>報恩講（ほうおんこう）</h3>
+            <span class="event-type type-hoyou">法要</span>
+          </div>
+          <p>浄土真宗の宗祖・親鸞聖人の御命日（弘長２年11月28日）を記念して勤める、一年間で最も大切な法要です。親鸞聖人の教えに遇って生きる喜びを見出した人びとが、聖人の御苦労と御恩に感謝しながら念仏の教えに耳を傾けます。真宗大谷派では11月21日から28日の8日間にわたり勤まります。どなたでもご参加ください。</p>
+          <div class="event-detail"><span>📅 11月21日〜28日（御満座：11月28日）</span><span>📍 本堂</span></div>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-month">12月</div>
+          <div class="event-day">8日</div>
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-header">
+            <span class="event-icon">☀️</span>
+            <h3>成道会（じょうどうえ）</h3>
+            <span class="event-type type-hoyou">法要</span>
+          </div>
+          <p>お釈迦様が菩提樹の下で悟りをお開きになった日を記念する法要です。</p>
+          <div class="event-detail"><span>📅 12月8日 午後2時</span><span>📍 本堂</span></div>
+        </div>
+      </div>
+
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-month">12月</div>
+          <div class="event-day">31日</div>
+          <div class="event-dot"></div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-header">
+            <span class="event-icon">🔔</span>
+            <h3>除夜の鐘</h3>
+            <span class="event-type type-event">行事</span>
+          </div>
+          <p>大晦日の夜、108つの煩悩を祓う除夜の鐘。どなたでも撞くことができます。甘酒をご用意してお待ちしております。</p>
+          <div class="event-detail"><span>📅 12月31日 午後11時30分〜</span><span>📍 鐘楼</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 定期イベント -->
+<div class="bg-warm">
+  <div class="section">
+    <div class="section-title">
+      <h2>定期開催イベント</h2>
+    </div>
+    <div class="regular-grid">
+      <div class="regular-card">
+        <h3><span>📖</span>梵語で読経しよう</h3>
+        <div class="schedule">毎月第2・第4日曜日 午前10時〜</div>
+        <p>サンスクリット語（梵語）でお経を読む実践的な学びの会です。初心者も歓迎。発音から丁寧にご指導します。参加費無料。</p>
+      </div>
+      <div class="regular-card">
+        <h3><span>🎵</span>声明（しょうみょう）を学ぼう</h3>
+        <div class="schedule">毎月第1土曜日 午前10時〜</div>
+        <p>仏教音楽「声明」を一緒に学ぶ会です。法要で用いられる節付きのお経を、住職の指導のもとゆっくり習得します。</p>
+      </div>
+      <div class="regular-card">
+        <h3><span>📿</span>法話会</h3>
+        <div class="schedule">毎月第3日曜日 午後2時〜</div>
+        <p>住職による法話会。日常の出来事を仏教の教えと結びつけてわかりやすくお話しします。</p>
+      </div>
+      <div class="regular-card">
+        <h3><span>👶</span>子ども仏教教室</h3>
+        <div class="schedule">毎月第2土曜日 午後1時〜</div>
+        <p>小学生を対象にした仏教の教室。折り紙、お話、ゲームなど楽しく学べます。</p>
+      </div>
+    </div>
+
+    <div class="notice-box">
+      <h4>📋 ご参加・お申し込みについて</h4>
+      <p>法要・行事へのご参加は事前のご連絡をお願いいたします。定期イベントは予約不要ですが、初めての方はお電話いただけますと安心です。<br>電話：045-941-9736　受付時間：9:00〜17:00</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">真照寺<small>Shinsho-ji Temple</small></div>
+      <p>心静かに、ともに歩む場所。<br>どなたでもお気軽にお越しください。</p>
+    </div>
+    <div>
+      <h4>ページ案内</h4>
+      <ul>
+        <li><a href="about.html">お寺の紹介</a></li>
+        <li><a href="teaching.html">法話・仏教の教え</a></li>
+        <li><a href="events.html">行事案内</a></li>
+        <li><a href="news.html">お知らせ・ブログ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ご相談・ご連絡</h4>
+      <ul>
+        <li><a href="#">法事・葬儀のご相談</a></li>
+        <li><a href="#">お墓・納骨のご案内</a></li>
+        <li><a href="#">写経・座禅会</a></li>
+        <li><a href="#">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 真照寺 All Rights Reserved.</p></div>
+</footer>
+
+<script>function toggleMenu() { document.getElementById('main-nav').classList.toggle('open'); }</script>
+</body>
+</html>
