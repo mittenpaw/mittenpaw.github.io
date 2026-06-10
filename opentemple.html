@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>オープンテンプル – 真照寺</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --col-main: #7c3d1e; --col-accent: #c8902a;
+    --col-light: #f8f1e8; --col-dark: #3a2510;
+    --col-gray: #8a7a6a; --col-green: #4a6741;
+    --font-main: 'Meiryo UI', 'メイリオ', Meiryo, sans-serif;
+    --font-serif: 'Yu Mincho', '游明朝', 'YuMincho', 'Hiragino Mincho Pro', serif;
+    --radius: 8px; --shadow: 0 2px 16px rgba(60,30,0,.10);
+  }
+  body { font-family: var(--font-main); background: var(--col-light); color: var(--col-dark); line-height: 1.8; font-size: 15px; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; }
+
+  header { background: var(--col-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+  .logo { font-family: var(--font-serif); font-size: 22px; letter-spacing: .2em; color: #f0dfc0; }
+  .logo small { display: block; font-size: 11px; letter-spacing: .15em; color: var(--col-accent); font-family: var(--font-main); margin-top: -4px; }
+  nav { display: flex; gap: 4px; }
+  nav a { color: #e8d5b0; font-size: 13px; padding: 6px 8px; border-radius: var(--radius); transition: background .2s, color .2s; letter-spacing: .05em; }
+  nav a:hover, nav a.active { background: var(--col-main); color: #fff; }
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+  .menu-toggle span { display: block; width: 26px; height: 2px; background: #e8d5b0; border-radius: 2px; }
+
+  /* ヒーロー */
+  .page-hero {
+    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #f8f1e8; text-align: center; padding: 72px 24px 60px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8902a' fill-opacity='0.07'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-label { font-size: 12px; letter-spacing: .3em; color: var(--col-accent); margin-bottom: 16px; position: relative; }
+  .page-hero h1 { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 48px); letter-spacing: .2em; position: relative; }
+  .page-hero .hero-sub { margin-top: 14px; color: #c8d8f0; font-size: 15px; letter-spacing: .08em; position: relative; }
+  .hero-deco { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--col-accent), transparent); margin: 20px auto; }
+
+  /* 次回開催バナー */
+  .next-event {
+    background: linear-gradient(135deg, var(--col-accent), #e0a840);
+    color: #fff; text-align: center; padding: 28px 24px;
+  }
+  .next-event .label { font-size: 12px; letter-spacing: .2em; opacity: .85; margin-bottom: 8px; }
+  .next-event .date { font-family: var(--font-serif); font-size: clamp(22px, 3vw, 34px); letter-spacing: .1em; }
+  .next-event .time { font-size: 14px; opacity: .9; margin-top: 6px; }
+  .tags { display: flex; gap: 10px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
+  .tag { font-size: 12px; background: rgba(255,255,255,.2); border-radius: 20px; padding: 4px 14px; letter-spacing: .05em; }
+
+  /* セクション */
+  .section { max-width: 960px; margin: 0 auto; padding: 64px 24px; }
+  .section-title { margin-bottom: 36px; text-align: center; }
+  .section-title h2 { font-family: var(--font-serif); font-size: clamp(20px, 3vw, 30px); letter-spacing: .2em; color: var(--col-main); }
+  .section-title p { margin-top: 10px; color: var(--col-gray); font-size: 14px; }
+
+  /* プログラムグリッド */
+  .program-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+  }
+  .program-card {
+    background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+    border: 1px solid #e8ddd0; overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .program-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(60,30,0,.15); }
+  .program-card-header {
+    padding: 16px 20px 12px;
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    color: #f0dfc0;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .program-num {
+    font-family: var(--font-serif); font-size: 22px;
+    color: var(--col-accent); flex-shrink: 0;
+  }
+  .program-card-header h3 { font-family: var(--font-serif); font-size: 17px; letter-spacing: .1em; }
+  .program-card-body { padding: 18px 20px; }
+  .program-card-body p { font-size: 14px; color: #5a4530; line-height: 1.9; }
+
+  /* 注意事項 */
+  .guarantee-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;
+    margin-top: 8px;
+  }
+  .guarantee-item {
+    background: #fff; border-radius: var(--radius); border: 1px solid #e8ddd0;
+    padding: 20px; text-align: center;
+  }
+  .guarantee-item .g-icon { font-size: 28px; margin-bottom: 8px; }
+  .guarantee-item .g-text { font-size: 13px; color: var(--col-dark); font-weight: bold; letter-spacing: .05em; }
+  .guarantee-item .g-sub { font-size: 11px; color: var(--col-gray); margin-top: 4px; }
+
+  /* アクセス */
+  .access-box {
+    background: linear-gradient(135deg, var(--col-dark) 0%, #1a1a2e 100%);
+    border-radius: var(--radius); padding: 48px 40px;
+    color: #f0dfc0;
+    display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start;
+  }
+  .access-box h3 { font-family: var(--font-serif); font-size: 22px; letter-spacing: .15em; margin-bottom: 20px; }
+  .access-info p { font-size: 14px; color: #c8b89a; line-height: 2.2; }
+  .access-info strong { color: #f0dfc0; }
+  .access-info a { color: var(--col-accent); }
+  .qr-box { text-align: center; flex-shrink: 0; }
+  .qr-box img { width: 150px; height: 150px; border-radius: 8px; background: #fff; padding: 6px; display: block; }
+  .qr-box p { font-size: 11px; color: #a89880; margin-top: 8px; text-align: center; }
+
+  .bg-warm { background: #f0e8d8; }
+  .bg-white { background: #fff; }
+  .bg-dark { background: #1a1a2e; }
+
+  footer { background: var(--col-dark); color: #c8b89a; padding: 48px 24px 24px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(200,184,154,.2); }
+  .footer-brand .logo { font-size: 20px; }
+  .footer-brand p { margin-top: 12px; font-size: 13px; line-height: 1.8; color: #a89880; }
+  footer h4 { color: #f0dfc0; font-size: 14px; margin-bottom: 12px; letter-spacing: .1em; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; }
+  footer ul li a { font-size: 13px; color: #a89880; transition: color .2s; }
+  footer ul li a:hover { color: var(--col-accent); }
+  .footer-bottom { max-width: 1100px; margin: 20px auto 0; text-align: center; font-size: 12px; color: #6a5840; }
+
+  @media (max-width: 768px) {
+    nav { display: none; flex-direction: column; width: 100%; }
+    nav.open { display: flex; }
+    .header-inner { flex-wrap: wrap; height: auto; padding: 12px 16px; gap: 8px; }
+    .menu-toggle { display: flex; }
+    nav a { width: 100%; padding: 12px 16px; border-radius: 0; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .program-grid { grid-template-columns: 1fr; }
+    .access-box { grid-template-columns: 1fr; }
+    .qr-box { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">真照寺<small>Shinsho-ji Temple</small></a>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="main-nav">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">お寺の紹介</a>
+      <a href="teaching.html">法話・教え</a>
+      <a href="events.html">行事案内</a>
+      <a href="news.html">お知らせ</a>
+      <a href="masters.html">偉大な師たち</a>
+      <a href="sougi.html">葬儀・法事</a>
+      <a href="ohaka.html">お墓・納骨</a>
+      <a href="opentemple.html" class="active">オープンテンプル</a>
+      <a href="otogi.html">お伽噺</a>
+      <a href="kissui.html">釈吉瑞</a>
+      <a href="kyogaku.html">大切な遺産</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ヒーロー -->
+<div class="page-hero">
+  <div class="hero-label">真宗大谷派 澤水山 眞照寺</div>
+  <h1>オープンテンプル</h1>
+  <div class="hero-deco"></div>
+  <p class="hero-sub">― お寺で過ごす、非日常のひととき ―</p>
+  <p style="margin-top:16px; font-size:14px; color:#a0b8d8; position:relative;">仏教は真実を説き、お寺はその空間です。<br>宗教や信仰を問わず、あらゆる世代の方に、お寺という空間で「非日常のひととき」を。</p>
+</div>
+
+<!-- 次回開催 -->
+<div class="next-event">
+  <div class="label">次回開催</div>
+  <div class="date">2026年 7月19日（日）</div>
+  <div class="time">午前 10:00 〜 11:30　／　所要 約90分</div>
+  <div class="tags">
+    <span class="tag">✓ 参加無料</span>
+    <span class="tag">✓ 予約不要</span>
+    <span class="tag">✓ 途中退席自由</span>
+    <span class="tag">✓ 年齢・宗教不問</span>
+  </div>
+</div>
+
+<!-- プログラム -->
+<div class="bg-white">
+  <div class="section">
+    <div class="section-title">
+      <h2>体験プログラム</h2>
+      <p>※ プログラムは回によってテーマや構成を変えてまいります。</p>
+    </div>
+    <div class="program-grid">
+      <div class="program-card">
+        <div class="program-card-header">
+          <div class="program-num">壱</div>
+          <h3>サンスクリット読経体験</h3>
+        </div>
+        <div class="program-card-body">
+          <p>仏教のキーワードが詰まった『般若心経』をサンスクリット語で体感。ご自身のお名前をデーヴァナーガリーで書いてみませんか。</p>
+        </div>
+      </div>
+      <div class="program-card">
+        <div class="program-card-header">
+          <div class="program-num">弐</div>
+          <h3>瞑想（静座と呼吸）</h3>
+        </div>
+        <div class="program-card-body">
+          <p>静寂なお寺の空間で、椅子に座って瞑想。呼吸や姿勢、意識のはたらきについてご説明します。</p>
+        </div>
+      </div>
+      <div class="program-card">
+        <div class="program-card-header">
+          <div class="program-num">参</div>
+          <h3>AIで読み解く古代の智慧</h3>
+        </div>
+        <div class="program-card-body">
+          <p>釈迦や龍樹のサンスクリット原典をAIを活用して読み解き、現代の言葉で理解します。</p>
+        </div>
+      </div>
+      <div class="program-card">
+        <div class="program-card-header">
+          <div class="program-num">四</div>
+          <h3>三分説法</h3>
+        </div>
+        <div class="program-card-body">
+          <p>仏教は答えを与えません。皆さまの気づきのお手伝いを。短い説法のあとは、お茶をしながら自由に語らえる場を。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 安心の4つの保証 -->
+<div class="bg-warm">
+  <div class="section">
+    <div class="section-title">
+      <h2>ご安心してご参加ください</h2>
+    </div>
+    <div class="guarantee-grid">
+      <div class="guarantee-item">
+        <div class="g-icon">🙏</div>
+        <div class="g-text">参加無料</div>
+        <div class="g-sub">年齢・宗教不問</div>
+      </div>
+      <div class="guarantee-item">
+        <div class="g-icon">🚪</div>
+        <div class="g-text">予約不要</div>
+        <div class="g-sub">途中退席自由</div>
+      </div>
+      <div class="guarantee-item">
+        <div class="g-icon">🤝</div>
+        <div class="g-text">勧誘・献金・強請は一切なし</div>
+        <div class="g-sub"></div>
+      </div>
+      <div class="guarantee-item">
+        <div class="g-icon">🔒</div>
+        <div class="g-text">個人情報を伺うことはありません</div>
+        <div class="g-sub"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- アクセス -->
+<div class="bg-white">
+  <div class="section">
+    <div class="section-title">
+      <h2>会場のご案内</h2>
+    </div>
+    <div class="access-box">
+      <div class="access-info">
+        <h3>真宗大谷派 澤水山 眞照寺</h3>
+        <p>
+          <strong>住所</strong>　〒224-0043 神奈川県横浜市都筑区折本町1604<br>
+          <strong>電話</strong>　<a href="tel:045-941-9736">045-941-9736</a><br>
+          <strong>メール</strong>　<a href="mailto:takusuisan.shinshoji@gmail.com">takusuisan.shinshoji@gmail.com</a>
+        </p>
+        <p style="margin-top:16px; font-size:13px; color:#a89880;">
+          ※ 事前にご連絡をいただければ、横浜市営地下鉄「仲町台」駅より送迎いたします。<br>
+          ※ 毎日 午前8時 晨朝勤行 ― どなたでもご参加いただけます。
+        </p>
+      </div>
+      <div class="qr-box">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fmaps.google.com%2F%3Fq%3D%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%83%BD%E7%AD%91%E5%8C%BA%E6%8A%98%E6%9C%AC%E7%94%BA1604&size=150x150&color=3a2510&bgcolor=ffffff&margin=6" alt="Googleマップ QRコード">
+        <p>スマートフォンで<br>地図を開く</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">真照寺<small>Shinsho-ji Temple</small></div>
+      <p>心静かに、ともに歩む場所。<br>どなたでもお気軽にお越しください。</p>
+    </div>
+    <div>
+      <h4>ページ案内</h4>
+      <ul>
+        <li><a href="about.html">お寺の紹介</a></li>
+        <li><a href="teaching.html">法話・仏教の教え</a></li>
+        <li><a href="events.html">行事案内</a></li>
+        <li><a href="news.html">お知らせ・ブログ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ご相談・ご連絡</h4>
+      <ul>
+        <li><a href="sougi.html">法事・葬儀のご相談</a></li>
+        <li><a href="ohaka.html">お墓・納骨のご案内</a></li>
+        <li><a href="opentemple.html">梵語で読経しよう</a></li>
+        <li><a href="index.html#contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 真照寺 All Rights Reserved.</p></div>
+</footer>
+
+<script>function toggleMenu() { document.getElementById('main-nav').classList.toggle('open'); }</script>
+</body>
+</html>
