@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>法話・仏教の教え – 真照寺</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --col-main: #7c3d1e; --col-accent: #c8902a;
+    --col-light: #f8f1e8; --col-dark: #3a2510;
+    --col-gray: #8a7a6a; --col-green: #4a6741;
+    --font-main: 'Meiryo UI', 'メイリオ', Meiryo, sans-serif;
+    --font-serif: 'Yu Mincho', '游明朝', 'YuMincho', 'Hiragino Mincho Pro', serif;
+    --radius: 8px; --shadow: 0 2px 16px rgba(60,30,0,.10);
+  }
+  body { font-family: var(--font-main); background: var(--col-light); color: var(--col-dark); line-height: 1.8; font-size: 15px; }
+  a { color: inherit; text-decoration: none; }
+
+  header { background: var(--col-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+  .logo { font-family: var(--font-serif); font-size: 22px; letter-spacing: .2em; color: #f0dfc0; }
+  .logo small { display: block; font-size: 11px; letter-spacing: .15em; color: var(--col-accent); font-family: var(--font-main); margin-top: -4px; }
+  nav { display: flex; gap: 4px; }
+  nav a { color: #e8d5b0; font-size: 14px; padding: 8px 14px; border-radius: var(--radius); transition: background .2s, color .2s; letter-spacing: .05em; }
+  nav a:hover, nav a.active { background: var(--col-main); color: #fff; }
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+  .menu-toggle span { display: block; width: 26px; height: 2px; background: #e8d5b0; border-radius: 2px; }
+
+  .page-hero { background: linear-gradient(160deg, #3a2510 0%, #7c3d1e 60%, #a0602a 100%); color: #f8f1e8; text-align: center; padding: 64px 24px 56px; }
+  .page-hero h1 { font-family: var(--font-serif); font-size: clamp(24px, 4vw, 42px); letter-spacing: .25em; }
+  .page-hero p { margin-top: 10px; color: #f0dfc0; font-size: 14px; letter-spacing: .1em; }
+
+  .section { max-width: 860px; margin: 0 auto; padding: 64px 24px; }
+  .section-wide { max-width: 1100px; margin: 0 auto; padding: 64px 24px; }
+
+  .section-title { margin-bottom: 32px; }
+  .section-title h2 { font-family: var(--font-serif); font-size: clamp(20px, 3vw, 30px); letter-spacing: .2em; color: var(--col-main); padding-left: 16px; border-left: 4px solid var(--col-accent); }
+
+  /* 法話カード */
+  .teaching-card {
+    background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+    border: 1px solid #e8ddd0; margin-bottom: 28px; overflow: hidden;
+  }
+  .teaching-card-header {
+    background: linear-gradient(135deg, var(--col-light), #f0e0c8);
+    padding: 20px 28px 16px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 1px solid #e0d0b8;
+  }
+  .teaching-card-header h3 {
+    font-family: var(--font-serif); font-size: 19px;
+    color: var(--col-main); letter-spacing: .1em;
+  }
+  .teaching-date { font-size: 12px; color: var(--col-gray); white-space: nowrap; padding-top: 4px; }
+  .teaching-card-body { padding: 24px 28px; }
+  .teaching-quote {
+    font-family: var(--font-serif);
+    font-size: 18px; line-height: 2; letter-spacing: .08em;
+    color: var(--col-dark); padding: 0 0 16px 0;
+    border-bottom: 1px dashed #e0d0b8; margin-bottom: 16px;
+    position: relative; padding-left: 20px;
+  }
+  .teaching-quote::before {
+    content: ''; position: absolute; left: 0; top: 8px; bottom: 8px;
+    width: 3px; background: var(--col-accent); border-radius: 2px;
+  }
+  .teaching-card-body p { font-size: 14px; color: #5a4530; line-height: 2; }
+
+  /* 仏教用語 */
+  .words-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+  .word-card { background: #fff; border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow); border: 1px solid #e8ddd0; }
+  .word-term { font-family: var(--font-serif); font-size: 20px; color: var(--col-main); margin-bottom: 4px; letter-spacing: .1em; }
+  .word-reading { font-size: 12px; color: var(--col-accent); margin-bottom: 10px; letter-spacing: .05em; }
+  .word-desc { font-size: 13px; color: var(--col-gray); line-height: 1.8; }
+
+  /* 三宝 */
+  .sanpo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .sanpo-item { text-align: center; padding: 32px 20px; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid #e8ddd0; }
+  .sanpo-icon { font-size: 48px; margin-bottom: 12px; }
+  .sanpo-title { font-family: var(--font-serif); font-size: 22px; color: var(--col-main); letter-spacing: .15em; margin-bottom: 10px; }
+  .sanpo-item p { font-size: 13px; color: var(--col-gray); line-height: 1.8; }
+
+  .bg-warm { background: #f0e8d8; }
+  .bg-white { background: #fff; }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #fff8f0, #fff);
+    border: 2px solid var(--col-accent); border-radius: var(--radius);
+    padding: 28px 32px; text-align: center;
+  }
+  .highlight-box p { font-family: var(--font-serif); font-size: 18px; color: var(--col-dark); line-height: 2; letter-spacing: .05em; }
+  .highlight-box .source { font-size: 13px; color: var(--col-gray); margin-top: 12px; }
+
+  footer { background: var(--col-dark); color: #c8b89a; padding: 48px 24px 24px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(200,184,154,.2); }
+  .footer-brand .logo { font-size: 20px; }
+  .footer-brand p { margin-top: 12px; font-size: 13px; line-height: 1.8; color: #a89880; }
+  footer h4 { color: #f0dfc0; font-size: 14px; margin-bottom: 12px; letter-spacing: .1em; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; }
+  footer ul li a { font-size: 13px; color: #a89880; transition: color .2s; }
+  footer ul li a:hover { color: var(--col-accent); }
+  .footer-bottom { max-width: 1100px; margin: 20px auto 0; text-align: center; font-size: 12px; color: #6a5840; }
+
+  @media (max-width: 768px) {
+    nav { display: none; flex-direction: column; width: 100%; }
+    nav.open { display: flex; }
+    .header-inner { flex-wrap: wrap; height: auto; padding: 12px 16px; gap: 8px; }
+    .menu-toggle { display: flex; }
+    nav a { width: 100%; padding: 12px 16px; border-radius: 0; }
+    .footer-inner, .sanpo-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">真照寺<small>Shinsho-ji Temple</small></a>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="main-nav">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">お寺の紹介</a>
+      <a href="teaching.html" class="active">法話・教え</a>
+      <a href="events.html">行事案内</a>
+      <a href="news.html">お知らせ</a>
+      <a href="masters.html">偉大な師たち</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <h1>📿 法話・仏教の教え</h1>
+  <p>住職の法話と、仏教のやさしい解説</p>
+</div>
+
+<!-- 最近の法話 -->
+<div class="bg-white">
+  <div class="section">
+    <div class="section-title" style="display:flex;align-items:center;gap:20px;">
+      <img src="images/jushoku.png" alt="住職" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--col-accent);box-shadow:0 2px 10px rgba(60,30,0,.15);flex-shrink:0;">
+      <h2>住職の法話</h2>
+    </div>
+
+    <div class="teaching-card">
+      <div class="teaching-card-header">
+        <h3>雨の季節に思うこと</h3>
+        <span class="teaching-date">2026年6月</span>
+      </div>
+      <div class="teaching-card-body">
+        <div class="teaching-quote">
+          雨の季節は、すべてのものを潤します。<br>
+          人の心も、やさしい言葉一つで、ずっと潤うものです。<br>
+          今日、誰かにやさしい言葉をかけてみましょう。
+        </div>
+        <p>梅雨の季節になりました。雨が続くと、どうしても気持ちが重くなりがちです。しかし仏教では、雨を「慈悲の雨（じひのあめ）」とも表現します。差別なくすべてを潤す雨のように、仏の慈悲はあらゆる生きとし生けるものに降り注ぐのです。</p>
+        <p style="margin-top: 12px;">私たちも、日々の言葉や行動が誰かの心を潤すことができます。難しく考えなくても大丈夫。「おはよう」「ありがとう」「お疲れ様」——そんなひとことが、誰かの大切な支えになっているかもしれません。</p>
+      </div>
+    </div>
+
+    <div class="teaching-card">
+      <div class="teaching-card-header">
+        <h3>花まつりに寄せて</h3>
+        <span class="teaching-date">2026年4月</span>
+      </div>
+      <div class="teaching-card-body">
+        <div class="teaching-quote">
+          お釈迦様はお生まれになったとき、<br>
+          「天上天下唯我独尊（てんじょうてんげゆいがどくそん）」と<br>
+          おっしゃいました。
+        </div>
+        <p>これは「自分だけが偉い」という意味ではありません。この世に生まれたすべての命は、かけがえのない尊い存在である——そういう意味です。</p>
+        <p style="margin-top: 12px;">花まつりの甘茶をかけながら、自分の命の尊さ、そして周りの方々の命の尊さを、改めて感じていただければ幸いです。</p>
+      </div>
+    </div>
+
+    <div class="teaching-card">
+      <div class="teaching-card-header">
+        <h3>春のお彼岸に</h3>
+        <span class="teaching-date">2026年3月</span>
+      </div>
+      <div class="teaching-card-body">
+        <div class="teaching-quote">
+          彼岸とは「かなたの岸」。<br>
+          迷いのこちら岸（此岸）から、悟りの向こう岸（彼岸）へ<br>
+          渡ることを願う期間です。
+        </div>
+        <p>お墓参りはご先祖様を偲ぶだけでなく、自分自身を見つめ直す時間でもあります。忙しい日常から少し離れ、「自分はどう生きているか」「大切なものは何か」を静かに問う——それが彼岸の本来の意味です。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 仏教の三宝 -->
+<div class="bg-warm">
+  <div class="section">
+    <div class="section-title">
+      <h2>仏教の三宝（さんぼう）</h2>
+    </div>
+    <p style="margin-bottom: 28px; color: var(--col-gray);">仏教の信仰の核心となる、三つの宝物です。</p>
+    <div class="sanpo-grid">
+      <div class="sanpo-item">
+        <div class="sanpo-icon"><img src="images/buddha4.png" alt="仏" style="width:72px;height:72px;object-fit:contain;"></div>
+        <div class="sanpo-title">仏（ぶつ）</div>
+        <p>お釈迦様をはじめ、悟りを開いた仏様のこと。私たちの目標であり、よりどころです。</p>
+      </div>
+      <div class="sanpo-item">
+        <div class="sanpo-icon"><img src="images/wheel.png" alt="法" style="width:72px;height:72px;object-fit:contain;"></div>
+        <div class="sanpo-title">法（ほう）</div>
+        <p>仏様の教え（ダルマ）のこと。苦しみを超えて幸せに生きるための道筋を示しています。</p>
+      </div>
+      <div class="sanpo-item">
+        <div class="sanpo-icon"><img src="images/sanga3.png" alt="僧" style="width:72px;height:72px;object-fit:contain;"></div>
+        <div class="sanpo-title">僧（そう）</div>
+        <p>教えを実践し伝える僧侶・修行者の集まり。ともに学び歩む仲間のことです。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- やさしい仏教用語 -->
+<div class="bg-white">
+  <div class="section-wide">
+    <div class="section-title">
+      <h2 style="padding-left:16px; border-left: 4px solid var(--col-accent);">やさしい仏教用語</h2>
+    </div>
+    <div class="words-grid">
+      <div class="word-card">
+        <div class="word-term">慈悲</div>
+        <div class="word-reading">じひ / Compassion</div>
+        <div class="word-desc">「慈」は幸せを与えたいという心、「悲」は苦しみを取り除きたいという心。仏の心の根本です。</div>
+      </div>
+      <div class="word-card">
+        <div class="word-term">因縁</div>
+        <div class="word-reading">いんねん / Cause & Condition</div>
+        <div class="word-desc">あらゆる出来事には原因（因）と条件（縁）がある、という考え方。すべては繋がっています。</div>
+      </div>
+      <div class="word-card">
+        <div class="word-term">無常</div>
+        <div class="word-reading">むじょう / Impermanence</div>
+        <div class="word-desc">この世のすべては移り変わるということ。変わるから美しく、変わるから大切にできます。</div>
+      </div>
+      <div class="word-card">
+        <div class="word-term">感謝</div>
+        <div class="word-reading">かんしゃ / Gratitude</div>
+        <div class="word-desc">「おかげさまで」という心。私たちはすべての縁に支えられて生きています。</div>
+      </div>
+      <div class="word-card">
+        <div class="word-term">精進</div>
+        <div class="word-reading">しょうじん / Diligence</div>
+        <div class="word-desc">一生懸命に努力すること。仏教では六つの修行（六波羅蜜）の一つです。</div>
+      </div>
+      <div class="word-card">
+        <div class="word-term">廻向</div>
+        <div class="word-reading">えこう / Merit Dedication</div>
+        <div class="word-desc">自分の善い行いの功徳を、亡くなった方や他者のために捧げること。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 経典の言葉 -->
+<div class="bg-warm">
+  <div class="section">
+    <div class="section-title">
+      <h2>経典の言葉</h2>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+      <div class="highlight-box">
+        <p>過去はすでに過ぎ去り、<br>未来はまだ来ていない。<br>今この瞬間に、精一杯生きなさい。</p>
+        <div class="source">— 釈迦（ダンマパダより）</div>
+      </div>
+      <div class="highlight-box">
+        <p>怒りは薪のようなもの。<br>燃やせば自分が焦げる。<br>手放せば、心は静かになる。</p>
+        <div class="source">— 仏教の教えより</div>
+      </div>
+      <div class="highlight-box">
+        <p>一日一善。<br>小さな善い行いを、毎日続けること——<br>それが積み重なって、人の一生となる。</p>
+        <div class="source">— 道元禅師の言葉をもとに</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">真照寺<small>Shinsho-ji Temple</small></div>
+      <p>心静かに、ともに歩む場所。<br>どなたでもお気軽にお越しください。</p>
+    </div>
+    <div>
+      <h4>ページ案内</h4>
+      <ul>
+        <li><a href="about.html">お寺の紹介</a></li>
+        <li><a href="teaching.html">法話・仏教の教え</a></li>
+        <li><a href="events.html">行事案内</a></li>
+        <li><a href="news.html">お知らせ・ブログ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ご相談・ご連絡</h4>
+      <ul>
+        <li><a href="#">法事・葬儀のご相談</a></li>
+        <li><a href="#">お墓・納骨のご案内</a></li>
+        <li><a href="#">写経・座禅会</a></li>
+        <li><a href="#">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 真照寺 All Rights Reserved.</p></div>
+</footer>
+
+<script>function toggleMenu() { document.getElementById('main-nav').classList.toggle('open'); }</script>
+</body>
+</html>
