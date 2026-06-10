@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>浄土真宗を知る – 真照寺</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --col-main:#7c3d1e;--col-accent:#c8902a;--col-light:#f8f1e8;
+  --col-dark:#3a2510;--col-gray:#8a7a6a;--col-green:#4a6741;
+  --font-main:'Meiryo UI','メイリオ',Meiryo,sans-serif;
+  --font-serif:'Yu Mincho','游明朝','YuMincho','Hiragino Mincho Pro',serif;
+  --radius:10px;--shadow:0 2px 18px rgba(60,30,0,.10);
+}
+body{font-family:var(--font-main);background:var(--col-light);color:var(--col-dark);line-height:1.8;font-size:15px}
+a{color:inherit;text-decoration:none}
+
+/* HEADER */
+header{background:var(--col-dark);position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:64px}
+.logo{font-family:var(--font-serif);font-size:22px;letter-spacing:.2em;color:#f0dfc0}
+.logo small{display:block;font-size:11px;letter-spacing:.15em;color:var(--col-accent);font-family:var(--font-main);margin-top:-4px}
+nav{display:flex;gap:4px}
+nav a{color:#e8d5b0;font-size:13px;padding:7px 12px;border-radius:6px;transition:background .2s,color .2s;letter-spacing:.04em}
+nav a:hover,nav a.active{background:var(--col-main);color:#fff}
+.menu-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.menu-toggle span{display:block;width:26px;height:2px;background:#e8d5b0;border-radius:2px}
+
+/* PAGE HERO */
+.page-hero{background:linear-gradient(150deg,#1e0c04 0%,#5a2a10 40%,#9a6020 80%,#c8902a 100%);color:#f8f1e8;text-align:center;padding:72px 24px 60px;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 40%,rgba(200,144,42,.2) 0%,transparent 60%)}
+.page-hero h1{font-family:var(--font-serif);font-size:clamp(26px,5vw,52px);letter-spacing:.25em;text-shadow:0 2px 16px rgba(0,0,0,.5)}
+.page-hero p{margin-top:14px;color:#f0dfc0;font-size:16px;letter-spacing:.08em}
+
+/* STICKY NAV TABS */
+.sticky-tabs{position:sticky;top:64px;z-index:100;background:#fff;border-bottom:2px solid #e0d0b8;overflow-x:auto}
+.tabs-inner{max-width:1100px;margin:0 auto;display:flex;padding:0 16px}
+.tab-btn{padding:14px 20px;font-size:14px;font-family:var(--font-serif);color:var(--col-gray);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;letter-spacing:.08em;transition:color .2s,border-color .2s}
+.tab-btn:hover{color:var(--col-main)}
+.tab-btn.active{color:var(--col-main);border-bottom-color:var(--col-accent);font-weight:bold}
+
+/* BODY LAYOUT */
+.page-body{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:200px 1fr;align-items:start}
+.side-nav{position:sticky;top:116px;padding:28px 0 28px 24px;max-height:calc(100vh - 120px);overflow-y:auto}
+.side-nav h4{font-size:11px;color:var(--col-gray);letter-spacing:.15em;margin-bottom:12px;padding-left:12px}
+.side-nav a{display:block;font-size:13px;padding:8px 12px;border-radius:6px;color:var(--col-gray);margin-bottom:2px;transition:all .2s;border-left:3px solid transparent}
+.side-nav a:hover,.side-nav a.cur{color:var(--col-dark);background:#f0e8d8;border-left-color:var(--col-accent)}
+
+/* TOPIC SECTIONS */
+.topic-section{padding:64px 40px 64px 32px;border-bottom:2px solid #e0d0b8;scroll-margin-top:116px}
+.topic-section:nth-child(even){background:#fff}
+.topic-section:nth-child(odd){background:#faf4ec}
+
+/* TOPIC HEADER */
+.topic-header{display:flex;align-items:center;gap:20px;margin-bottom:40px;padding-bottom:20px;border-bottom:1px solid #e0d0b8}
+.topic-num{font-size:48px;font-family:var(--font-serif);color:var(--col-accent);opacity:.4;line-height:1;flex-shrink:0}
+.topic-titles h2{font-family:var(--font-serif);font-size:clamp(22px,3.5vw,38px);letter-spacing:.2em;color:var(--col-main);line-height:1.2}
+.topic-titles .sub{font-size:14px;color:var(--col-gray);margin-top:6px;letter-spacing:.08em}
+.topic-titles .hook{font-family:var(--font-serif);font-size:17px;color:var(--col-dark);margin-top:10px;line-height:1.8;padding-left:14px;border-left:4px solid var(--col-accent)}
+
+/* CARDS */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-bottom:20px}
+.c-card{border-radius:var(--radius);padding:20px 22px;border:1px solid rgba(0,0,0,.07)}
+.c-card h4{font-family:var(--font-serif);font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px;letter-spacing:.05em}
+.c-card p,.c-card li{font-size:13.5px;line-height:1.9;color:#4a3520}
+.c-card ul{padding-left:18px}
+.c-card ul li{margin-bottom:5px}
+.card-gold{background:linear-gradient(135deg,#fffbe8,#fff8d0);border-color:var(--col-accent)}
+.card-green{background:linear-gradient(135deg,#f0f8f0,#e4f4e4);border-color:#4a6741}
+.card-blue{background:linear-gradient(135deg,#f0f0ff,#e8e8ff);border-color:#5050a0}
+.card-rose{background:linear-gradient(135deg,#fff0f4,#ffe8ec);border-color:#a05060}
+.card-gray{background:linear-gradient(135deg,#f8f4f0,#f0ece8);border-color:#a09080}
+.card-teal{background:linear-gradient(135deg,#f0faf8,#e4f4f0);border-color:#3a7060}
+
+/* QUOTE */
+.quote-box{background:var(--col-dark);color:#f0dfc0;border-radius:var(--radius);padding:24px 28px;margin:20px 0;position:relative}
+.quote-box::before{content:'"';font-family:var(--font-serif);font-size:72px;color:var(--col-accent);opacity:.2;position:absolute;top:4px;left:14px;line-height:1}
+.quote-box blockquote{font-family:var(--font-serif);font-size:17px;line-height:2;letter-spacing:.06em;position:relative;z-index:1}
+.quote-box cite{display:block;font-size:12px;color:var(--col-accent);margin-top:10px;font-style:normal}
+
+/* DYK */
+.dyk{background:linear-gradient(135deg,#fffbe8,#fff8d0);border-left:4px solid var(--col-accent);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;margin:16px 0;font-size:13.5px}
+.dyk strong{color:var(--col-main);font-size:12px;letter-spacing:.1em;display:block;margin-bottom:4px}
+
+/* COMPARISON TABLE */
+.compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px}
+.compare-table th{background:var(--col-dark);color:#f0dfc0;padding:12px 14px;text-align:left;font-family:var(--font-serif);letter-spacing:.05em;font-weight:normal}
+.compare-table td{padding:12px 14px;border-bottom:1px solid #e0d0b8;vertical-align:top;line-height:1.8;color:#4a3520}
+.compare-table tr:nth-child(even) td{background:#f8f4f0}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table .label{font-weight:bold;color:var(--col-main);width:130px}
+
+/* SUTRA CARDS */
+.sutra-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid #e8ddd0;overflow:hidden;margin-bottom:20px}
+.sutra-header{padding:18px 24px;display:flex;align-items:center;gap:16px}
+.sutra-num{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:20px;color:#fff;flex-shrink:0}
+.sutra-title h3{font-family:var(--font-serif);font-size:18px;letter-spacing:.1em}
+.sutra-title .en{font-size:12px;color:var(--col-gray);margin-top:2px}
+.sutra-body{padding:0 24px 24px}
+.sutra-body p{font-size:13.5px;color:#4a3520;line-height:1.9;margin-bottom:12px}
+.sutra-body p:last-child{margin-bottom:0}
+.sutra-tag{display:inline-block;padding:2px 12px;border-radius:12px;font-size:11px;font-weight:bold;margin-bottom:10px}
+
+/* CHAPTER GRID (教行信証) */
+.chapter-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.ch-card{border-radius:var(--radius);padding:18px 16px;text-align:center;border:2px solid transparent}
+.ch-num{font-family:var(--font-serif);font-size:28px;margin-bottom:4px}
+.ch-name{font-family:var(--font-serif);font-size:18px;color:var(--col-main);margin-bottom:8px;letter-spacing:.1em}
+.ch-en{font-size:11px;color:var(--col-gray);margin-bottom:8px}
+.ch-desc{font-size:12px;color:#5a4530;line-height:1.7}
+
+/* FLOW DIAGRAM */
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0;padding:16px 20px;background:#fff;border-radius:var(--radius);border:1px solid #e0d0b8}
+.flow-node{background:var(--col-light);border:2px solid var(--col-accent);border-radius:var(--radius);padding:8px 16px;font-size:13px;font-family:var(--font-serif);letter-spacing:.05em;text-align:center}
+.flow-arrow{color:var(--col-accent);font-size:18px;flex-shrink:0}
+.flow-node.highlight{background:linear-gradient(135deg,#ffe8c0,#ffd090);border-color:var(--col-main)}
+
+/* HIGHLIGHT BOX */
+.highlight-box{background:linear-gradient(135deg,#fff8f0,#fff3e0);border:2px solid var(--col-accent);border-radius:var(--radius);padding:24px 28px;text-align:center;margin:16px 0}
+.highlight-box .big{font-family:var(--font-serif);font-size:clamp(18px,2.5vw,26px);color:var(--col-main);line-height:1.8;letter-spacing:.08em}
+.highlight-box .note{font-size:13px;color:var(--col-gray);margin-top:10px}
+
+/* BADGE */
+.badge{display:inline-block;padding:3px 14px;border-radius:16px;font-size:12px;font-weight:bold;margin:4px 4px 4px 0}
+.badge-gold{background:#fce8c0;color:#8a5010}
+.badge-green{background:#d8f0d0;color:#2a6030}
+.badge-blue{background:#d8e0ff;color:#3040a0}
+.badge-red{background:#ffe0e0;color:#a02030}
+
+/* FOOTER */
+footer{background:var(--col-dark);color:#c8b89a;padding:48px 24px 24px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:32px;border-bottom:1px solid rgba(200,184,154,.2)}
+.footer-brand .logo{font-size:20px}
+.footer-brand p{margin-top:12px;font-size:13px;line-height:1.8;color:#a89880}
+footer h4{color:#f0dfc0;font-size:14px;margin-bottom:12px;letter-spacing:.1em}
+footer ul{list-style:none}
+footer ul li{margin-bottom:8px}
+footer ul li a{font-size:13px;color:#a89880;transition:color .2s}
+footer ul li a:hover{color:var(--col-accent)}
+.footer-bottom{max-width:1100px;margin:20px auto 0;text-align:center;font-size:12px;color:#6a5840}
+
+@media(max-width:900px){
+  .page-body{grid-template-columns:1fr}
+  .side-nav{display:none}
+  .grid-2,.grid-3,.chapter-grid{grid-template-columns:1fr}
+  .topic-section{padding:40px 20px}
+  .sutra-header{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:768px){
+  nav{display:none;flex-direction:column;width:100%}
+  nav.open{display:flex}
+  .header-inner{flex-wrap:wrap;height:auto;padding:12px 16px;gap:8px}
+  .menu-toggle{display:flex}
+  nav a{width:100%;padding:12px 16px;border-radius:0}
+  .footer-inner{grid-template-columns:1fr;gap:24px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">真照寺<small>Shinsho-ji Temple</small></a>
+    <button class="menu-toggle" onclick="document.getElementById('mn').classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="mn">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">お寺の紹介</a>
+      <a href="teaching.html">法話・教え</a>
+      <a href="events.html">行事案内</a>
+      <a href="news.html">お知らせ</a>
+      <a href="masters.html">偉大な師たち</a>
+      <a href="shinshu.html" class="active">浄土真宗を知る</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <h1>📖 浄土真宗を知る</h1>
+  <p>教え・宗派・経典・聖典 — ウィキペディアでは出会えない視点で</p>
+</div>
+
+<div class="sticky-tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="scrollTo('shinshu')">① 浄土真宗とは</button>
+    <button class="tab-btn" onclick="scrollTo('otani')">② 真宗大谷派とは</button>
+    <button class="tab-btn" onclick="scrollTo('sanbukyou')">③ 浄土三部経</button>
+    <button class="tab-btn" onclick="scrollTo('kyogyo')">④ 教行信証</button>
+  </div>
+</div>
+
+<div class="page-body">
+  <aside class="side-nav" id="side-nav">
+    <h4>目次</h4>
+    <a href="#shinshu">① 浄土真宗とは</a>
+    <a href="#otani">② 真宗大谷派とは</a>
+    <a href="#sanbukyou">③ 浄土三部経</a>
+    <a href="#kyogyo">④ 教行信証</a>
+  </aside>
+
+  <main>
+
+<!-- ==================================================
+     ① 浄土真宗とは
+================================================== -->
+<section class="topic-section" id="shinshu">
+  <div class="topic-header">
+    <div class="topic-num">①</div>
+    <div class="topic-titles">
+      <h2>浄土真宗とは</h2>
+      <div class="sub">Jōdo Shinshū — The True Pure Land Teaching</div>
+      <div class="hook">「宗教なのに、宗教らしくない宗教」——これが浄土真宗を一言で言い表す最も正確な表現かもしれない。</div>
+    </div>
+  </div>
+
+  <!-- SVG diagram: 自力 vs 他力 -->
+  <div style="background:#fff;border-radius:var(--radius);padding:28px;border:1px solid #e0d0b8;margin-bottom:24px;overflow:auto">
+    <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" width="100%" style="min-width:480px">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#5050a0"/>
+          <stop offset="100%" stop-color="#8080d0"/>
+        </linearGradient>
+        <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#c8902a"/>
+          <stop offset="100%" stop-color="#7c3d1e"/>
+        </linearGradient>
+      </defs>
+      <!-- left: 自力 religions -->
+      <rect x="10" y="20" width="280" height="160" rx="12" fill="url(#g1)" opacity=".12" stroke="#5050a0" stroke-width="1.5"/>
+      <text x="150" y="48" text-anchor="middle" font-size="15" fill="#5050a0" font-family="Yu Mincho,serif" font-weight="bold" letter-spacing="3">一般的な宗教のイメージ</text>
+      <text x="40" y="76" font-size="12" fill="#3a2510" font-family="Meiryo UI,sans-serif">✦ 修行・断食・苦行が必要</text>
+      <text x="40" y="98" font-size="12" fill="#3a2510" font-family="Meiryo UI,sans-serif">✦ 聖職者は独身・菜食</text>
+      <text x="40" y="120" font-size="12" fill="#3a2510" font-family="Meiryo UI,sans-serif">✦ 努力・功徳を積めば救われる</text>
+      <text x="40" y="142" font-size="12" fill="#3a2510" font-family="Meiryo UI,sans-serif">✦ 特別な場所・特別な人だけ</text>
+      <text x="40" y="164" font-size="12" fill="#3a2510" font-family="Meiryo UI,sans-serif">✦ 戒律を守ることが前提</text>
+      <!-- arrow -->
+      <text x="320" y="105" text-anchor="middle" font-size="28" fill="#c8902a">⟷</text>
+      <text x="320" y="125" text-anchor="middle" font-size="11" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">比べると</text>
+      <!-- right: 浄土真宗 -->
+      <rect x="350" y="20" width="340" height="160" rx="12" fill="url(#g2)" opacity=".12" stroke="#c8902a" stroke-width="2"/>
+      <text x="520" y="48" text-anchor="middle" font-size="15" fill="#7c3d1e" font-family="Yu Mincho,serif" font-weight="bold" letter-spacing="3">浄土真宗</text>
+      <text x="370" y="76" font-size="12" fill="#3a2510" font-family="Meiryo UI,sans-serif">🪷 特別な修行は必要ない</text>
+      <text x="370" y="98" font-size="12" fill="#3a2510" font-family="Meiryo UI,sans-serif">🪷 僧侶は結婚し、家族を持つ</text>
+      <text x="370" y="120" font-size="12" fill="#3a2510" font-family="Meiryo UI,sans-serif">🪷 弱い者・できない者こそ対象</text>
+      <text x="370" y="142" font-size="12" fill="#3a2510" font-family="Meiryo UI,sans-serif">🪷 念仏は感謝であり、努力ではない</text>
+      <text x="370" y="164" font-size="12" fill="#3a2510" font-family="Meiryo UI,sans-serif">🪷 日常の暮らしがそのまま道場</text>
+    </svg>
+  </div>
+
+  <div class="highlight-box">
+    <div class="big">浄土真宗は「宗教ができない人のための宗教」として生まれた</div>
+    <div class="note">親鸞は「私は善人でも、修行者でも、聖者でもない。それでも救われる」と言った。これが全ての出発点。</div>
+  </div>
+
+  <div class="grid-2" style="margin-top:24px">
+    <div class="c-card card-gold">
+      <h4>🔥 なぜ生まれたのか</h4>
+      <p>平安末期〜鎌倉初期、仏教は「貴族・僧侶・武士」のものだった。山岳寺院での厳しい修行、難解な漢文経典、身分制度——これらが「普通の人々」を仏教から排除していた。</p>
+      <p style="margin-top:10px">親鸞は20年の比叡山修行の末に「これでは自分も他の人も救われない」と気づいた。そこから「すべての人が今のままで救われる道」の探求が始まった。</p>
+    </div>
+    <div class="c-card card-green">
+      <h4>🌱 「他力本願」の本当の意味</h4>
+      <p>「他力本願」は現代語では「人任せ」の意味で使われるが、元の意味は全く違う。</p>
+      <p style="margin-top:8px"><strong>他力</strong>＝阿弥陀仏の「本願力（ほんがんりき）」のこと。自分の力（自力）ではなく、阿弥陀仏の側から働きかけてくる救済の力を指す。</p>
+      <p style="margin-top:8px">つまり「他力本願」とは「阿弥陀仏の誓いの力に全てを委ねること」——受動的な怠けではなく、最も深い意味での信頼と委任だ。</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-serif);font-size:20px;color:var(--col-main);letter-spacing:.15em;margin:28px 0 16px;padding-left:14px;border-left:4px solid var(--col-accent)">浄土真宗が「ルールを破った」5つのこと</h3>
+
+  <div class="grid-auto">
+    <div class="c-card card-rose">
+      <h4>💒 ① 僧侶が結婚する</h4>
+      <p>インド・中国・日本の仏教では僧侶は「不淫戒」を守り独身が原則だった。親鸞は「私は僧侶でも俗人でもない（非僧非俗）」と宣言し結婚した。これはルール違反ではなく、<em>すべての人が同じ地平に立つ</em>という宣言だった。現在日本では多くの仏教宗派で僧侶の結婚が認められるが、浄土真宗がその先駆けとなった。</p>
+    </div>
+    <div class="c-card card-teal">
+      <h4>🙏 ② 念仏は「努力」ではなく「感謝」</h4>
+      <p>他の浄土系では「念仏を多く称えれば往生できる」という考えがあった。浄土真宗では違う——念仏は往生の<em>原因</em>ではなく、すでに救われていることへの<em>感謝の表れ</em>だ。「南無阿弥陀仏」と唱えることは、求めることではなく、応えることだ。</p>
+    </div>
+    <div class="c-card card-blue">
+      <h4>🏚️ ③ お寺は「民衆の家」</h4>
+      <p>貴族仏教では寺は特権階級の場所だった。親鸞・蓮如以降の浄土真宗の寺院は「道場」として農民・商人・女性にも開かれた。「御同朋・御同行（おどうぼう・おどうぎょう）」——同じ仲間・同じ旅路の者、という言葉が象徴するように、上下のない共同体を目指した。</p>
+    </div>
+    <div class="c-card card-gold">
+      <h4>📖 ④ 日本語で伝える</h4>
+      <p>仏教経典は漢文。読めるのは一部の人だけだった。蓮如は御文をひらがなで書き、親鸞は和讃（日本語の詩）で教えを詠んだ。「わかる言葉で伝える」——これは宗教改革のマルティン・ルターが聖書をドイツ語訳したことと同じ意義を持つ。</p>
+    </div>
+    <div class="c-card card-green">
+      <h4>👤 ⑤ 「悪人」が主役</h4>
+      <p>普通の宗教は「善人が救われる」。浄土真宗は逆——「善人もさることながら、悪人こそが往生の正機（対象）だ」（悪人正機）。自分の弱さ・罪深さを自覚している者ほど、阿弥陀仏の本願を素直に受け取れる。これは2000年の宗教的常識を180度ひっくり返した革命的な発想だ。</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="c-card card-gray">
+      <h4>📊 浄土真宗の規模（現代）</h4>
+      <ul>
+        <li>日本最大の仏教宗派（寺院数・門徒数とも最多）</li>
+        <li>主要派：真宗大谷派・浄土真宗本願寺派 で合計約2万寺</li>
+        <li>門徒数：両派合計で約1,000万人超（推計）</li>
+        <li>海外展開：北米・南米・ハワイ・欧州にも寺院</li>
+        <li>ハワイ仏教団（Buddhist Churches of America）は真宗が基盤</li>
+      </ul>
+    </div>
+    <div class="c-card card-gold">
+      <h4>🌏 現代人が浄土真宗に惹かれる理由</h4>
+      <ul>
+        <li>「完璧にならなくていい」——自己肯定感の低い時代に刺さるメッセージ</li>
+        <li>「死と向き合う」——終末期ケア・グリーフケアとの親和性</li>
+        <li>「コミュニティ」——孤独社会での「お同行」の精神</li>
+        <li>「自己欺瞞への誠実さ」——清沢満之以来の知的誠実さの伝統</li>
+        <li>「哲学としての深さ」——吉本隆明・梅原猛ら知識人が注目してきた思想的豊かさ</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <blockquote>弥陀の五劫思惟の願をよくよく案ずれば、ひとえに親鸞一人がためなりけり。</blockquote>
+    <cite>— 親鸞聖人（歎異抄・後序）— 「阿弥陀仏の誓いは、この私一人のためだった」という驚くべき個人化の宣言</cite>
+  </div>
+</section>
+
+<!-- ==================================================
+     ② 真宗大谷派とは
+================================================== -->
+<section class="topic-section" id="otani">
+  <div class="topic-header">
+    <div class="topic-num">②</div>
+    <div class="topic-titles">
+      <h2>真宗大谷派とは</h2>
+      <div class="sub">Shinshū Ōtani-ha — 東本願寺を本山とする宗派</div>
+      <div class="hook">「西と東」に分かれた理由は、政治の陰謀だった。しかし分裂が生んだ「精神の違い」は本物だ。</div>
+    </div>
+  </div>
+
+  <!-- SVG: 東西分裂の図 -->
+  <div style="background:#fff;border-radius:var(--radius);padding:24px;border:1px solid #e0d0b8;margin-bottom:24px;overflow:auto">
+    <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" width="100%" style="min-width:520px">
+      <!-- origin -->
+      <rect x="250" y="10" width="200" height="50" rx="10" fill="#7c3d1e" opacity=".9"/>
+      <text x="350" y="30" text-anchor="middle" font-size="13" fill="#f0dfc0" font-family="Yu Mincho,serif" letter-spacing="3">本願寺（蓮如以降）</text>
+      <text x="350" y="48" text-anchor="middle" font-size="11" fill="#f0dfc0" font-family="Meiryo UI,sans-serif">石山合戦 → 秀吉・家康時代</text>
+      <!-- split arrow -->
+      <line x1="280" y1="60" x2="180" y2="110" stroke="#c8902a" stroke-width="2.5" stroke-dasharray="6 3"/>
+      <line x1="420" y1="60" x2="520" y2="110" stroke="#c8902a" stroke-width="2.5" stroke-dasharray="6 3"/>
+      <text x="350" y="90" text-anchor="middle" font-size="12" fill="#c8902a" font-family="Yu Mincho,serif">1602年 徳川家康が分裂を工作</text>
+      <!-- West -->
+      <rect x="60" y="110" width="220" height="100" rx="10" fill="#5050a0" opacity=".12" stroke="#5050a0" stroke-width="2"/>
+      <text x="170" y="133" text-anchor="middle" font-size="14" fill="#5050a0" font-family="Yu Mincho,serif" font-weight="bold">西本願寺（本願寺派）</text>
+      <text x="170" y="152" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Meiryo UI,sans-serif">西 Nishi Honganji</text>
+      <text x="80" y="172" font-size="11" fill="#4a3520" font-family="Meiryo UI,sans-serif">• 伝統儀式・典礼を重視</text>
+      <text x="80" y="189" font-size="11" fill="#4a3520" font-family="Meiryo UI,sans-serif">• 全国最大規模の組織</text>
+      <text x="80" y="206" font-size="11" fill="#4a3520" font-family="Meiryo UI,sans-serif">• 宗名：浄土真宗本願寺派</text>
+      <!-- East -->
+      <rect x="420" y="110" width="240" height="100" rx="10" fill="#c8902a" opacity=".12" stroke="#c8902a" stroke-width="2.5"/>
+      <text x="540" y="133" text-anchor="middle" font-size="14" fill="#7c3d1e" font-family="Yu Mincho,serif" font-weight="bold">東本願寺（大谷派）★</text>
+      <text x="540" y="152" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Meiryo UI,sans-serif">東 Higashi Honganji ← 真照寺</text>
+      <text x="430" y="172" font-size="11" fill="#4a3520" font-family="Meiryo UI,sans-serif">• 思想的探求・批判精神を重視</text>
+      <text x="430" y="189" font-size="11" fill="#4a3520" font-family="Meiryo UI,sans-serif">• 清沢満之・曽我量深を輩出</text>
+      <text x="430" y="206" font-size="11" fill="#4a3520" font-family="Meiryo UI,sans-serif">• 宗名：真宗大谷派</text>
+    </svg>
+  </div>
+
+  <div class="grid-2">
+    <div class="c-card card-gold">
+      <h4>⚔️ 分裂の真相：徳川の政治工作</h4>
+      <p>1602年、徳川家康は巨大化した本願寺勢力（石山合戦で織田信長と10年戦った）を弱体化させるため、本願寺の内部対立を利用して分裂を促した。教義の違いではなく、<strong>純粋に政治的な権力分割</strong>が理由だ。</p>
+      <p style="margin-top:10px">東（准如）と西（教如）に分けられた本願寺は、互いに対抗意識を持ちながらも、結果的に異なる精神文化を育てることになった——まさに「ピンチをチャンスに変えた」歴史だ。</p>
+    </div>
+    <div class="c-card card-rose">
+      <h4>🔥 大谷派の「問いかける精神」</h4>
+      <p>真宗大谷派が輩出した思想家たちに共通するのは「問い続ける姿勢」だ。清沢満之は宗門の形式主義を批判し、曽我量深は「如来の自己表現」という前代未聞の解釈を打ち出し、金子大栄は平易な言葉で親鸞を語り続けた。</p>
+      <p style="margin-top:10px">「信じることは、疑うことを終わらせることではない」——大谷派の学びの伝統は、安易な答えよりも<em>深い問いを大切にする</em>文化を持つ。</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-serif);font-size:20px;color:var(--col-main);letter-spacing:.15em;margin:24px 0 16px;padding-left:14px;border-left:4px solid var(--col-accent)">東西の「空気の違い」を比べると</h3>
+
+  <table class="compare-table">
+    <tr>
+      <th>項目</th>
+      <th>真宗大谷派（東）</th>
+      <th>浄土真宗本願寺派（西）</th>
+    </tr>
+    <tr>
+      <td class="label">本山</td>
+      <td>東本願寺（京都・烏丸七条）</td>
+      <td>西本願寺（京都・堀川七条）</td>
+    </tr>
+    <tr>
+      <td class="label">特色</td>
+      <td>思想的探求・批判的省察を重視</td>
+      <td>伝統的典礼・組織的整備を重視</td>
+    </tr>
+    <tr>
+      <td class="label">代表的人物</td>
+      <td>清沢満之・曽我量深・金子大栄・安田理深</td>
+      <td>蓮如上人の系譜・各地の布教使</td>
+    </tr>
+    <tr>
+      <td class="label">仏壇の色</td>
+      <td>金仏壇（黒系）</td>
+      <td>金仏壇（金系）</td>
+    </tr>
+    <tr>
+      <td class="label">お経の読み方</td>
+      <td>大谷声明（やや速め）</td>
+      <td>本願寺声明（やや遅め）</td>
+    </tr>
+    <tr>
+      <td class="label">現代の取り組み</td>
+      <td>同朋運動・差別問題への取り組み</td>
+      <td>門信徒の育成・国際布教</td>
+    </tr>
+  </table>
+
+  <div class="dyk"><strong>💡 知っていましたか？</strong>東本願寺の御影堂（ごえいどう）は木造建築としては世界最大級の規模を誇る。明治時代に建てられたこの建物の建設には、女性門信徒たちが自らの髪の毛を撚って作った「毛綱（けづな）」が使われた——信仰心が文字通り建物を支えたエピソードだ。</div>
+
+  <div class="c-card card-teal" style="margin-top:8px">
+    <h4>🏯 真照寺と大谷派のつながり</h4>
+    <p>真照寺は真宗大谷派の寺院として、東本願寺を本山に仰ぎます。大谷派の「問い続ける」精神は、私たちの法話・学びの場にも生きています。住職の法話、座禅会、写経会——これらはすべて「答えを与える場」ではなく「共に問い、共に歩む場」として位置づけています。</p>
+  </div>
+</section>
+
+<!-- ==================================================
+     ③ 浄土三部経
+================================================== -->
+<section class="topic-section" id="sanbukyou">
+  <div class="topic-header">
+    <div class="topic-num">③</div>
+    <div class="topic-titles">
+      <h2>浄土三部経</h2>
+      <div class="sub">The Three Pure Land Sutras — 三つの経典が一つのヴィジョンを語る</div>
+      <div class="hook">作者も時代も場所も違う三つの経典が、なぜ同じ「阿弥陀仏の世界」を指し示すのか。これは偶然ではない。</div>
+    </div>
+  </div>
+
+  <!-- Three sutras overview SVG -->
+  <div style="background:#fff;border-radius:var(--radius);padding:24px 28px;border:1px solid #e0d0b8;margin-bottom:24px;overflow:auto">
+    <svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg" width="100%" style="min-width:560px">
+      <defs>
+        <linearGradient id="sg1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c8902a" stop-opacity=".9"/>
+          <stop offset="100%" stop-color="#7c3d1e" stop-opacity=".9"/>
+        </linearGradient>
+        <linearGradient id="sg2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#703a70" stop-opacity=".9"/>
+          <stop offset="100%" stop-color="#4a2060" stop-opacity=".9"/>
+        </linearGradient>
+        <linearGradient id="sg3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a6060" stop-opacity=".9"/>
+          <stop offset="100%" stop-color="#1a4040" stop-opacity=".9"/>
+        </linearGradient>
+      </defs>
+      <!-- sutra 1 -->
+      <rect x="10" y="20" width="200" height="120" rx="10" fill="url(#sg1)"/>
+      <text x="110" y="48" text-anchor="middle" font-size="11" fill="#f0dfc0" font-family="Meiryo UI,sans-serif">第一部</text>
+      <text x="110" y="68" text-anchor="middle" font-size="14" fill="#fff" font-family="Yu Mincho,serif" letter-spacing="2">無量寿経</text>
+      <text x="110" y="88" text-anchor="middle" font-size="10" fill="#f0dfc0" font-family="Meiryo UI,sans-serif">Larger Sukhavativyuha</text>
+      <text x="110" y="106" text-anchor="middle" font-size="11" fill="#ffe0a0" font-family="Meiryo UI,sans-serif">🎬 叙事詩／誓いの全記録</text>
+      <text x="110" y="125" text-anchor="middle" font-size="10" fill="#f0dfc0" font-family="Meiryo UI,sans-serif">「なぜ阿弥陀仏は存在するのか」</text>
+      <!-- sutra 2 -->
+      <rect x="250" y="20" width="200" height="120" rx="10" fill="url(#sg2)"/>
+      <text x="350" y="48" text-anchor="middle" font-size="11" fill="#f0dfc0" font-family="Meiryo UI,sans-serif">第二部</text>
+      <text x="350" y="68" text-anchor="middle" font-size="14" fill="#fff" font-family="Yu Mincho,serif" letter-spacing="2">観無量寿経</text>
+      <text x="350" y="88" text-anchor="middle" font-size="10" fill="#f0dfc0" font-family="Meiryo UI,sans-serif">Amitayurdhyana Sutra</text>
+      <text x="350" y="106" text-anchor="middle" font-size="11" fill="#e0c0f0" font-family="Meiryo UI,sans-serif">🎭 心理ドラマ／悲劇から誕生</text>
+      <text x="350" y="125" text-anchor="middle" font-size="10" fill="#f0dfc0" font-family="Meiryo UI,sans-serif">「どんな苦しみの中でも救われる」</text>
+      <!-- sutra 3 -->
+      <rect x="490" y="20" width="200" height="120" rx="10" fill="url(#sg3)"/>
+      <text x="590" y="48" text-anchor="middle" font-size="11" fill="#f0dfc0" font-family="Meiryo UI,sans-serif">第三部</text>
+      <text x="590" y="68" text-anchor="middle" font-size="14" fill="#fff" font-family="Yu Mincho,serif" letter-spacing="2">阿弥陀経</text>
+      <text x="590" y="88" text-anchor="middle" font-size="10" fill="#f0dfc0" font-family="Meiryo UI,sans-serif">Smaller Sukhavativyuha</text>
+      <text x="590" y="106" text-anchor="middle" font-size="11" fill="#a0e0d0" font-family="Meiryo UI,sans-serif">🎵 詩的短編／凝縮された真実</text>
+      <text x="590" y="125" text-anchor="middle" font-size="10" fill="#f0dfc0" font-family="Meiryo UI,sans-serif">「ただ名を称えよ」</text>
+    </svg>
+  </div>
+
+  <!-- Sutra 1 -->
+  <div class="sutra-card">
+    <div class="sutra-header">
+      <div class="sutra-num" style="background:linear-gradient(135deg,#c8902a,#7c3d1e)">一</div>
+      <div class="sutra-title">
+        <h3>無量寿経（むりょうじゅきょう）</h3>
+        <div class="en">大無量寿経 / Larger Sukhavativyuha Sutra</div>
+      </div>
+      <span class="badge badge-gold">浄土真宗の根本経典</span>
+    </div>
+    <div class="sutra-body">
+      <p>これは「阿弥陀仏の原点」を語る経典だ。はるか昔、「法蔵菩薩（ほうぞうぼさつ）」という名の修行者が「すべての生きとし生けるものを救う」という壮大な誓いを立て、気の遠くなるような時間をかけて修行し、ついにその誓いを完成させて「阿弥陀仏」になった——という物語。</p>
+      <p><strong>第十八願（だいじゅうはちがん）</strong>が中心。「私が仏になるとき、すべての人が信じて念仏を称えさえすれば、必ず私の国（浄土）に生まれることができる。もしそれが叶わないなら、私は仏にならない」——この誓いこそが浄土真宗の全ての根拠だ。</p>
+      <p>独自の視点：法蔵菩薩は「自分が救われるために」修行したのではなく、「他者を救うために」修行した。これは仏教史上最も「他者志向」な修行の物語であり、一種の「神の愛」に匹敵する他者への絶対的献身を描いている。</p>
+    </div>
+  </div>
+
+  <!-- Sutra 2 -->
+  <div class="sutra-card">
+    <div class="sutra-header">
+      <div class="sutra-num" style="background:linear-gradient(135deg,#703a70,#4a2060)">二</div>
+      <div class="sutra-title">
+        <h3>観無量寿経（かんむりょうじゅきょう）</h3>
+        <div class="en">観経 / Amitayurdhyana Sutra</div>
+      </div>
+      <span class="badge badge-red">最もドラマチックな経典</span>
+    </div>
+    <div class="sutra-body">
+      <p>この経典は「悲劇の王妃」の物語から始まる。マガダ国の王妃・韋提希（いだいけ）は、息子・阿闍世（あじゃせ）に夫王を殺害されて幽閉された。絶望の底で「こんな苦しみしかない世界に生まれたくなかった」と涙を流す韋提希に、お釈迦様が現れ、「あなたは今のまま救われる」と伝える——。</p>
+      <p><strong>独自の視点：</strong>この経典は「成功者のための教え」ではなく「壊れた人のための教え」として書かれている。善導大師はこの経典から「念仏を称えれば誰でも往生できる」という結論を引き出したが、その根拠は韋提希という「絶望した一人の女性」の体験にあった。仏教史上最も人間的な瞬間の一つだ。</p>
+      <p>法然・親鸞がこの経典を重視したのも、「理想的な修行者」ではなく「現実の苦しみの中にいる人」に向けた教えだったからだ。</p>
+    </div>
+  </div>
+
+  <!-- Sutra 3 -->
+  <div class="sutra-card">
+    <div class="sutra-header">
+      <div class="sutra-num" style="background:linear-gradient(135deg,#2a6060,#1a4040)">三</div>
+      <div class="sutra-title">
+        <h3>阿弥陀経（あみだきょう）</h3>
+        <div class="en">小阿弥陀経 / Smaller Sukhavativyuha Sutra</div>
+      </div>
+      <span class="badge badge-green">最もよく読まれる経典</span>
+    </div>
+    <div class="sutra-body">
+      <p>三部経の中で最も短く（漢訳で約1800字）、最もシンプルな経典。極楽浄土の美しさを詩的に描写し、最後に「ただ阿弥陀仏の名を称えよ」と端的に結ぶ。法要・葬儀・日常の勤行で最も頻繁に読まれる。</p>
+      <p><strong>独自の視点：短いことの革命性。</strong>無量寿経は長大な叙事詩、観無量寿経は詳細な瞑想の手引き——それに対して阿弥陀経は「結論だけ」を語る。複雑な修行論でも難解な哲学でもなく「ただ称えよ」——この圧倒的なシンプルさが、仏教を民衆のものにした最大の貢献かもしれない。</p>
+      <p>現代的に言えば「エレベーターピッチ」——30秒で浄土思想の核心を伝える完璧な要約として機能している。</p>
+    </div>
+  </div>
+
+  <div class="dyk"><strong>💡 知っていましたか？</strong>三部経はインドで成立したサンスクリット原典を、鳩摩羅什・菩提流支・玄奘らが漢訳した。つまり現在私たちが「お経」として読んでいるのは「インド語→中国語（漢文）」の翻訳版。さらに現代の注釈書では現代語訳もある。聖典もずっと「翻訳」を重ねてきた——まさに言葉は時代とともに生きている。</div>
+
+  <div class="flow">
+    <div class="flow-node">法蔵菩薩の48の誓い<br><small>（無量寿経）</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">韋提希への啓示<br><small>（観無量寿経）</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node highlight">「名を称えよ」<br><small>（阿弥陀経）</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">善導・法然・親鸞へ</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">「南無阿弥陀仏」<br><small>私たちの日常へ</small></div>
+  </div>
+</section>
+
+<!-- ==================================================
+     ④ 教行信証
+================================================== -->
+<section class="topic-section" id="kyogyo">
+  <div class="topic-header">
+    <div class="topic-num">④</div>
+    <div class="topic-titles">
+      <h2>教行信証</h2>
+      <div class="sub">顕浄土真実教行証文類 — 親鸞が死ぬまで書き続けた「一冊の本」</div>
+      <div class="hook">90年の生涯で書き、書き直し、また書き直した。未完成のまま死んだ、最も正直な宗教書。</div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <div class="big">全文の98%は「引用」——<br>しかし世界で最も個人的な信仰告白だ</div>
+    <div class="note">インドから中国の経典・論書・祖師の言葉を膨大に引用しながら、その選択と配置によって「親鸞一人の真実」を語るという、他に類のない書物。</div>
+  </div>
+
+  <h3 style="font-family:var(--font-serif);font-size:20px;color:var(--col-main);letter-spacing:.15em;margin:24px 0 16px;padding-left:14px;border-left:4px solid var(--col-accent)">六つの巻——一冊の旅路</h3>
+
+  <div class="chapter-grid">
+    <div class="ch-card" style="background:linear-gradient(135deg,#fff8f0,#fff3e0);border-color:#c8902a">
+      <div class="ch-num">📖</div>
+      <div class="ch-name">教（きょう）</div>
+      <div class="ch-en">The Teaching</div>
+      <div class="ch-desc">「なぜ浄土真宗の教えが正しいのか」の根拠を示す。無量寿経（大経）を根本聖典として位置づける。</div>
+    </div>
+    <div class="ch-card" style="background:linear-gradient(135deg,#f0f8f0,#e4f4e4);border-color:#4a6741">
+      <div class="ch-num">🙏</div>
+      <div class="ch-name">行（ぎょう）</div>
+      <div class="ch-en">The Practice</div>
+      <div class="ch-desc">「南無阿弥陀仏」と称名することが、阿弥陀仏自身の「行（はたらき）」であることを論証。6巻中最も長い。</div>
+    </div>
+    <div class="ch-card" style="background:linear-gradient(135deg,#f0f0ff,#e8e8ff);border-color:#5050a0">
+      <div class="ch-num">💎</div>
+      <div class="ch-name">信（しん）</div>
+      <div class="ch-en">The Entrusting Faith</div>
+      <div class="ch-desc">「信心」こそが往生の正因であることを明かす。親鸞自身の体験が最も強く反映された巻。「第十八願」の核心。</div>
+    </div>
+    <div class="ch-card" style="background:linear-gradient(135deg,#fff0f4,#ffe8ec);border-color:#a05060">
+      <div class="ch-num">🌅</div>
+      <div class="ch-name">証（しょう）</div>
+      <div class="ch-en">The Attainment</div>
+      <div class="ch-desc">浄土往生の「証果（さとりの完成）」を示す。死後の往生ではなく、現生での「正定聚（しょうじょうじゅ）」の自覚を説く。</div>
+    </div>
+    <div class="ch-card" style="background:linear-gradient(135deg,#f8f4e0,#f4eed0);border-color:#a09030">
+      <div class="ch-num">🏔️</div>
+      <div class="ch-name">真仏土（しんぶつど）</div>
+      <div class="ch-en">The True Buddha-land</div>
+      <div class="ch-desc">阿弥陀仏と浄土の「真実性」を論証。仏の真実を明かすことで、信心の根拠を示す。</div>
+    </div>
+    <div class="ch-card" style="background:linear-gradient(135deg,#f0f8f8,#e4f4f4);border-color:#3a7070">
+      <div class="ch-num">🌐</div>
+      <div class="ch-name">化身土（けしんど）</div>
+      <div class="ch-en">The Transformed Land</div>
+      <div class="ch-desc">真実ではない「方便の教え」（聖道門・他の浄土系）を批判的に検討する。最も論争的な巻。未完と指摘される部分も残る。</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:8px">
+    <div class="c-card card-gold">
+      <h4>🔍 独自の視点①：「死ぬまで書き直した」という意味</h4>
+      <p>教行信証には「坂東本（ばんどうぼん）」という現存する親鸞自筆の写本がある。これを見ると、親鸞が<strong>生涯にわたって書き込み・訂正・加筆を繰り返した</strong>ことがわかる。90歳で死ぬまで「まだ正確でない」「もっと深い表現がある」と考え続けた。</p>
+      <p style="margin-top:10px">「完成した体系を伝える」のではなく「自分が今どこまで理解しているか」を誠実に記録し続けた——教行信証は「結論の本」ではなく「問い続ける姿勢の記録」だ。</p>
+    </div>
+    <div class="c-card card-blue">
+      <h4>🔍 独自の視点②：99%が引用であることの革命性</h4>
+      <p>教行信証のテキストは経典・論書・祖師の言葉の引用で埋め尽くされている。親鸞自身の「地の文」は最小限だ。これを「独創性がない」と批判する人もいる。しかし逆に考えると——</p>
+      <p style="margin-top:8px">膨大な仏教文献から「自分の信仰の真実に触れる言葉だけを選んだ」ということは、その選択眼こそが親鸞の独自性だ。キュレーターとして、編集者として、親鸞はインド〜中国〜日本の仏教思想の精華を再配置し、全く新しい「物語」を語った。</p>
+    </div>
+  </div>
+
+  <div class="c-card card-rose" style="margin-top:4px">
+    <h4>🌏 現代への意味：「書き直す」という誠実さ</h4>
+    <p>私たちは「完成した答え」を求めがちだ。しかし親鸞は90年かけて書き続け、それでも「完成」と言わなかった。これは現代的に読めば「学び続けることを止めない」という最高の模範だ。AIが「完璧な答え」を瞬時に出せる時代だからこそ、「問い続ける姿勢」そのものの価値が増している。教行信証は「問いの構造」を持つ書物として、今もリアルに読まれる。</p>
+  </div>
+
+  <div class="dyk"><strong>💡 知っていましたか？</strong>教行信証の正式名称は「顕浄土真実教行証文類（けんじょうどしんじつきょうぎょうしょうもんるい）」——「浄土の真実の教行証の文を顕（あら）わす」という意味。タイトルの時点で「これは私が作ったのではなく、すでにある真実を明らかにするだけだ」という親鸞の謙虚さが表れている。</div>
+
+  <div class="quote-box">
+    <blockquote>
+      しかるに愚禿釈の鸞、論主の解義を仰ぎ、<br>
+      宗師の勧化に依りて、久しく万行諸善の仮門を出でて、<br>
+      永く双樹林下の往生を離る。
+    </blockquote>
+    <cite>— 教行信証「信文類」より — 自らを「愚かな禿頭の鸞」と名乗ることで始まる、最も謙虚な信仰告白</cite>
+  </div>
+</section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">真照寺<small>Shinsho-ji Temple</small></div>
+      <p>心静かに、ともに歩む場所。<br>どなたでもお気軽にお越しください。</p>
+    </div>
+    <div>
+      <h4>ページ案内</h4>
+      <ul>
+        <li><a href="about.html">お寺の紹介</a></li>
+        <li><a href="teaching.html">法話・仏教の教え</a></li>
+        <li><a href="events.html">行事案内</a></li>
+        <li><a href="news.html">お知らせ・ブログ</a></li>
+        <li><a href="masters.html">偉大な師たち</a></li>
+        <li><a href="shinshu.html">浄土真宗を知る</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ご相談・ご連絡</h4>
+      <ul>
+        <li><a href="#">法事・葬儀のご相談</a></li>
+        <li><a href="#">お墓・納骨のご案内</a></li>
+        <li><a href="#">写経・座禅会</a></li>
+        <li><a href="#">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 真照寺 All Rights Reserved.</p></div>
+</footer>
+
+<script>
+function scrollTo(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+// side nav highlight
+const sections = document.querySelectorAll('.topic-section');
+const navLinks = document.querySelectorAll('.side-nav a');
+const obs = new IntersectionObserver(e=>{
+  e.forEach(en=>{
+    if(en.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('cur'));
+      const l = document.querySelector(`.side-nav a[href="#${en.target.id}"]`);
+      if(l) l.classList.add('cur');
+    }
+  });
+},{rootMargin:'-30% 0px -60% 0px'});
+sections.forEach(s=>obs.observe(s));
+// tab active on scroll
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabIds = ['shinshu','otani','sanbukyou','kyogyo'];
+const obs2 = new IntersectionObserver(e=>{
+  e.forEach(en=>{
+    if(en.isIntersecting){
+      const idx = tabIds.indexOf(en.target.id);
+      if(idx>=0){ tabBtns.forEach(b=>b.classList.remove('active')); tabBtns[idx].classList.add('active'); }
+    }
+  });
+},{rootMargin:'-30% 0px -60% 0px'});
+sections.forEach(s=>obs2.observe(s));
+</script>
+</body>
+</html>
