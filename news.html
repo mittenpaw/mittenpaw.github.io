@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お知らせ・ブログ – 真照寺</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --col-main: #7c3d1e; --col-accent: #c8902a;
+    --col-light: #f8f1e8; --col-dark: #3a2510;
+    --col-gray: #8a7a6a; --col-green: #4a6741;
+    --font-main: 'Meiryo UI', 'メイリオ', Meiryo, sans-serif;
+    --font-serif: 'Yu Mincho', '游明朝', 'YuMincho', 'Hiragino Mincho Pro', serif;
+    --radius: 8px; --shadow: 0 2px 16px rgba(60,30,0,.10);
+  }
+  body { font-family: var(--font-main); background: var(--col-light); color: var(--col-dark); line-height: 1.8; font-size: 15px; }
+  a { color: inherit; text-decoration: none; }
+
+  header { background: var(--col-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+  .logo { font-family: var(--font-serif); font-size: 22px; letter-spacing: .2em; color: #f0dfc0; }
+  .logo small { display: block; font-size: 11px; letter-spacing: .15em; color: var(--col-accent); font-family: var(--font-main); margin-top: -4px; }
+  nav { display: flex; gap: 4px; }
+  nav a { color: #e8d5b0; font-size: 14px; padding: 8px 14px; border-radius: var(--radius); transition: background .2s, color .2s; letter-spacing: .05em; }
+  nav a:hover, nav a.active { background: var(--col-main); color: #fff; }
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+  .menu-toggle span { display: block; width: 26px; height: 2px; background: #e8d5b0; border-radius: 2px; }
+
+  .page-hero { background: linear-gradient(160deg, #3a2510 0%, #7c3d1e 60%, #a0602a 100%); color: #f8f1e8; text-align: center; padding: 64px 24px 56px; }
+  .page-hero h1 { font-family: var(--font-serif); font-size: clamp(24px, 4vw, 42px); letter-spacing: .25em; }
+  .page-hero p { margin-top: 10px; color: #f0dfc0; font-size: 14px; letter-spacing: .1em; }
+
+  /* レイアウト */
+  .main-layout { max-width: 1100px; margin: 0 auto; padding: 56px 24px; display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: start; }
+
+  /* 記事フィルター */
+  .filter-bar { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+  .filter-btn {
+    padding: 6px 16px; border-radius: 20px; font-size: 13px;
+    cursor: pointer; border: 1.5px solid #e0d0b8; background: #fff;
+    color: var(--col-gray); transition: all .2s;
+  }
+  .filter-btn.active, .filter-btn:hover { color: #fff; border-color: transparent; }
+  .filter-btn.f-all.active, .filter-btn.f-all:hover { background: var(--col-dark); }
+  .filter-btn.f-info.active, .filter-btn.f-info:hover { background: var(--col-green); }
+  .filter-btn.f-event.active, .filter-btn.f-event:hover { background: var(--col-main); }
+  .filter-btn.f-blog.active, .filter-btn.f-blog:hover { background: #6050a0; }
+
+  /* 記事カード */
+  .article-card {
+    background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+    border: 1px solid #e8ddd0; margin-bottom: 20px;
+    overflow: hidden; transition: transform .2s, box-shadow .2s;
+    cursor: pointer;
+  }
+  .article-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(60,30,0,.15); }
+  .note-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(96,80,160,.20); }
+  .note-card a:hover .article-title { color: #6050a0; }
+  .article-card-inner { padding: 24px 28px; }
+  .article-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .article-date { font-size: 13px; color: var(--col-gray); font-variant-numeric: tabular-nums; }
+  .tag { display: inline-block; padding: 2px 12px; border-radius: 12px; font-size: 11px; font-weight: bold; }
+  .tag-info { background: #e8f0e0; color: var(--col-green); }
+  .tag-event { background: #fce8d0; color: var(--col-main); }
+  .tag-blog { background: #e8e0f0; color: #6050a0; }
+  .article-title { font-family: var(--font-serif); font-size: 18px; color: var(--col-dark); margin-bottom: 10px; letter-spacing: .05em; line-height: 1.5; }
+  .article-card:hover .article-title { color: var(--col-main); }
+  .article-excerpt { font-size: 13px; color: var(--col-gray); line-height: 1.8; }
+
+  /* 記事展開 */
+  .article-full { display: none; border-top: 1px solid #e8ddd0; padding: 0 28px 24px; }
+  .article-full.open { display: block; }
+  .article-full p { font-size: 14px; color: #4a3520; line-height: 2.1; margin-bottom: 16px; }
+  .article-full p:last-child { margin-bottom: 0; }
+  .article-full .img-placeholder { width: 100%; height: 180px; background: linear-gradient(135deg, #f0e8d8, #e0d0b8); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 40px; margin-bottom: 16px; }
+
+  /* サイドバー */
+  .sidebar { position: sticky; top: 80px; }
+  .sidebar-widget { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid #e8ddd0; padding: 20px; margin-bottom: 20px; }
+  .sidebar-widget h3 { font-family: var(--font-serif); font-size: 16px; color: var(--col-main); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--col-accent); letter-spacing: .1em; }
+  .archive-list { list-style: none; }
+  .archive-list li { padding: 6px 0; border-bottom: 1px solid #f0e8e0; font-size: 13px; color: var(--col-gray); display: flex; justify-content: space-between; }
+  .archive-list li:last-child { border-bottom: none; }
+  .archive-list a:hover { color: var(--col-main); }
+  .archive-count { background: #f0e8d8; color: var(--col-main); border-radius: 10px; padding: 0 8px; font-size: 11px; }
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag-cloud a { padding: 4px 12px; border-radius: 16px; font-size: 12px; background: var(--col-light); color: var(--col-gray); border: 1px solid #e0d0b8; transition: all .2s; }
+  .tag-cloud a:hover { background: var(--col-main); color: #fff; border-color: transparent; }
+
+  .bg-warm { background: #f0e8d8; }
+  .bg-white { background: #fff; }
+
+  footer { background: var(--col-dark); color: #c8b89a; padding: 48px 24px 24px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(200,184,154,.2); }
+  .footer-brand .logo { font-size: 20px; }
+  .footer-brand p { margin-top: 12px; font-size: 13px; line-height: 1.8; color: #a89880; }
+  footer h4 { color: #f0dfc0; font-size: 14px; margin-bottom: 12px; letter-spacing: .1em; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; }
+  footer ul li a { font-size: 13px; color: #a89880; transition: color .2s; }
+  footer ul li a:hover { color: var(--col-accent); }
+  .footer-bottom { max-width: 1100px; margin: 20px auto 0; text-align: center; font-size: 12px; color: #6a5840; }
+
+  @media (max-width: 768px) {
+    nav { display: none; flex-direction: column; width: 100%; }
+    nav.open { display: flex; }
+    .header-inner { flex-wrap: wrap; height: auto; padding: 12px 16px; gap: 8px; }
+    .menu-toggle { display: flex; }
+    nav a { width: 100%; padding: 12px 16px; border-radius: 0; }
+    .main-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .footer-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">真照寺<small>Shinsho-ji Temple</small></a>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="main-nav">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">お寺の紹介</a>
+      <a href="teaching.html">法話・教え</a>
+      <a href="events.html">行事案内</a>
+      <a href="news.html" class="active">お知らせ</a>
+      <a href="masters.html">偉大な師たち</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <h1>📰 お知らせ・ブログ</h1>
+  <p>真照寺からの最新情報</p>
+</div>
+
+<div class="main-layout">
+  <!-- 記事一覧 -->
+  <main>
+    <div class="filter-bar">
+      <button class="filter-btn f-all active" onclick="filterArticles('all', this)">すべて</button>
+      <button class="filter-btn f-info" onclick="filterArticles('info', this)">お知らせ</button>
+      <button class="filter-btn f-event" onclick="filterArticles('event', this)">行事</button>
+      <button class="filter-btn f-blog" onclick="filterArticles('blog', this)">ブログ</button>
+    </div>
+
+    <!-- 記事1 -->
+    <div class="article-card" data-category="event" onclick="toggleArticle(this)">
+      <div class="article-card-inner">
+        <div class="article-meta">
+          <span class="article-date">2026年6月5日</span>
+          <span class="tag tag-event">行事</span>
+        </div>
+        <div class="article-title">6月のお彼岸法要のご案内（6月21日）</div>
+        <div class="article-excerpt">夏至を迎える6月。今年の夏彼岸法要を6月21日（日）午前10時より執り行います。どなたでもご参加いただけます。</div>
+      </div>
+      <div class="article-full">
+        <p>夏彼岸法要を下記の通りご案内申し上げます。お気軽にお越しください。</p>
+        <p>
+          日時：令和8年6月21日（日）午前10時〜11時30分<br>
+          場所：真照寺 本堂<br>
+          内容：彼岸法要・住職の法話・ご先祖様へのご回向<br>
+          参加費：無料（お志は随時受け付けております）
+        </p>
+        <p>お彼岸はご先祖様を偲ぶとともに、自らの生き方を見つめ直す大切な期間です。どうぞ静かな気持ちでお参りください。ご不明の点はお気軽にお電話ください。</p>
+      </div>
+    </div>
+
+    <!-- note記事1 -->
+    <div class="article-card note-card" data-category="blog" style="cursor:default;">
+      <a href="https://note.com/triratna/n/n3e2f2ff9f3ce" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
+      <div class="article-card-inner">
+        <div class="article-meta">
+          <span class="article-date">2025年10月4日</span>
+          <span class="tag tag-blog">ブログ</span>
+          <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
+        </div>
+        <div class="article-title">論破王龍樹にAIを論破させてみた</div>
+        <div class="article-excerpt">龍樹（ナーガールジュナ）の帰謬論証法（プラサンガ）とAI言語モデルを比較・検証。「空」の論理を現代のAIに問いかける、知的好奇心あふれる考察。</div>
+        <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
+      </div>
+      </a>
+    </div>
+
+    <!-- note記事2 -->
+    <div class="article-card note-card" data-category="blog" style="cursor:default;">
+      <a href="https://note.com/triratna/n/nc3f37e9b902a" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
+      <div class="article-card-inner">
+        <div class="article-meta">
+          <span class="article-date">2024年6月28日</span>
+          <span class="tag tag-blog">ブログ</span>
+          <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
+        </div>
+        <div class="article-title">仏説無量寿経 梵文現代語訳</div>
+        <div class="article-excerpt">サンスクリット原典「Sukhāvatīvyūha（スカーヴァティーヴューハ）」の現代語訳。阿弥陀仏の四十八願をはじめ、極楽浄土の荘厳を詳細に伝える浄土教の根本経典。PDF版もダウンロード可。</div>
+        <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
+      </div>
+      </a>
+    </div>
+
+    <!-- note記事3 -->
+    <div class="article-card note-card" data-category="blog" style="cursor:default;">
+      <a href="https://note.com/triratna/n/n71c93c90ec0e" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
+      <div class="article-card-inner">
+        <div class="article-meta">
+          <span class="article-date">2024年3月23日</span>
+          <span class="tag tag-blog">ブログ</span>
+          <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
+        </div>
+        <div class="article-title">唯識三十頌（真諦訳）</div>
+        <div class="article-excerpt">天親（ヴァスバンドゥ）菩薩著、真諦訳によるサンスクリット日本語対訳・漢文英語対訳。阿頼耶識・末那識・唯識の三十偈を丁寧に解説する、唯識思想の入門テキスト。</div>
+        <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
+      </div>
+      </a>
+    </div>
+
+    <!-- 記事3 -->
+    <div class="article-card" data-category="info" onclick="toggleArticle(this)">
+      <div class="article-card-inner">
+        <div class="article-meta">
+          <span class="article-date">2026年5月20日</span>
+          <span class="tag tag-info">お知らせ</span>
+        </div>
+        <div class="article-title">夏季期間中のご相談受付について</div>
+        <div class="article-excerpt">8月13日〜16日のお盆期間中は法要が集中するため、個別のご相談受付が変更となります。ご確認ください。</div>
+      </div>
+      <div class="article-full">
+        <p>平素より真照寺をご支援いただき、誠にありがとうございます。</p>
+        <p>8月13日（木）〜8月16日（日）のお盆期間中は、法要・読経が集中いたします。この期間中の個別のご相談（法事・墓地・納骨等）のご予約受付は、下記の通り変更となります。</p>
+        <p>
+          ■ 通常受付：8月12日（水）まで<br>
+          ■ お盆期間中：電話・メールのみ（訪問での受付は不可）<br>
+          ■ 再開：8月17日（月）より通常受付
+        </p>
+        <p>ご不便をおかけして申し訳ございませんが、何卒よろしくお願い申し上げます。</p>
+      </div>
+    </div>
+
+    <!-- 記事4 -->
+    <div class="article-card" data-category="event" onclick="toggleArticle(this)">
+      <div class="article-card-inner">
+        <div class="article-meta">
+          <span class="article-date">2026年5月10日</span>
+          <span class="tag tag-event">行事</span>
+        </div>
+        <div class="article-title">花まつり（仏生会）を無事に終えました。ありがとうございました</div>
+        <div class="article-excerpt">4月8日に執り行いました花まつりには、多くの皆様にご参加いただきました。心より御礼申し上げます。</div>
+      </div>
+      <div class="article-full">
+        <div class="img-placeholder">🌸</div>
+        <p>令和8年4月8日、お釈迦様のお誕生日をお祝いする花まつり（仏生会）を執り行いました。当日は地域の皆様、檀家の皆様、そして多くの子どもたちにご参加いただき、境内は温かな笑顔にあふれました。</p>
+        <p>花御堂の誕生仏に甘茶を注ぐ子どもたちの姿はとても微笑ましく、「すべての命はかけがえない」というお釈迦様のお言葉を、あらためて実感した一日でした。</p>
+        <p>ご参加いただいた皆様に、心より感謝申し上げます。来年もどうぞよろしくお願いいたします。（住職）</p>
+      </div>
+    </div>
+
+    <!-- note記事4 -->
+    <div class="article-card note-card" data-category="blog" style="cursor:default;">
+      <a href="https://note.com/triratna/n/n786ba73dd3bc" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
+      <div class="article-card-inner">
+        <div class="article-meta">
+          <span class="article-date">2022年9月29日</span>
+          <span class="tag tag-blog">ブログ</span>
+          <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
+        </div>
+        <div class="article-title">般若心経 サンスクリット読み・玄奘訳</div>
+        <div class="article-excerpt">「gate gate pāragate pārasaṃgate bodhi svāhā」——サンスクリット原文の発音と玄奘訳の漢文を対照しながら、般若波羅蜜多心経の全文を読み解く。</div>
+        <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
+      </div>
+      </a>
+    </div>
+
+    <!-- note記事5 -->
+    <div class="article-card note-card" data-category="blog" style="cursor:default;">
+      <a href="https://note.com/triratna/n/n3f3b1787b815" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
+      <div class="article-card-inner">
+        <div class="article-meta">
+          <span class="article-date">2021年7月21日</span>
+          <span class="tag tag-blog">ブログ</span>
+          <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
+        </div>
+        <div class="article-title">問対略記 ——明治の浄土真宗とフランス人の問答</div>
+        <div class="article-excerpt">明治9年（1876年）、フランス人実業家エミール・ギメが浄土真宗の高僧たちと7時間に及んだ問答の記録。創造主の有無・因縁・輪廻・道徳……異文化の眼が真宗の本質を照らし出す。</div>
+        <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
+      </div>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- サイドバー -->
+  <aside class="sidebar">
+    <div class="sidebar-widget">
+      <h3>カテゴリ</h3>
+      <div class="tag-cloud">
+        <a href="#">お知らせ</a>
+        <a href="#">行事</a>
+        <a href="#">法話</a>
+        <a href="#">ブログ</a>
+        <a href="#">座禅会</a>
+        <a href="#">写経</a>
+        <a href="#">季節</a>
+      </div>
+    </div>
+    <div class="sidebar-widget">
+      <h3>アーカイブ</h3>
+      <ul class="archive-list">
+        <li><a href="#">2026年6月</a><span class="archive-count">1</span></li>
+        <li><a href="#">2025年10月</a><span class="archive-count">1</span></li>
+        <li><a href="#">2024年6月</a><span class="archive-count">1</span></li>
+        <li><a href="#">2024年3月</a><span class="archive-count">1</span></li>
+        <li><a href="#">2022年9月</a><span class="archive-count">1</span></li>
+        <li><a href="#">2021年7月</a><span class="archive-count">1</span></li>
+      </ul>
+    </div>
+    <div class="sidebar-widget">
+      <h3>お問い合わせ</h3>
+      <p style="font-size:13px; color:var(--col-gray); line-height:1.8;">
+        📞 045-941-9736<br>
+        受付 9:00〜17:00<br><br>
+        ✉ info@shinsho-ji.example.jp<br><br>
+        法事・葬儀・お墓・納骨など、<br>お気軽にご相談ください。
+      </p>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">真照寺<small>Shinsho-ji Temple</small></div>
+      <p>心静かに、ともに歩む場所。<br>どなたでもお気軽にお越しください。</p>
+    </div>
+    <div>
+      <h4>ページ案内</h4>
+      <ul>
+        <li><a href="about.html">お寺の紹介</a></li>
+        <li><a href="teaching.html">法話・仏教の教え</a></li>
+        <li><a href="events.html">行事案内</a></li>
+        <li><a href="news.html">お知らせ・ブログ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ご相談・ご連絡</h4>
+      <ul>
+        <li><a href="#">法事・葬儀のご相談</a></li>
+        <li><a href="#">お墓・納骨のご案内</a></li>
+        <li><a href="#">写経・座禅会</a></li>
+        <li><a href="#">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 真照寺 All Rights Reserved.</p></div>
+</footer>
+
+<script>
+function toggleMenu() { document.getElementById('main-nav').classList.toggle('open'); }
+
+function toggleArticle(card) {
+  const full = card.querySelector('.article-full');
+  full.classList.toggle('open');
+}
+
+function filterArticles(category, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.article-card').forEach(card => {
+    if (category === 'all' || card.dataset.category === category) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>
