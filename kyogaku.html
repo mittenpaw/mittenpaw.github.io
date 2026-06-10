@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大切な遺産 – 真照寺</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --col-main:#7c3d1e;--col-accent:#c8902a;--col-light:#f8f1e8;
+  --col-dark:#3a2510;--col-gray:#8a7a6a;
+  --font-main:'Meiryo UI','メイリオ',Meiryo,sans-serif;
+  --font-serif:'Yu Mincho','游明朝','YuMincho','Hiragino Mincho Pro',serif;
+  --radius:10px;--shadow:0 2px 18px rgba(60,30,0,.11);
+}
+body{font-family:var(--font-main);background:var(--col-light);color:var(--col-dark);line-height:1.8;font-size:15px}
+a{color:inherit;text-decoration:none}
+
+/* ---- HEADER ---- */
+header{background:var(--col-dark);position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:64px}
+.logo{font-family:var(--font-serif);font-size:22px;letter-spacing:.2em;color:#f0dfc0}
+.logo small{display:block;font-size:11px;letter-spacing:.15em;color:var(--col-accent);font-family:var(--font-main);margin-top:-4px}
+nav{display:flex;gap:4px}
+nav a{color:#e8d5b0;font-size:13px;padding:7px 12px;border-radius:6px;transition:background .2s,color .2s;letter-spacing:.04em}
+nav a:hover,nav a.active{background:var(--col-main);color:#fff}
+.menu-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.menu-toggle span{display:block;width:26px;height:2px;background:#e8d5b0;border-radius:2px}
+
+/* ---- PAGE HERO ---- */
+.page-hero{background:linear-gradient(150deg,#0e0a18 0%,#2a1a50 45%,#c8902a 100%);color:#f8f1e8;text-align:center;padding:72px 24px 60px;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(200,144,42,.15) 0%,transparent 60%)}
+.page-hero h1{font-family:var(--font-serif);font-size:clamp(26px,5vw,52px);letter-spacing:.25em;text-shadow:0 2px 16px rgba(0,0,0,.5)}
+.page-hero p{margin-top:14px;color:#f0dfc0;font-size:16px;letter-spacing:.08em}
+
+/* ---- TIMELINE BAR ---- */
+.timeline-wrap{background:#fff;border-bottom:2px solid #e8ddd0;padding:32px 24px 28px;overflow-x:auto}
+.timeline-inner{max-width:1100px;margin:0 auto}
+.timeline-title{font-family:var(--font-serif);font-size:17px;color:var(--col-main);margin-bottom:20px;letter-spacing:.1em;text-align:center}
+.timeline-svg-wrap{width:100%;min-width:700px}
+
+/* ---- LAYOUT ---- */
+.page-body{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:200px 1fr;gap:0;align-items:start}
+.side-nav{position:sticky;top:72px;padding:28px 0 28px 24px;max-height:calc(100vh - 80px);overflow-y:auto}
+.side-nav h4{font-size:11px;color:var(--col-gray);letter-spacing:.15em;margin-bottom:6px;padding-left:12px}
+.side-nav .nav-group{margin-bottom:10px}
+.side-nav a{display:block;font-size:13px;padding:7px 12px;border-radius:6px;color:var(--col-gray);margin-bottom:2px;transition:all .2s;border-left:3px solid transparent}
+.side-nav a:hover,.side-nav a.cur{color:var(--col-dark);background:#f0e8d8;border-left-color:var(--col-accent)}
+.side-nav .num{font-size:10px;color:var(--col-accent);margin-right:4px}
+
+/* ---- FIGURE SECTIONS ---- */
+.fig-section{padding:56px 40px 56px 32px;border-bottom:1px solid #e8ddd0;scroll-margin-top:72px}
+.fig-section:nth-child(even){background:#fff}
+.fig-section:nth-child(odd){background:#faf4ec}
+.fig-header{display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:36px}
+.fig-portrait{display:flex;flex-direction:column;align-items:center;gap:12px}
+.fig-name{font-family:var(--font-serif);font-size:24px;letter-spacing:.15em;line-height:1.3}
+.fig-name-en{font-size:13px;color:var(--col-gray);letter-spacing:.05em;margin-top:4px}
+.fig-dates{font-size:12px;background:#f0e8d8;color:var(--col-main);padding:3px 12px;border-radius:12px;display:inline-block;margin-top:6px}
+.fig-hook{font-family:var(--font-serif);font-size:17px;color:var(--col-main);line-height:1.8;margin-top:12px;padding-left:16px;border-left:4px solid var(--col-accent)}
+
+/* ---- BOOK COVER ---- */
+.book-cover{width:160px;height:160px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 6px 20px rgba(60,30,0,.28),inset 0 1px 0 rgba(255,255,255,.15);padding:14px;position:relative;overflow:hidden}
+.book-cover::before{content:'';position:absolute;left:0;top:0;bottom:0;width:14px;background:rgba(0,0,0,.18);border-radius:10px 0 0 10px}
+.book-title{font-family:var(--font-serif);font-size:15px;font-weight:bold;letter-spacing:.12em;line-height:1.6;color:#fff;position:relative;z-index:1;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.book-sub{font-size:11px;color:rgba(255,255,255,.75);margin-top:6px;letter-spacing:.06em;position:relative;z-index:1}
+
+/* ---- CATEGORY LABEL ---- */
+.cat-label{display:inline-block;font-size:11px;font-weight:bold;letter-spacing:.12em;padding:3px 12px;border-radius:12px;margin-bottom:16px}
+
+/* ---- FACT STRIP ---- */
+.fact-strip{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.fact-chip{background:#fff;border:1px solid #e0d0b8;border-radius:20px;padding:6px 16px;font-size:13px;display:flex;align-items:center;gap:6px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.fact-chip .fi{font-size:15px}
+
+/* ---- CONTENT CARDS ---- */
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.content-grid.three{grid-template-columns:1fr 1fr 1fr}
+.c-card{border-radius:var(--radius);padding:20px 22px;border:1px solid rgba(0,0,0,.06)}
+.c-card h4{font-family:var(--font-serif);font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px;letter-spacing:.05em}
+.c-card p,.c-card li{font-size:13.5px;line-height:1.9;color:#4a3520}
+.c-card ul{padding-left:18px}
+.c-card ul li{margin-bottom:4px}
+.card-content{background:linear-gradient(135deg,#f8f4f0,#f0ece8);border-color:#b09070}
+.card-meaning{background:linear-gradient(135deg,#f0f4ff,#e8eeff);border-color:#506090}
+.card-impact{background:linear-gradient(135deg,#f0fff4,#e8ffe8);border-color:#407050}
+.card-modern{background:linear-gradient(135deg,#f0f8f0,#e8f4e8);border-color:#4a6741}
+.card-influence{background:linear-gradient(135deg,#fff0f8,#ffe8f0);border-color:#a06070}
+
+/* ---- QUOTE BOX ---- */
+.quote-box{background:var(--col-dark);color:#f0dfc0;border-radius:var(--radius);padding:24px 28px;margin-top:16px;position:relative}
+.quote-box::before{content:'"';font-family:var(--font-serif);font-size:72px;color:var(--col-accent);opacity:.25;position:absolute;top:4px;left:14px;line-height:1}
+.quote-box blockquote{font-family:var(--font-serif);font-size:17px;line-height:2;letter-spacing:.06em;position:relative;z-index:1}
+.quote-box cite{display:block;font-size:12px;color:var(--col-accent);margin-top:10px;font-style:normal}
+
+/* ---- DID YOU KNOW ---- */
+.dyk{background:linear-gradient(135deg,#fffbe8,#fff8d0);border-left:4px solid var(--col-accent);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;margin:16px 0;font-size:13.5px}
+.dyk strong{color:var(--col-main);font-size:12px;letter-spacing:.1em;display:block;margin-bottom:4px}
+
+/* ---- CHAIN ---- */
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0}
+.chain-node{background:#fff;border:2px solid var(--col-accent);border-radius:20px;padding:4px 14px;font-size:13px;color:var(--col-dark);white-space:nowrap}
+.chain-arrow{color:var(--col-accent);font-size:16px;flex-shrink:0}
+
+/* ---- FOOTER ---- */
+footer{background:var(--col-dark);color:#c8b89a;padding:48px 24px 24px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:32px;border-bottom:1px solid rgba(200,184,154,.2)}
+.footer-brand .logo{font-size:20px}
+.footer-brand p{margin-top:12px;font-size:13px;line-height:1.8;color:#a89880}
+footer h4{color:#f0dfc0;font-size:14px;margin-bottom:12px;letter-spacing:.1em}
+footer ul{list-style:none}
+footer ul li{margin-bottom:8px}
+footer ul li a{font-size:13px;color:#a89880;transition:color .2s}
+footer ul li a:hover{color:var(--col-accent)}
+.footer-bottom{max-width:1100px;margin:20px auto 0;text-align:center;font-size:12px;color:#6a5840}
+
+@media(max-width:900px){
+  .page-body{grid-template-columns:1fr}
+  .side-nav{display:none}
+  .fig-header{grid-template-columns:1fr}
+  .fig-portrait{flex-direction:row;justify-content:flex-start}
+  .content-grid,.content-grid.three{grid-template-columns:1fr}
+  .fig-section{padding:40px 20px}
+}
+@media(max-width:768px){
+  nav{display:none;flex-direction:column;width:100%}
+  nav.open{display:flex}
+  .header-inner{flex-wrap:wrap;height:auto;padding:12px 16px;gap:8px}
+  .menu-toggle{display:flex}
+  nav a{width:100%;padding:12px 16px;border-radius:0}
+  .footer-inner{grid-template-columns:1fr;gap:24px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">真照寺<small>Shinsho-ji Temple</small></a>
+    <button class="menu-toggle" onclick="document.getElementById('mn').classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="mn">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">お寺の紹介</a>
+      <a href="teaching.html">法話・教え</a>
+      <a href="events.html">行事案内</a>
+      <a href="masters.html">偉大な師たち</a>
+      <a href="kyogaku.html" class="active">大切な遺産</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="page-hero">
+  <h1>📜 大切な遺産</h1>
+  <p>浄土真宗の依りどころとなる経典・論書・論疏 — その成立・内容・意義</p>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline-wrap">
+  <div class="timeline-inner">
+    <div class="timeline-title">成立年代タイムライン</div>
+    <div class="timeline-svg-wrap">
+      <svg viewBox="0 0 1060 130" xmlns="http://www.w3.org/2000/svg" width="100%" style="overflow:visible">
+        <defs>
+          <linearGradient id="tl" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#8a1a1a"/>
+            <stop offset="40%" stop-color="#4a2070"/>
+            <stop offset="70%" stop-color="#1a4a70"/>
+            <stop offset="100%" stop-color="#1a4020"/>
+          </linearGradient>
+        </defs>
+        <line x1="20" y1="82" x2="1040" y2="82" stroke="url(#tl)" stroke-width="3" stroke-linecap="round"/>
+        <!-- era labels（各ゾーンの中央に配置） -->
+        <text x="90"  y="122" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">1〜2世紀（印）</text>
+        <text x="297" y="122" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">3〜5世紀（印）</text>
+        <text x="543" y="122" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">6〜7世紀（中国）</text>
+        <text x="887" y="122" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">10〜13世紀（日本）</text>
+        <!-- 無量寿経 1-2c → x≈60 -->
+        <a href="#muryoju" style="cursor:pointer;">
+          <circle cx="60" cy="82" r="9" fill="#8a1a1a" stroke="#fff" stroke-width="2"/>
+          <text x="60" y="65" text-anchor="middle" font-size="10" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">無量寿経</text>
+          <text x="60" y="52" text-anchor="middle" font-size="8" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">1〜2世紀</text>
+        </a>
+        <!-- 阿弥陀経 1-2c → x≈110 -->
+        <a href="#amida" style="cursor:pointer;">
+          <circle cx="120" cy="82" r="9" fill="#8a1a1a" stroke="#fff" stroke-width="2"/>
+          <text x="120" y="65" text-anchor="middle" font-size="10" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">阿弥陀経</text>
+          <text x="120" y="52" text-anchor="middle" font-size="8" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">1〜2世紀</text>
+        </a>
+        <!-- 中論 2-3c → x≈200 -->
+        <a href="#churon" style="cursor:pointer;">
+          <circle cx="220" cy="82" r="9" fill="#4a2070" stroke="#fff" stroke-width="2"/>
+          <text x="220" y="65" text-anchor="middle" font-size="10" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">中論</text>
+          <text x="220" y="52" text-anchor="middle" font-size="8" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">2〜3世紀</text>
+        </a>
+        <!-- 観無量寿経 4-5c → x≈290 -->
+        <a href="#kanmuryoju" style="cursor:pointer;">
+          <circle cx="300" cy="82" r="9" fill="#8a1a1a" stroke="#fff" stroke-width="2"/>
+          <text x="300" y="65" text-anchor="middle" font-size="10" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">観無量寿経</text>
+          <text x="300" y="52" text-anchor="middle" font-size="8" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">4〜5世紀</text>
+        </a>
+        <!-- 浄土論 4-5c → x≈360 -->
+        <a href="#jodoren" style="cursor:pointer;">
+          <circle cx="370" cy="82" r="9" fill="#4a2070" stroke="#fff" stroke-width="2"/>
+          <text x="370" y="65" text-anchor="middle" font-size="10" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">浄土論</text>
+          <text x="370" y="52" text-anchor="middle" font-size="8" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">4〜5世紀</text>
+        </a>
+        <!-- 浄土論註 540 → x≈460 -->
+        <a href="#josorenchuu" style="cursor:pointer;">
+          <circle cx="460" cy="82" r="9" fill="#1a4a70" stroke="#fff" stroke-width="2"/>
+          <text x="460" y="65" text-anchor="middle" font-size="10" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">浄土論註</text>
+          <text x="460" y="52" text-anchor="middle" font-size="8" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">540年頃</text>
+        </a>
+        <!-- 安楽集 613 → x≈540 -->
+        <a href="#anrakushu" style="cursor:pointer;">
+          <circle cx="550" cy="82" r="9" fill="#1a4a70" stroke="#fff" stroke-width="2"/>
+          <text x="550" y="65" text-anchor="middle" font-size="10" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">安楽集</text>
+          <text x="550" y="52" text-anchor="middle" font-size="8" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">613年頃</text>
+        </a>
+        <!-- 観経疏 645 → x≈600 -->
+        <a href="#kangyosho" style="cursor:pointer;">
+          <circle cx="620" cy="82" r="9" fill="#1a4a70" stroke="#fff" stroke-width="2"/>
+          <text x="620" y="65" text-anchor="middle" font-size="10" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">観経疏</text>
+          <text x="620" y="52" text-anchor="middle" font-size="8" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">645年頃</text>
+        </a>
+        <!-- 往生要集 985 → x≈730 -->
+        <a href="#ojoyoshu" style="cursor:pointer;">
+          <circle cx="740" cy="82" r="9" fill="#1a4020" stroke="#fff" stroke-width="2"/>
+          <text x="740" y="65" text-anchor="middle" font-size="10" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">往生要集</text>
+          <text x="740" y="52" text-anchor="middle" font-size="8" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">985年</text>
+        </a>
+        <!-- 選択集 1198 → x≈850 -->
+        <a href="#senchaku" style="cursor:pointer;">
+          <circle cx="860" cy="82" r="9" fill="#1a4020" stroke="#fff" stroke-width="2"/>
+          <text x="860" y="65" text-anchor="middle" font-size="10" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">選択集</text>
+          <text x="860" y="52" text-anchor="middle" font-size="8" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">1198年</text>
+        </a>
+        <!-- 教行信証 1224 → x≈920 -->
+        <a href="#kyogyoshinsho" style="cursor:pointer;">
+          <circle cx="940" cy="82" r="12" fill="#7c3d1e" stroke="#c8902a" stroke-width="3"/>
+          <text x="940" y="65" text-anchor="middle" font-size="10" fill="#7c3d1e" font-family="Yu Mincho,serif" font-weight="bold">教行信証</text>
+          <text x="940" y="52" text-anchor="middle" font-size="8" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">1224年〜</text>
+        </a>
+        <!-- 歎異抄 1290 → x≈1000 -->
+        <a href="#tannisho" style="cursor:pointer;">
+          <circle cx="1010" cy="82" r="9" fill="#1a4020" stroke="#fff" stroke-width="2"/>
+          <text x="1010" y="65" text-anchor="middle" font-size="10" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">歎異抄</text>
+          <text x="1010" y="52" text-anchor="middle" font-size="8" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">13世紀末</text>
+        </a>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+
+  <!-- SIDE NAV -->
+  <aside class="side-nav" id="side-nav">
+    <div class="nav-group">
+      <h4>浄土三部経</h4>
+      <a href="#muryoju">無量寿経</a>
+      <a href="#kanmuryoju">観無量寿経</a>
+      <a href="#amida">阿弥陀経</a>
+    </div>
+    <div class="nav-group">
+      <h4>インドの論書</h4>
+      <a href="#churon">中論</a>
+      <a href="#jodoren">浄土論</a>
+    </div>
+    <div class="nav-group">
+      <h4>中国の祖師</h4>
+      <a href="#josorenchuu">浄土論註</a>
+      <a href="#anrakushu">安楽集</a>
+      <a href="#kangyosho">観無量寿経疏</a>
+    </div>
+    <div class="nav-group">
+      <h4>日本の論書</h4>
+      <a href="#ojoyoshu">往生要集</a>
+      <a href="#senchaku">選択本願念仏集</a>
+      <a href="#kyogyoshinsho">教行信証</a>
+      <a href="#tannisho">歎異抄</a>
+    </div>
+  </aside>
+
+  <main>
+
+<!-- ============================================================
+     浄土三部経 ①：仏説無量寿経
+============================================================ -->
+<section class="fig-section" id="muryoju">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <div class="book-cover" style="background:linear-gradient(160deg,#6a1010,#a82020);">
+        <div class="book-title">仏説<br>無量寿経</div>
+        <div class="book-sub">Larger Sutra</div>
+      </div>
+    </div>
+    <div>
+      <span class="cat-label" style="background:#fde8e8;color:#8a1a1a;">浄土三部経 — 大経</span>
+      <div class="fig-name">仏説無量寿経</div>
+      <div class="fig-name-en">Sukhāvatīvyūha Sūtra (Larger) ／ 大経</div>
+      <div class="fig-dates">1〜2世紀頃、インド成立。漢訳：康僧鎧（252年、曹魏）</div>
+      <div class="fig-hook" style="margin-top:16px">浄土真宗の根本経典。阿弥陀仏がまだ法蔵菩薩であった時代に立てた四十八の誓願——なかでも第十八願「念仏する者を必ず救う」は、真宗の信心論すべての根拠となっている。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">📍</span>成立地：インド（著者不詳）</div>
+    <div class="fact-chip"><span class="fi">🈳</span>漢訳：康僧鎧・252年（現存する代表的訳）</div>
+    <div class="fact-chip"><span class="fi">📖</span>構成：上巻（本願の成立）・下巻（往生の利益）</div>
+    <div class="fact-chip"><span class="fi">⭐</span>第十八願：王本願・別願</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-content">
+      <h4>📖 何が書かれているか</h4>
+      <p>法蔵菩薩（後の阿弥陀仏）が師・世自在王仏の前で四十八の誓願を立て、長劫の修行の末に阿弥陀仏となり極楽浄土を完成させたことを説く。核心は第十八願——「念仏する者を摂取して捨てない」という誓い。</p>
+    </div>
+    <div class="c-card card-meaning">
+      <h4>🙏 浄土真宗での意義</h4>
+      <p>「正依の経典」の筆頭。「大経」とも呼ばれる。第十八願は「王本願」と称され、念仏往生の根本的根拠。親鸞の「教行信証」の「教」の巻はこの経典の解釈にあてられている。七高僧はすべてこの経典を依りどころとした。</p>
+    </div>
+    <div class="c-card card-impact">
+      <h4>🌱 後世への影響</h4>
+      <p>浄土思想全体の理論的根拠として、インド・中国・日本の七高僧がすべて依拠した。「南無阿弥陀仏」の六字は、この経典の誓願に対する信の応答として位置づけられる。</p>
+    </div>
+  </div>
+  <div class="quote-box">
+    <blockquote>設我得佛、十方衆生、至心信樂、欲生我國、乃至十念、若不生者、不取正覺。</blockquote>
+    <cite>— 第十八願（我が名を念じる者を、必ず浄土に迎え取る）</cite>
+  </div>
+</section>
+
+<!-- ============================================================
+     浄土三部経 ②：仏説観無量寿経
+============================================================ -->
+<section class="fig-section" id="kanmuryoju">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <div class="book-cover" style="background:linear-gradient(160deg,#6a1010,#a82020);">
+        <div class="book-title">仏説<br>観無量寿経</div>
+        <div class="book-sub">Meditation Sutra</div>
+      </div>
+    </div>
+    <div>
+      <span class="cat-label" style="background:#fde8e8;color:#8a1a1a;">浄土三部経 — 観経</span>
+      <div class="fig-name">仏説観無量寿経</div>
+      <div class="fig-name-en">Amitāyurdhyāna Sūtra ／ 観経</div>
+      <div class="fig-dates">4〜5世紀頃、中央アジアないし中国周辺成立。漢訳：畺良耶舎（424年、劉宋）</div>
+      <div class="fig-hook" style="margin-top:16px">幽閉された王妃・韋提希夫人の嘆きから始まる。苦悩の極みにある人間が極楽浄土を観想し、念仏によって救われる道を説く。善導の注釈によって、称名念仏の正統性の根拠となった。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">👸</span>韋提希夫人：息子に幽閉された王妃が主人公</div>
+    <div class="fact-chip"><span class="fi">🈳</span>漢訳：畺良耶舎・424年</div>
+    <div class="fact-chip"><span class="fi">📖</span>十六観：極楽浄土を観想する十六の方法</div>
+    <div class="fact-chip"><span class="fi">🎭</span>九品往生：往生の質を九段階に分類</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-content">
+      <h4>📖 何が書かれているか</h4>
+      <p>息子・阿闍世王に幽閉された韋提希夫人が釈尊に救いを求め、釈尊が極楽浄土を観想する十六の方法を説く。最後に「九品往生」として、最も罪の重い者（下品下生）でも臨終に念仏すれば往生できることが示される。</p>
+    </div>
+    <div class="c-card card-meaning">
+      <h4>🙏 浄土真宗での意義</h4>
+      <p>善導の「観無量寿経疏」の依経として重要。下品下生の説示——苦悩の底にある者が念仏によって救われる——が、他の修行ができない人々への救いの根拠となった。親鸞はこの経典の「至誠心・深心・廻向発願心」の三心を信心論の基礎とした。</p>
+    </div>
+    <div class="c-card card-impact">
+      <h4>🌱 後世への影響</h4>
+      <p>善導の四帖疏（観経疏）の対象経典として、中国・日本の浄土教の発展に決定的な役割を果たした。「九品往生図」は日本の仏教美術に大きなモチーフを与えた。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     浄土三部経 ③：仏説阿弥陀経
+============================================================ -->
+<section class="fig-section" id="amida">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <div class="book-cover" style="background:linear-gradient(160deg,#6a1010,#a82020);">
+        <div class="book-title">仏説<br>阿弥陀経</div>
+        <div class="book-sub">Smaller Sutra</div>
+      </div>
+    </div>
+    <div>
+      <span class="cat-label" style="background:#fde8e8;color:#8a1a1a;">浄土三部経 — 小経</span>
+      <div class="fig-name">仏説阿弥陀経</div>
+      <div class="fig-name-en">Amitābha Sūtra ／ 小経</div>
+      <div class="fig-dates">1〜2世紀頃、インド成立。漢訳：鳩摩羅什（402年、後秦）</div>
+      <div class="fig-hook" style="margin-top:16px">三部経中もっとも短く、もっとも多く読誦される経典。鳩摩羅什の名訳は読誦リズムまで計算されており、1600年を超えて今も真宗の法要で唱えられている。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">📏</span>三部経中最短（約1500字）</div>
+    <div class="fact-chip"><span class="fi">🈳</span>漢訳：鳩摩羅什・402年（名訳として名高い）</div>
+    <div class="fact-chip"><span class="fi">🎵</span>読誦リズムまで考慮した意訳</div>
+    <div class="fact-chip"><span class="fi">🏛️</span>六方諸仏が念仏往生を証誠する構造</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-content">
+      <h4>📖 何が書かれているか</h4>
+      <p>阿弥陀仏と極楽浄土の荘厳（美しさ・功徳）を描写し、七日間念仏を称えれば往生できることを説く。東西南北上下の六方の諸仏がこの経典の説示を証誠（保証）する構造をとる。</p>
+    </div>
+    <div class="c-card card-meaning">
+      <h4>🙏 浄土真宗での意義</h4>
+      <p>日常の勤行（お朝事・法要）で最も多く読誦される経典。鳩摩羅什の漢訳は声に出して読んだときの美しいリズムが際立ち、1600年以上にわたって変わることなく読み継がれている。</p>
+    </div>
+    <div class="c-card card-impact">
+      <h4>🌱 後世への影響</h4>
+      <p>浄土真宗の日常勤行の核心。「南無阿弥陀仏」の六字への帰依が、この経典に説かれる念仏実践の精神的基盤となっている。鳩摩羅什の翻訳の卓越さが、後の漢訳仏典の基準となった。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     インドの論書 ①：中論
+============================================================ -->
+<section class="fig-section" id="churon">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <div class="book-cover" style="background:linear-gradient(160deg,#2a1050,#6a2a90);">
+        <div class="book-title">中論</div>
+        <div class="book-sub">Mūlamadhyamakakārikā</div>
+      </div>
+    </div>
+    <div>
+      <span class="cat-label" style="background:#f0e8ff;color:#4a2070;">インドの論書</span>
+      <div class="fig-name">中論（中頌・根本中頌）</div>
+      <div class="fig-name-en">Mūlamadhyamakakārikā ／ 龍樹 著</div>
+      <div class="fig-dates">2〜3世紀、インド。漢訳：鳩摩羅什（409年、後秦）</div>
+      <div class="fig-hook" style="margin-top:16px">「縁起するものはすべて空である」——大乗仏教哲学の根本を四百五十余の詩頌で論証した書。著者・龍樹は七高僧の第一に位置し、浄土思想の哲学的基盤を提供した。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">✍️</span>著者：龍樹（ナーガールジュナ）</div>
+    <div class="fact-chip"><span class="fi">🈳</span>漢訳：鳩摩羅什・409年</div>
+    <div class="fact-chip"><span class="fi">📐</span>空・縁起・中道を論証</div>
+    <div class="fact-chip"><span class="fi">📚</span>四百五十余の詩頌（偈）から構成</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-content">
+      <h4>📖 何が書かれているか</h4>
+      <p>「縁起するものは空（śūnyatā）である」という命題を厳密に論証する。「四句否定」の論法でいかなる固定的実体も否定し、空・仮・中の三諦を展開。存在と認識の根本的な問い直しを行う。</p>
+    </div>
+    <div class="c-card card-meaning">
+      <h4>🙏 浄土真宗での意義</h4>
+      <p>龍樹は七高僧の第一。龍樹の別著「十住毘婆沙論」に記された「易行道」（念仏による他力の道）の概念が、浄土思想の哲学的出発点となった。「自力の否定」という真宗の核心は、中論の空の哲学と深く響き合う。</p>
+    </div>
+    <div class="c-card card-impact">
+      <h4>🌱 後世への影響</h4>
+      <p>大乗仏教哲学の金字塔として、中国・日本を含む全アジアの仏教思想形成に決定的な影響を与えた。三論宗・天台宗・禅宗・浄土教すべての哲学的基礎をなす。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     インドの論書 ②：浄土論
+============================================================ -->
+<section class="fig-section" id="jodoren">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <div class="book-cover" style="background:linear-gradient(160deg,#2a1050,#6a2a90);">
+        <div class="book-title">浄土論<br>（浄土偈）</div>
+        <div class="book-sub">Sukhāvatīvyūhopadeśa</div>
+      </div>
+    </div>
+    <div>
+      <span class="cat-label" style="background:#f0e8ff;color:#4a2070;">インドの論書</span>
+      <div class="fig-name">浄土論（無量寿経優婆提舎願生偈）</div>
+      <div class="fig-name-en">Sukhāvatīvyūhopadeśa ／ 世親 著</div>
+      <div class="fig-dates">4〜5世紀、インド。漢訳：菩提流支（529年、北魏）</div>
+      <div class="fig-hook" style="margin-top:16px">「願生偈」と呼ばれる詩頌と長行（注釈）からなる論書。礼拝・讃嘆・作願・観察・廻向の「五念門」を説き、念仏実践の理論的枠組みを初めて体系化した。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">✍️</span>著者：世親（ヴァスバンドゥ）</div>
+    <div class="fact-chip"><span class="fi">🈳</span>漢訳：菩提流支・529年</div>
+    <div class="fact-chip"><span class="fi">🙏</span>五念門：礼拝・讃嘆・作願・観察・廻向</div>
+    <div class="fact-chip"><span class="fi">📖</span>曇鸞「浄土論註」の依論書</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-content">
+      <h4>📖 何が書かれているか</h4>
+      <p>「願生偈」（極楽浄土に生まれることを願う詩頌）と、それに対する世親自身の注釈（長行）から構成される。「五念門」という実践体系を示し、廻向（功徳を他者に振り向ける）の重要性を強調する。</p>
+    </div>
+    <div class="c-card card-meaning">
+      <h4>🙏 浄土真宗での意義</h4>
+      <p>七高僧の第二。念仏実践の理論的根拠を提供した最初のインド論書。「廻向」の思想は親鸞が「如来の廻向」として再解釈し、真宗の他力論の中核をなす概念となった。</p>
+    </div>
+    <div class="c-card card-impact">
+      <h4>🌱 後世への影響</h4>
+      <p>曇鸞の「浄土論註」の依論書として、他力浄土思想の発展に不可欠な役割を果たした。「廻向」「往相・還相」の概念は親鸞によって深化され、真宗教学の根幹となった。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     中国の祖師 ①：浄土論註
+============================================================ -->
+<section class="fig-section" id="josorenchuu">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <div class="book-cover" style="background:linear-gradient(160deg,#0a2a50,#1a5a90);">
+        <div class="book-title">浄土論註</div>
+        <div class="book-sub">曇鸞 著</div>
+      </div>
+    </div>
+    <div>
+      <span class="cat-label" style="background:#e8f0ff;color:#1a4a70;">中国の祖師</span>
+      <div class="fig-name">浄土論註（往生論註）</div>
+      <div class="fig-name-en">Commentary on the Treatise on the Pure Land ／ 曇鸞 著</div>
+      <div class="fig-dates">540年頃、中国北魏</div>
+      <div class="fig-hook" style="margin-top:16px">「他力」という概念を仏教史上はじめて明確に定義した書。世親の「浄土論」への注釈を通じて、「自力（自分の修行力）」と「他力（阿弥陀仏の本願力）」を截然と区別し、他力による往生の優位性を論証した。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">✍️</span>著者：曇鸞（タンルアン）476-542</div>
+    <div class="fact-chip"><span class="fi">💡</span>「他力」概念の確立</div>
+    <div class="fact-chip"><span class="fi">🔀</span>難行道（自力）vs 易行道（他力）の二分</div>
+    <div class="fact-chip"><span class="fi">📖</span>世親「浄土論」の注釈書</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-content">
+      <h4>📖 何が書かれているか</h4>
+      <p>世親の「浄土論」に詳細な注釈を加えながら、「難行道（厳しい修行で悟りを目指す道）」と「易行道（念仏によって浄土往生を目指す道）」を対比させ、末法の凡夫には易行道こそ適切であることを論証する。</p>
+    </div>
+    <div class="c-card card-meaning">
+      <h4>🙏 浄土真宗での意義</h4>
+      <p>七高僧の第三。「他力」という概念をはじめて理論的に確立した論書として、親鸞が最も重視した。親鸞の他力論・本願論の直接的な源泉であり、「他力とは如来の本願力なり」という真宗の核心的命題の根拠となった。</p>
+    </div>
+    <div class="c-card card-impact">
+      <h4>🌱 後世への影響</h4>
+      <p>道綽・善導・法然・親鸞へと続く「他力」思想の連鎖の源流。曇鸞の「難行道・易行道」の二分法は、その後の浄土教の基本的な思想的枠組みとなった。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     中国の祖師 ②：安楽集
+============================================================ -->
+<section class="fig-section" id="anrakushu">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <div class="book-cover" style="background:linear-gradient(160deg,#0a2a50,#1a5a90);">
+        <div class="book-title">安楽集</div>
+        <div class="book-sub">道綽 著</div>
+      </div>
+    </div>
+    <div>
+      <span class="cat-label" style="background:#e8f0ff;color:#1a4a70;">中国の祖師</span>
+      <div class="fig-name">安楽集</div>
+      <div class="fig-name-en">Collection on the Land of Peace and Bliss ／ 道綽 著</div>
+      <div class="fig-dates">613年頃、中国隋末〜唐初</div>
+      <div class="fig-hook" style="margin-top:16px">「聖道門」と「浄土門」——この二分法を確立した書。末法の時代において自力で悟りを開くことは不可能であり、阿弥陀仏の本願に依る「浄土門」のみが現実的な道であると論証した。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">✍️</span>著者：道綽（どうしゃく）562-645</div>
+    <div class="fact-chip"><span class="fi">⏳</span>末法思想：釈尊滅後に仏法が衰える時代論</div>
+    <div class="fact-chip"><span class="fi">🔀</span>聖道門 vs 浄土門の確立</div>
+    <div class="fact-chip"><span class="fi">📚</span>200以上の経論からの引用で構成</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-content">
+      <h4>📖 何が書かれているか</h4>
+      <p>末法思想（釈尊入滅後の時代には仏法が衰える）に基づき、「聖道門（自力の修行で悟りを目指す）」と「浄土門（念仏により浄土往生を目指す）」の二道に分け、200以上の経論を引用して浄土門の優位を論証する。</p>
+    </div>
+    <div class="c-card card-meaning">
+      <h4>🙏 浄土真宗での意義</h4>
+      <p>七高僧の第四。「聖道門・浄土門」の二分法は、その後の浄土教の根本的思想的枠組みとなった。法然の「選択集」にも多数引用され、念仏一行の選択の理論的根拠となった。</p>
+    </div>
+    <div class="c-card card-impact">
+      <h4>🌱 後世への影響</h4>
+      <p>善導の思想的基盤を形成し、日本浄土教の成立に間接的に大きく貢献した。末法思想と念仏実践の組み合わせは、鎌倉仏教における宗派独立の理論的な土台ともなった。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     中国の祖師 ③：観無量寿経疏
+============================================================ -->
+<section class="fig-section" id="kangyosho">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <div class="book-cover" style="background:linear-gradient(160deg,#0a2a50,#1a5a90);">
+        <div class="book-title">観無量寿経疏<br><span style="font-size:12px">（四帖疏）</span></div>
+        <div class="book-sub">善導 著</div>
+      </div>
+    </div>
+    <div>
+      <span class="cat-label" style="background:#e8f0ff;color:#1a4a70;">中国の祖師</span>
+      <div class="fig-name">観無量寿経疏（四帖疏）</div>
+      <div class="fig-name-en">Commentary on the Meditation Sutra ／ 善導 著</div>
+      <div class="fig-dates">645年頃、中国・唐</div>
+      <div class="fig-hook" style="margin-top:16px">「南無阿弥陀仏を称えることが、往生を決定する正しい行（正定業）である」——善導はこの一言で念仏実践を確立した。法然が「善導一人に従う」と表明した、浄土教最重要の注釈書。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">✍️</span>著者：善導（ぜんどう）613-681</div>
+    <div class="fact-chip"><span class="fi">📖</span>全4巻：序分義・玄義分・定善義・散善義</div>
+    <div class="fact-chip"><span class="fi">⭐</span>称名念仏を「正定業」と宣言</div>
+    <div class="fact-chip"><span class="fi">🇯🇵</span>法然が「善導一人に従う」と表明</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-content">
+      <h4>📖 何が書かれているか</h4>
+      <p>「観無量寿経」に四巻（序分義・玄義分・定善義・散善義）にわたる詳細な注釈を加える。「散善義」の「総願文」で、称名念仏（南無阿弥陀仏を声に出して称える行）が往生を決定する「正定業」であることを宣言する。</p>
+    </div>
+    <div class="c-card card-meaning">
+      <h4>🙏 浄土真宗での意義</h4>
+      <p>七高僧の第五。法然が「善導一人に従う」と言い切った最重要文献。親鸞の念仏論・信心論の核心を形成した。「正定業」「助業」の概念は、念仏一行の理論的根拠として決定的な役割を果たした。</p>
+    </div>
+    <div class="c-card card-impact">
+      <h4>🌱 後世への影響</h4>
+      <p>日本浄土教の成立（法然による浄土宗の開宗）に決定的な役割を果たした。法然→親鸞→浄土真宗の思想的連鎖の核心に位置する。善導の「機の深信・法の深信」の二種深信は、親鸞の信心論に直接受け継がれた。</p>
+    </div>
+  </div>
+  <div class="chain">
+    <span class="chain-node">善導「正定業」</span><span class="chain-arrow">→</span>
+    <span class="chain-node">法然「念仏一行の選択」</span><span class="chain-arrow">→</span>
+    <span class="chain-node">親鸞「信心為本」</span><span class="chain-arrow">→</span>
+    <span class="chain-node">浄土真宗</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     日本の論書 ①：往生要集
+============================================================ -->
+<section class="fig-section" id="ojoyoshu">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <div class="book-cover" style="background:linear-gradient(160deg,#102a10,#2a6030);">
+        <div class="book-title">往生要集</div>
+        <div class="book-sub">源信 著</div>
+      </div>
+    </div>
+    <div>
+      <span class="cat-label" style="background:#e8ffe8;color:#1a4020;">日本の論書</span>
+      <div class="fig-name">往生要集</div>
+      <div class="fig-name-en">The Essentials of Pure Land Rebirth ／ 源信 著</div>
+      <div class="fig-dates">985年（寛和元年）、平安時代</div>
+      <div class="fig-hook" style="margin-top:16px">「厭離穢土・欣求浄土」——この穢れた世界を厭い、清らかな浄土を求める。源信が膨大な経論から念仏往生の根拠を集成したこの書は、日本仏教史上最初の体系的浄土教論書として、法然・親鸞の出発点となった。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">✍️</span>著者：源信（恵心僧都）942-1017</div>
+    <div class="fact-chip"><span class="fi">📅</span>985年（寛和元年）成立</div>
+    <div class="fact-chip"><span class="fi">📖</span>全3巻・経論からの引用を集成</div>
+    <div class="fact-chip"><span class="fi">🎨</span>地獄・極楽の描写が日本美術に多大な影響</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-content">
+      <h4>📖 何が書かれているか</h4>
+      <p>地獄の詳細な描写（八大地獄など）から始まり、極楽浄土の荘厳を対比させ、念仏往生の根拠を多くの経論（185部、614巻）から集成する。全3巻。「厭離穢土・欣求浄土」を実践の基本姿勢とする。</p>
+    </div>
+    <div class="c-card card-meaning">
+      <h4>🙏 浄土真宗での意義</h4>
+      <p>七高僧の第六。日本における浄土思想の最初の体系的著作。法然はこの書によって念仏に目覚めたと伝えられ、親鸞もこの書を依りどころとした。</p>
+    </div>
+    <div class="c-card card-impact">
+      <h4>🌱 後世への影響</h4>
+      <p>地獄・極楽のビジュアルなイメージを日本文化に定着させ、「地獄絵図」という芸術ジャンルの成立に貢献。平安貴族から庶民まで広く読まれ、日本における浄土信仰の大衆的普及の礎となった。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     日本の論書 ②：選択本願念仏集
+============================================================ -->
+<section class="fig-section" id="senchaku">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <div class="book-cover" style="background:linear-gradient(160deg,#102a10,#2a6030);">
+        <div class="book-title">選択本願<br>念仏集</div>
+        <div class="book-sub">法然 著</div>
+      </div>
+    </div>
+    <div>
+      <span class="cat-label" style="background:#e8ffe8;color:#1a4020;">日本の論書</span>
+      <div class="fig-name">選択本願念仏集（選択集）</div>
+      <div class="fig-name-en">Passages on the Selection of the Nembutsu in the Original Vow ／ 法然 著</div>
+      <div class="fig-dates">1198年（建久9年）、鎌倉時代</div>
+      <div class="fig-hook" style="margin-top:16px">阿弥陀仏の本願は念仏（称名）のみを選択した——法然はこの一点を善導の観経疏を根拠に論証し、他の行を「捨・閉・閣・抛」して念仏一行を選ぶべきことを宣言した。浄土宗の独立宣言書。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">✍️</span>著者：法然（源空）1133-1212</div>
+    <div class="fact-chip"><span class="fi">📅</span>1198年成立（九条兼実の求めによる）</div>
+    <div class="fact-chip"><span class="fi">📖</span>全16章。善導の観経疏を核心に</div>
+    <div class="fact-chip"><span class="fi">🔗</span><a href="https://ja.wikipedia.org/wiki/%E9%81%B8%E6%8A%9E%E6%9C%AC%E9%A1%98%E5%BF%B5%E4%BB%8F%E9%9B%86" target="_blank" style="color:#1a4020;text-decoration:underline">Wikipedia で詳細を見る</a></div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-content">
+      <h4>📖 何が書かれているか</h4>
+      <p>善導の「観経疏」を核心に、阿弥陀仏の本願が称名念仏のみを選択したことを全16章で論証する。「捨・閉・閣・抛（念仏以外の行を捨て去って念仏のみを選ぶ）」の論理を展開し、念仏一行への専修を主張する。</p>
+    </div>
+    <div class="c-card card-meaning">
+      <h4>🙏 浄土真宗での意義</h4>
+      <p>七高僧の第七・親鸞の師・法然の主著。親鸞はこの書を自ら書写し、生涯にわたって依りどころとした。念仏一行の論理は、親鸞の「信心為本」の教学へと深化発展した。</p>
+    </div>
+    <div class="c-card card-impact">
+      <h4>🌱 後世への影響</h4>
+      <p>鎌倉仏教の宗派独立の先駆け。念仏一行の選択という論理が、親鸞の教行信証へと発展した。成立後は弾圧を受け長年秘書とされたが、それゆえに浄土宗・浄土真宗の思想的根拠として特別な権威を持った。</p>
+    </div>
+  </div>
+  <div class="dyk"><strong>💡 知っていましたか？</strong>選択集は完成後、法然が「人に見せてはならない」と命じたとも伝えられ、長年秘書として扱われた。現存する最古の写本は親鸞自身が書写したものとされ、「親鸞聖人御直筆」として真宗大谷派が所蔵している。</div>
+</section>
+
+<!-- ============================================================
+     日本の論書 ③：教行信証
+============================================================ -->
+<section class="fig-section" id="kyogyoshinsho">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <div class="book-cover" style="background:linear-gradient(160deg,#4a1a08,#9a3a10);box-shadow:0 6px 20px rgba(60,30,0,.4),inset 0 1px 0 rgba(255,200,100,.2);">
+        <div class="book-title">教行信証</div>
+        <div class="book-sub">顕浄土真実<br>教行証文類</div>
+      </div>
+    </div>
+    <div>
+      <span class="cat-label" style="background:#fff0e8;color:#7c3d1e;border:1px solid #c8902a;">真宗の根本聖典</span>
+      <div class="fig-name">教行信証（顕浄土真実教行証文類）</div>
+      <div class="fig-name-en">The True Teaching, Practice, and Realization ／ 親鸞 著</div>
+      <div class="fig-dates">1224年頃着手（元仁元年）、生涯にわたって加筆。親鸞1173-1263</div>
+      <div class="fig-hook" style="margin-top:16px">浄土真宗の根本聖典。「教・行・信・証・真仏土・化身土」六巻にわたり、膨大な経典・論書・祖師の言葉を引用しながら、念仏往生の教えの全体を体系化した。親鸞が生涯をかけて書き続けた、真宗教学の結晶。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">✍️</span>著者：親鸞（しんらん）1173-1263</div>
+    <div class="fact-chip"><span class="fi">📅</span>1224年頃着手、生涯にわたって加筆修正</div>
+    <div class="fact-chip"><span class="fi">📖</span>全6巻：教・行・信・証・真仏土・化身土</div>
+    <div class="fact-chip"><span class="fi">⭐</span>真宗「正依の聖典」：宗派の根本</div>
+    <div class="fact-chip"><span class="fi">📚</span>引用経論200以上・七高僧の言葉を体系化</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-content">
+      <h4>📖 何が書かれているか</h4>
+      <p>六巻構成。「教」巻で経典的根拠（無量寿経）を示し、「行」巻で念仏の意義、「信」巻で信心の本質（如来からの廻向としての信心）、「証」巻で往生・さとりを論じ、「真仏土」「化身土」巻で浄土の真実性を論証する。</p>
+    </div>
+    <div class="c-card card-meaning">
+      <h4>🙏 浄土真宗での意義</h4>
+      <p>「正依の経典」として宗派の教義体系の全体を担う根本聖典。七高僧の思想を「一仏乗の法流」として体系化し、「信心為本」の立場から念仏往生の教えを完成させた。親鸞は晩年まで加筆し続けた。</p>
+    </div>
+    <div class="c-card card-impact">
+      <h4>🌱 後世への影響</h4>
+      <p>浄土真宗の哲学的・教義的基盤。真宗大谷派・本願寺派をはじめ浄土真宗各派の教義はすべてこの書を出発点とする。近代においては清沢満之・曽我量深・金子大栄・安田理深らがこの書を読み直し続けた。</p>
+    </div>
+  </div>
+  <div class="quote-box">
+    <blockquote>信楽とは、如来の誓願真実にましますを、深く信じ疑わざる心なり。<br>この信心は、弥陀の本願より発起する心なれば、これを真実の信心と名づく。</blockquote>
+    <cite>— 教行信証「信の巻」より</cite>
+  </div>
+</section>
+
+<!-- ============================================================
+     日本の論書 ④：歎異抄
+============================================================ -->
+<section class="fig-section" id="tannisho">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <div class="book-cover" style="background:linear-gradient(160deg,#102a10,#2a6030);">
+        <div class="book-title">歎異抄</div>
+        <div class="book-sub">唯円 著</div>
+      </div>
+    </div>
+    <div>
+      <span class="cat-label" style="background:#e8ffe8;color:#1a4020;">日本の論書</span>
+      <div class="fig-name">歎異抄（歎異鈔）</div>
+      <div class="fig-name-en">Lamenting the Deviations ／ 唯円 著</div>
+      <div class="fig-dates">13世紀末〜14世紀初頃、鎌倉時代末期</div>
+      <div class="fig-hook" style="margin-top:16px">「善人なをもて往生をとぐ、いはんや悪人をや」——親鸞の肉声に最も近い記録。弟子・唯円が師の言葉を書き留めたこの書は、長年秘書として扱われてきたが、近代以降、日本で最も広く読まれた仏教書の一つとなった。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">✍️</span>著者：唯円（親鸞の晩年の弟子）</div>
+    <div class="fact-chip"><span class="fi">📅</span>13世紀末〜14世紀初頃成立</div>
+    <div class="fact-chip"><span class="fi">📖</span>前半18章（親鸞の言葉）＋後半（異義批判）</div>
+    <div class="fact-chip"><span class="fi">🔒</span>長年「秘書」として公開されなかった</div>
+    <div class="fact-chip"><span class="fi">📚</span>悪人正機・他力本願を平易な言葉で</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-content">
+      <h4>📖 何が書かれているか</h4>
+      <p>前半（1〜10章）は親鸞の言葉を直接記録。「善人なをもて往生をとぐ、いはんや悪人をや」（悪人正機）など逆説的な表現が多い。後半（11〜18章）は弟子たちの間で生まれた誤った教え（異義）を批判し、正しい信心を示す。</p>
+    </div>
+    <div class="c-card card-meaning">
+      <h4>🙏 浄土真宗での意義</h4>
+      <p>親鸞の肉声に最も近い記録として珍重されながら、長年「秘書」として公開されなかった。「慶長版」の刊行（1606年）以降、広く流布。真宗の他力思想・悪人正機を平易な言葉で伝える入門書として今も読まれ続ける。</p>
+    </div>
+    <div class="c-card card-impact">
+      <h4>🌱 後世への影響</h4>
+      <p>近代日本の宗教思想・文学に多大な影響。西田幾多郎、倉田百三（「出家とその弟子」）、司馬遼太郎、吉本隆明など各分野の思想家・文学者が歎異抄に触れ、20世紀に最も広く読まれた仏教書の一つとなった。</p>
+    </div>
+  </div>
+
+  <div class="dyk"><strong>💡 知っていましたか？</strong>歎異抄の奥書に唯円は「この書をみだりに人に見せてはならない」と記した。その言葉通り、江戸時代まで一般には公開されず、真宗の寺院でも秘蔵されていた。1900年代以降に広く読まれるようになると、その逆説的な言葉の深さが近代人の心を捉え、仏教書としては異例のベストセラーとなった。</div>
+  <div class="quote-box">
+    <blockquote>善人なをもて往生をとぐ、いはんや悪人をや。</blockquote>
+    <cite>— 歎異抄 第3章（親鸞聖人の言葉として）</cite>
+  </div>
+</section>
+
+  </main>
+</div><!-- /page-body -->
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">真照寺<small>Shinsho-ji Temple</small></div>
+      <p>心静かに、ともに歩む場所。<br>どなたでもお気軽にお越しください。</p>
+    </div>
+    <div>
+      <h4>ページ案内</h4>
+      <ul>
+        <li><a href="about.html">お寺の紹介</a></li>
+        <li><a href="teaching.html">法話・仏教の教え</a></li>
+        <li><a href="events.html">行事案内</a></li>
+        <li><a href="masters.html">偉大な師たち</a></li>
+        <li><a href="kyogaku.html">真宗の教学</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ご相談・ご連絡</h4>
+      <ul>
+        <li><a href="#">法事・葬儀のご相談</a></li>
+        <li><a href="#">お墓・納骨のご案内</a></li>
+        <li><a href="#">写経・座禅会</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 真宗大谷派 真照寺 — 神奈川県横浜市都筑区折本町1604</div>
+</footer>
+
+<script>
+// side nav highlight on scroll
+const sections = document.querySelectorAll('.fig-section');
+const links = document.querySelectorAll('.side-nav a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('cur'));
+      const cur = document.querySelector(`.side-nav a[href="#${e.target.id}"]`);
+      if (cur) cur.classList.add('cur');
+    }
+  });
+}, {rootMargin: '-60px 0px -60% 0px'});
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
