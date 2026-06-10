@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>偉大な師たち – 真照寺</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --col-main:#7c3d1e;--col-accent:#c8902a;--col-light:#f8f1e8;
+  --col-dark:#3a2510;--col-gray:#8a7a6a;
+  --font-main:'Meiryo UI','メイリオ',Meiryo,sans-serif;
+  --font-serif:'Yu Mincho','游明朝','YuMincho','Hiragino Mincho Pro',serif;
+  --radius:10px;--shadow:0 2px 18px rgba(60,30,0,.11);
+}
+body{font-family:var(--font-main);background:var(--col-light);color:var(--col-dark);line-height:1.8;font-size:15px}
+a{color:inherit;text-decoration:none}
+
+/* ---- HEADER ---- */
+header{background:var(--col-dark);position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:64px}
+.logo{font-family:var(--font-serif);font-size:22px;letter-spacing:.2em;color:#f0dfc0}
+.logo small{display:block;font-size:11px;letter-spacing:.15em;color:var(--col-accent);font-family:var(--font-main);margin-top:-4px}
+nav{display:flex;gap:4px}
+nav a{color:#e8d5b0;font-size:13px;padding:7px 12px;border-radius:6px;transition:background .2s,color .2s;letter-spacing:.04em}
+nav a:hover,nav a.active{background:var(--col-main);color:#fff}
+.menu-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.menu-toggle span{display:block;width:26px;height:2px;background:#e8d5b0;border-radius:2px}
+
+/* ---- PAGE HERO ---- */
+.page-hero{background:linear-gradient(150deg,#1e1008 0%,#5a2a10 45%,#c8902a 100%);color:#f8f1e8;text-align:center;padding:72px 24px 60px;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(200,144,42,.15) 0%,transparent 60%)}
+.page-hero h1{font-family:var(--font-serif);font-size:clamp(26px,5vw,52px);letter-spacing:.25em;text-shadow:0 2px 16px rgba(0,0,0,.5)}
+.page-hero p{margin-top:14px;color:#f0dfc0;font-size:16px;letter-spacing:.08em}
+
+/* ---- TIMELINE BAR ---- */
+.timeline-wrap{background:#fff;border-bottom:2px solid #e8ddd0;padding:32px 24px 28px;overflow-x:auto}
+.timeline-inner{max-width:1100px;margin:0 auto}
+.timeline-title{font-family:var(--font-serif);font-size:17px;color:var(--col-main);margin-bottom:20px;letter-spacing:.1em;text-align:center}
+.timeline-svg-wrap{width:100%;min-width:700px}
+
+/* ---- LAYOUT ---- */
+.page-body{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:200px 1fr;gap:0;align-items:start}
+.side-nav{position:sticky;top:72px;padding:28px 0 28px 24px;max-height:calc(100vh - 80px);overflow-y:auto}
+.side-nav h4{font-size:11px;color:var(--col-gray);letter-spacing:.15em;margin-bottom:12px;padding-left:12px}
+.side-nav a{display:block;font-size:13px;padding:8px 12px;border-radius:6px;color:var(--col-gray);margin-bottom:2px;transition:all .2s;border-left:3px solid transparent}
+.side-nav a:hover,.side-nav a.cur{color:var(--col-dark);background:#f0e8d8;border-left-color:var(--col-accent)}
+.side-nav .num{font-size:10px;color:var(--col-accent);margin-right:4px}
+
+/* ---- FIGURE SECTIONS ---- */
+.fig-section{padding:56px 40px 56px 32px;border-bottom:1px solid #e8ddd0;scroll-margin-top:72px}
+.fig-section:nth-child(even){background:#fff}
+.fig-section:nth-child(odd){background:#faf4ec}
+
+.fig-header{display:grid;grid-template-columns:180px 1fr;gap:32px;align-items:start;margin-bottom:36px}
+.fig-portrait{display:flex;flex-direction:column;align-items:center;gap:12px}
+.fig-portrait svg{filter:drop-shadow(0 4px 12px rgba(60,30,0,.2))}
+.fig-name{font-family:var(--font-serif);font-size:24px;letter-spacing:.15em;line-height:1.3}
+.fig-name-en{font-size:13px;color:var(--col-gray);letter-spacing:.05em;margin-top:4px}
+.fig-dates{font-size:12px;background:#f0e8d8;color:var(--col-main);padding:3px 12px;border-radius:12px;display:inline-block;margin-top:6px}
+.fig-hook{font-family:var(--font-serif);font-size:19px;color:var(--col-main);line-height:1.7;margin-top:12px;padding-left:16px;border-left:4px solid var(--col-accent)}
+
+/* ---- FACT STRIP ---- */
+.fact-strip{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.fact-chip{background:#fff;border:1px solid #e0d0b8;border-radius:20px;padding:6px 16px;font-size:13px;display:flex;align-items:center;gap:6px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.fact-chip .fi{font-size:15px}
+
+/* ---- CONTENT CARDS ---- */
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.content-grid.three{grid-template-columns:1fr 1fr 1fr}
+.c-card{border-radius:var(--radius);padding:20px 22px;border:1px solid rgba(0,0,0,.06)}
+.c-card h4{font-family:var(--font-serif);font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px;letter-spacing:.05em}
+.c-card p,.c-card li{font-size:13.5px;line-height:1.9;color:#4a3520}
+.c-card ul{padding-left:18px}
+.c-card ul li{margin-bottom:4px}
+
+.card-unique{background:linear-gradient(135deg,#fff8f0,#fff3e6);border-color:var(--col-accent)}
+.card-modern{background:linear-gradient(135deg,#f0f8f0,#e8f4e8);border-color:#4a6741}
+.card-legacy{background:linear-gradient(135deg,#f0f0ff,#ebebff);border-color:#6060a0}
+.card-influence{background:linear-gradient(135deg,#fff0f8,#ffe8f0);border-color:#a06070}
+.card-fact{background:linear-gradient(135deg,#f8f8f0,#f0f0e0);border-color:#a09070}
+
+/* ---- QUOTE BOX ---- */
+.quote-box{background:var(--col-dark);color:#f0dfc0;border-radius:var(--radius);padding:24px 28px;margin-top:16px;position:relative}
+.quote-box::before{content:'"';font-family:var(--font-serif);font-size:72px;color:var(--col-accent);opacity:.25;position:absolute;top:4px;left:14px;line-height:1}
+.quote-box blockquote{font-family:var(--font-serif);font-size:17px;line-height:2;letter-spacing:.06em;position:relative;z-index:1}
+.quote-box cite{display:block;font-size:12px;color:var(--col-accent);margin-top:10px;font-style:normal}
+
+/* ---- DID YOU KNOW ---- */
+.dyk{background:linear-gradient(135deg,#fffbe8,#fff8d0);border-left:4px solid var(--col-accent);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;margin:16px 0;font-size:13.5px}
+.dyk strong{color:var(--col-main);font-size:12px;letter-spacing:.1em;display:block;margin-bottom:4px}
+
+/* ---- INFLUENCE CHAIN ---- */
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0}
+.chain-node{background:#fff;border:2px solid var(--col-accent);border-radius:20px;padding:4px 14px;font-size:13px;color:var(--col-dark);white-space:nowrap}
+.chain-arrow{color:var(--col-accent);font-size:16px;flex-shrink:0}
+
+/* ---- FOOTER ---- */
+footer{background:var(--col-dark);color:#c8b89a;padding:48px 24px 24px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:32px;border-bottom:1px solid rgba(200,184,154,.2)}
+.footer-brand .logo{font-size:20px}
+.footer-brand p{margin-top:12px;font-size:13px;line-height:1.8;color:#a89880}
+footer h4{color:#f0dfc0;font-size:14px;margin-bottom:12px;letter-spacing:.1em}
+footer ul{list-style:none}
+footer ul li{margin-bottom:8px}
+footer ul li a{font-size:13px;color:#a89880;transition:color .2s}
+footer ul li a:hover{color:var(--col-accent)}
+.footer-bottom{max-width:1100px;margin:20px auto 0;text-align:center;font-size:12px;color:#6a5840}
+
+@media(max-width:900px){
+  .page-body{grid-template-columns:1fr}
+  .side-nav{display:none}
+  .fig-header{grid-template-columns:1fr}
+  .fig-portrait{flex-direction:row;justify-content:flex-start}
+  .content-grid,.content-grid.three{grid-template-columns:1fr}
+  .fig-section{padding:40px 20px}
+}
+@media(max-width:768px){
+  nav{display:none;flex-direction:column;width:100%}
+  nav.open{display:flex}
+  .header-inner{flex-wrap:wrap;height:auto;padding:12px 16px;gap:8px}
+  .menu-toggle{display:flex}
+  nav a{width:100%;padding:12px 16px;border-radius:0}
+  .footer-inner{grid-template-columns:1fr;gap:24px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">真照寺<small>Shinsho-ji Temple</small></a>
+    <button class="menu-toggle" onclick="document.getElementById('mn').classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="mn">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">お寺の紹介</a>
+      <a href="teaching.html">法話・教え</a>
+      <a href="events.html">行事案内</a>
+      <a href="news.html">お知らせ</a>
+      <a href="masters.html" class="active">偉大な師たち</a>
+      <a href="kyogaku.html">大切な遺産</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="page-hero">
+  <h1>📿 偉大な師たち</h1>
+  <p>仏教の歴史を彩った10人の偉人 — ウィキペディアには載らない独自の視点で</p>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline-wrap">
+  <div class="timeline-inner">
+    <div class="timeline-title">歴史タイムライン</div>
+    <div class="timeline-svg-wrap">
+      <svg viewBox="0 0 1060 130" xmlns="http://www.w3.org/2000/svg" width="100%" style="overflow:visible">
+        <defs>
+          <linearGradient id="tl" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#c8902a"/>
+            <stop offset="100%" stop-color="#7c3d1e"/>
+          </linearGradient>
+        </defs>
+        <!-- axis -->
+        <line x1="20" y1="80" x2="1040" y2="80" stroke="url(#tl)" stroke-width="3" stroke-linecap="round"/>
+        <!-- era labels (bottom) -->
+        <text x="205" y="122" text-anchor="middle" font-size="9" fill="#b0a090" font-family="Meiryo UI,sans-serif">インド〜西域</text>
+        <text x="490" y="122" text-anchor="middle" font-size="9" fill="#b0a090" font-family="Meiryo UI,sans-serif">中国・日本</text>
+        <text x="750" y="122" text-anchor="middle" font-size="9" fill="#b0a090" font-family="Meiryo UI,sans-serif">平安〜鎌倉</text>
+        <text x="988" y="122" text-anchor="middle" font-size="9" fill="#b0a090" font-family="Meiryo UI,sans-serif">近代</text>
+
+        <!-- ① お釈迦様 x=55 -->
+        <a href="#buddha" style="cursor:pointer;">
+          <circle cx="55" cy="80" r="10" fill="#c8902a" stroke="#fff" stroke-width="2"/>
+          <text x="55" y="65" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">お釈迦様</text>
+          <text x="55" y="52" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">BC5世紀</text>
+        </a>
+
+        <!-- ② 龍樹 x=185 -->
+        <a href="#nagarjuna" style="cursor:pointer;">
+          <circle cx="185" cy="80" r="10" fill="#2a5580" stroke="#fff" stroke-width="2"/>
+          <text x="185" y="65" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">龍樹</text>
+          <text x="185" y="52" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">2〜3世紀</text>
+        </a>
+
+        <!-- ③ 無著・世親 x=278 -->
+        <a href="#asanga" style="cursor:pointer;">
+          <circle cx="278" cy="80" r="10" fill="#805020" stroke="#fff" stroke-width="2"/>
+          <text x="278" y="65" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">無著・世親</text>
+          <text x="278" y="52" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">4〜5世紀</text>
+        </a>
+
+        <!-- ④ 鳩摩羅什 x=358 -->
+        <a href="#kumarajiva" style="cursor:pointer;">
+          <circle cx="358" cy="80" r="10" fill="#8a4a20" stroke="#fff" stroke-width="2"/>
+          <text x="358" y="65" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">鳩摩羅什</text>
+          <text x="358" y="52" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">344-413</text>
+        </a>
+
+        <!-- ⑤ 曇鸞〜善導 x=448 -->
+        <a href="#chinese3" style="cursor:pointer;">
+          <circle cx="448" cy="80" r="10" fill="#703a70" stroke="#fff" stroke-width="2"/>
+          <text x="448" y="65" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">曇鸞〜善導</text>
+          <text x="448" y="52" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">5〜7世紀</text>
+        </a>
+
+        <!-- ⑥ 聖徳太子 x=525 -->
+        <a href="#shotoku" style="cursor:pointer;">
+          <circle cx="525" cy="80" r="10" fill="#4a6741" stroke="#fff" stroke-width="2"/>
+          <text x="525" y="65" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">聖徳太子</text>
+          <text x="525" y="52" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">574-622</text>
+        </a>
+
+        <!-- ⑦ 源信 x=635 -->
+        <a href="#genshin" style="cursor:pointer;">
+          <circle cx="635" cy="80" r="10" fill="#2a6060" stroke="#fff" stroke-width="2"/>
+          <text x="635" y="65" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">源信</text>
+          <text x="635" y="52" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">942-1017</text>
+        </a>
+
+        <!-- ⑧ 法然 x=725 -->
+        <a href="#honen" style="cursor:pointer;">
+          <circle cx="725" cy="80" r="10" fill="#806030" stroke="#fff" stroke-width="2"/>
+          <text x="725" y="65" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">法然</text>
+          <text x="725" y="52" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">1133-1212</text>
+        </a>
+
+        <!-- ⑨ 親鸞 x=800（大） -->
+        <a href="#shinran" style="cursor:pointer;">
+          <circle cx="800" cy="80" r="12" fill="#7c3d1e" stroke="#c8902a" stroke-width="3"/>
+          <text x="800" y="63" text-anchor="middle" font-size="12" fill="#7c3d1e" font-family="Yu Mincho,serif" font-weight="bold">親鸞</text>
+          <text x="800" y="50" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">1173-1263</text>
+        </a>
+
+        <!-- ⑩ 蓮如 x=870 -->
+        <a href="#rennyo" style="cursor:pointer;">
+          <circle cx="870" cy="80" r="10" fill="#b06020" stroke="#fff" stroke-width="2"/>
+          <text x="870" y="65" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">蓮如</text>
+          <text x="870" y="52" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">1415-1499</text>
+        </a>
+
+        <!-- ⑪ 清沢満之 x=955 -->
+        <a href="#kiyozawa" style="cursor:pointer;">
+          <circle cx="955" cy="80" r="10" fill="#404080" stroke="#fff" stroke-width="2"/>
+          <text x="955" y="65" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">清沢満之</text>
+          <text x="955" y="52" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">1863-1903</text>
+        </a>
+
+        <!-- ⑫ 近代高僧 x=1025 -->
+        <a href="#modern" style="cursor:pointer;">
+          <circle cx="1025" cy="80" r="10" fill="#506050" stroke="#fff" stroke-width="2"/>
+          <text x="1025" y="65" text-anchor="middle" font-size="11" fill="#3a2510" font-family="Yu Mincho,serif" font-weight="bold">近代高僧</text>
+          <text x="1025" y="52" text-anchor="middle" font-size="9" fill="#8a7a6a" font-family="Meiryo UI,sans-serif">20世紀〜</text>
+        </a>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+
+  <!-- SIDE NAV -->
+  <aside class="side-nav" id="side-nav">
+    <h4>目次</h4>
+    <a href="#buddha"><span class="num">②</span>お釈迦様</a>
+    <a href="#nagarjuna"><span class="num">④</span>龍樹</a>
+    <a href="#asanga"><span class="num">⑤</span>無著・世親</a>
+    <a href="#kumarajiva"><span class="num">訳</span>鳩摩羅什</a>
+    <a href="#chinese3"><span class="num">⑥</span>曇鸞・道綽・善導</a>
+    <a href="#shotoku"><span class="num">③</span>聖徳太子</a>
+    <a href="#genshin"><span class="num">⑦</span>源信僧都</a>
+    <a href="#honen"><span class="num">⑧</span>法然</a>
+    <a href="#shinran"><span class="num">①</span>親鸞聖人</a>
+    <a href="#rennyo"><span class="num">⑪</span>蓮如上人</a>
+    <a href="#kiyozawa"><span class="num">⑨</span>清沢満之</a>
+    <a href="#modern"><span class="num">⑩</span>近代の大谷派高僧</a>
+  </aside>
+
+  <main>
+
+<!-- ============================================================
+     ② お釈迦様
+============================================================ -->
+<section class="fig-section" id="buddha">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <img src="images/buddha.png" alt="お釈迦様" width="160" height="160" style="border-radius:50%; object-fit:cover; border:3px solid #c8902a;">
+    </div>
+    <div>
+      <div class="fig-name">お釈迦様（ゴータマ・シッダールタ）</div>
+      <div class="fig-name-en">Siddhartha Gautama / Shakyamuni Buddha</div>
+      <div class="fig-dates">紀元前463年頃〜383年頃（諸説あり）</div>
+      <div class="fig-hook" style="margin-top:16px">「なぜ人は苦しむのか」——その問い一つのために王位を捨てた男は、人類初の「心の科学者」だった。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">🏯</span>出身：現ネパール・ルンビニ（釈迦族の王子）</div>
+    <div class="fact-chip"><span class="fi">🌳</span>35歳で菩提樹下に悟り</div>
+    <div class="fact-chip"><span class="fi">🗣️</span>45年間説法を続ける</div>
+    <div class="fact-chip"><span class="fi">📖</span>生前は何も書かなかった</div>
+    <div class="fact-chip"><span class="fi">👥</span>弟子の数：数千人</div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card card-unique">
+      <h4>🔍 独自の視点</h4>
+      <p>お釈迦様は「神」ではなく「人間」だった。これが最大のポイント。神の啓示ではなく、<strong>自ら考え・実験し・検証した</strong>ことで悟りに至った。その意味で、仏教は世界最古の「実証的な心理学」といえる。現代の認知行動療法やマインドフルネスは、2500年前の釈迦の思想が源流にある。</p>
+    </div>
+    <div class="c-card card-modern">
+      <h4>🌏 現代への意味</h4>
+      <p>Googleやアップルがマインドフルネスを社員研修に導入し、世界中のビジネスリーダーが瞑想する——この現象の大元はお釈迦様の瞑想実践にある。「今ここに意識を向ける」という至極シンプルな処方が、スマホ過多の現代人の処方箋として再発見されている。</p>
+    </div>
+  </div>
+  <div class="content-grid">
+    <div class="c-card card-legacy">
+      <h4>📜 何を残したか</h4>
+      <ul>
+        <li>四諦（苦・集・滅・道）——苦しみの構造を論理的に解明</li>
+        <li>八正道——具体的な実践の道筋</li>
+        <li>縁起の法——すべては繋がり、固定した「自己」はないという革命的な思想</li>
+        <li>サンガ（僧伽）——世界最初の非営利コミュニティ組織</li>
+      </ul>
+    </div>
+    <div class="c-card card-influence">
+      <h4>🌱 影響を受けた人たち</h4>
+      <div class="chain">
+        <span class="chain-node">龍樹</span><span class="chain-arrow">→</span>
+        <span class="chain-node">無著・世親</span><span class="chain-arrow">→</span>
+        <span class="chain-node">善導</span><span class="chain-arrow">→</span>
+        <span class="chain-node">法然・親鸞</span>
+      </div>
+      <p style="margin-top:8px;font-size:13px">さらにガンジー、マルティン・ルーサー・キング、スティーブ・ジョブズも影響を公言している。</p>
+    </div>
+  </div>
+  <div class="dyk"><strong>💡 知っていましたか？</strong>お釈迦様が初めて説法をした場所「鹿野苑（サールナート）」での話の内容は、初転法輪といい、「初めて法の輪を回した」という意味。つまりお釈迦様はサブスクではなくライブ配信だけで思想を広めた。文字も本も使わずに、である。</div>
+  <div class="quote-box">
+    <blockquote>怒りを持って怒りに勝ち、善によって悪に勝ち、布施によってけちに勝ち、真実によって嘘つきに勝て。</blockquote>
+    <cite>— ダンマパダ（法句経）より</cite>
+  </div>
+</section>
+
+<!-- ============================================================
+     ④ 龍樹
+============================================================ -->
+<section class="fig-section" id="nagarjuna">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <img src="images/ryu.png" alt="龍樹" width="160" height="160" style="border-radius:50%; object-fit:cover; border:3px solid #2a5580;">
+    </div>
+    <div>
+      <div class="fig-name">龍樹（ナーガールジュナ）</div>
+      <div class="fig-name-en">Nāgārjuna</div>
+      <div class="fig-dates">150年頃〜250年頃（インド）</div>
+      <div class="fig-hook" style="margin-top:16px">「すべては空である」——この一言で哲学の歴史を変えた男。その論理はあまりに鋭く、2000年後のハーバードでいまも論文が書かれ続ける。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">📍</span>南インド出身・バラモン家系</div>
+    <div class="fact-chip"><span class="fi">🐍</span>「龍」の洞窟で経典を得たという伝説から「龍樹」</div>
+    <div class="fact-chip"><span class="fi">📚</span>主著：中論（Mūlamadhyamakakārikā）</div>
+    <div class="fact-chip"><span class="fi">🏛️</span>中観派（Madhyamaka）の祖</div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card card-unique">
+      <h4>🔍 独自の視点</h4>
+      <p>龍樹の「空（śūnyatā）」とは「何もない」ではなく「固定した本質を持たない」という意味。これは現代物理学の「素粒子には固有の実体がなく、観測によって決まる」という量子論と不思議なほど響き合う。龍樹は論理だけで、科学機器なしに同じ結論に至った。</p>
+    </div>
+    <div class="c-card card-modern">
+      <h4>🌏 現代への意味</h4>
+      <p>「空」の思想は「固執しない」ことの哲学的根拠。SNS時代の「炎上」も、承認欲求も、すべては「固定した自己」への執着から生まれる。龍樹の思想は2000年前に、その処方箋を書いていた。</p>
+    </div>
+  </div>
+  <div class="content-grid">
+    <div class="c-card card-legacy">
+      <h4>📜 何を残したか</h4>
+      <ul>
+        <li>中論——「あらゆるものは縁起によって成り立ち、自性（固有の本質）はない」という完璧な論証</li>
+        <li>大智度論——膨大な仏教百科全書（10万頌以上）</li>
+        <li>大乗仏教に哲学的基盤を与えた「第二のブッダ」と称される</li>
+      </ul>
+    </div>
+    <div class="c-card card-influence">
+      <h4>🌱 後世への影響</h4>
+      <div class="chain">
+        <span class="chain-node">無著・世親</span><span class="chain-arrow">→</span>
+        <span class="chain-node">曇鸞</span><span class="chain-arrow">→</span>
+        <span class="chain-node">天台・禅・浄土</span><span class="chain-arrow">→</span>
+        <span class="chain-node">全大乗仏教</span>
+      </div>
+    </div>
+  </div>
+  <div class="dyk"><strong>💡 知っていましたか？</strong>龍樹の「四句否定」という論法——「Aでもなく、非Aでもなく、AかつAでないでもなく、AでもなくAでないでもない」——は、現代論理学でも扱いに困る最強の問いかけ。これを2世紀の人物が生み出した。</div>
+  <div class="quote-box">
+    <blockquote>縁起するものを、われわれは空性と説く。<br>それは仮設に依存したものであり、それこそが中道である。</blockquote>
+    <cite>— 中論 第24章18偈</cite>
+  </div>
+</section>
+
+<!-- ============================================================
+     ⑤ 無著・世親
+============================================================ -->
+<section class="fig-section" id="asanga">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <img src="images/bro.png" alt="無著・世親" width="160" height="160" style="border-radius:50%; object-fit:cover; border:3px solid #805020;">
+    </div>
+    <div>
+      <div class="fig-name">無著・世親（アサンガ・ヴァスバンドゥ）</div>
+      <div class="fig-name-en">Asaṅga &amp; Vasubandhu — 兄弟の思想的格闘</div>
+      <div class="fig-dates">4〜5世紀（インド）</div>
+      <div class="fig-hook" style="margin-top:16px">「世界は心が作り出している」——兄に反論するために勉強した弟が、最終的に兄の思想を完成させた。哲学史上最高の兄弟喧嘩、そして和解。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">👬</span>無著が兄、世親が弟</div>
+    <div class="fact-chip"><span class="fi">🔄</span>世親はもともと小乗（説一切有部）の立場だった</div>
+    <div class="fact-chip"><span class="fi">📚</span>世親の主著：倶舎論・唯識二十論・唯識三十頌</div>
+    <div class="fact-chip"><span class="fi">🧠</span>唯識（ゆいしき）思想の確立者</div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card card-unique">
+      <h4>🔍 独自の視点：人類初の認知科学</h4>
+      <p>「唯識」とは「識のみがある」——外部世界そのものではなく、私たちが知覚している<em>表象</em>だけが確かな現実だという思想。これは17世紀デカルトの「コギト」より1200年早い。そして現代の認知科学・VR論とも驚くほど重なる。「現実とは脳が作り出すシミュレーションだ」という現代の議論を先取りしていた。</p>
+    </div>
+    <div class="c-card card-modern">
+      <h4>🌏 現代への意味</h4>
+      <p>世親の「アーラヤ識（阿頼耶識）」は、意識の深層に蓄積される種子（業の記録）を指す。現代でいえば「無意識」に当たる。フロイトより1500年早く無意識の構造を論じていた。「なぜ同じパターンの失敗を繰り返すのか」——その答えが阿頼耶識にある。</p>
+    </div>
+  </div>
+  <div class="content-grid">
+    <div class="c-card card-legacy">
+      <h4>📜 何を残したか</h4>
+      <ul>
+        <li>倶舎論——仏教哲学の百科全書。「仏教のアリストテレス」と呼ばれる所以</li>
+        <li>唯識三十頌——たった30の詩節で意識の全構造を論じた奇跡的な短さの傑作</li>
+        <li>法相宗（日本では玄奘・道昭を経て）の根拠となる思想体系</li>
+      </ul>
+    </div>
+    <div class="c-card card-influence">
+      <h4>🌱 後世への影響</h4>
+      <div class="chain">
+        <span class="chain-node">玄奘（唐僧）</span><span class="chain-arrow">→</span>
+        <span class="chain-node">法相宗</span><span class="chain-arrow">→</span>
+        <span class="chain-node">道昭（日本）</span><span class="chain-arrow">→</span>
+        <span class="chain-node">西洋哲学との対話</span>
+      </div>
+    </div>
+  </div>
+  <div class="dyk"><strong>💡 知っていましたか？</strong>世親は最初、兄・無著の大乗仏教を「妄想だ」と批判していた。ところが兄が「小乗と大乗の違い」を説いた詩を見せると、一夜で改心。その後、兄の思想を弟が完成させた——思想史最高の「逆転」ドラマ。</div>
+</section>
+
+<!-- ============================================================
+     鳩摩羅什
+============================================================ -->
+<section class="fig-section" id="kumarajiva">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <img src="images/jiva.png" alt="鳩摩羅什" width="160" height="160" style="border-radius:50%; object-fit:cover; border:3px solid #8a4a20;">
+    </div>
+    <div>
+      <div class="fig-name">鳩摩羅什（クマーラジーヴァ）</div>
+      <div class="fig-name-en">Kumārajīva — インドと中国を繋いだ翻訳の巨人</div>
+      <div class="fig-dates">344年〜413年（亀茲国→長安）</div>
+      <div class="fig-hook" style="margin-top:16px">今も浄土真宗の法要で唱えられる「阿弥陀経」の漢訳は、この人物の手によるものだ。父はインドの高僧、母は西域の王女——二つの文明の血を引く天才翻訳家が、大乗仏教をインドから中国へと完全に移植した。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">🗺️</span>生誕地：亀茲国（現・中国新疆ウイグル自治区）</div>
+    <div class="fact-chip"><span class="fi">📖</span>漢訳経典300巻以上（阿弥陀経・法華経・金剛経など）</div>
+    <div class="fact-chip"><span class="fi">⚔️</span>戦利品として中国に連行された翻訳家</div>
+    <div class="fact-chip"><span class="fi">🔤</span>サンスクリット語・漢語・亀茲語に精通</div>
+    <div class="fact-chip"><span class="fi">🕯️</span>西域にて大乗仏教に出会う。般若経典や龍樹の思想を言語体系を超えてコンテキストと読誦リズムまで考えて漢訳したセンスは、その後の中国や日本の仏教に決定的な影響を与えた。</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-fact" style="border-color:#8a4a20">
+      <h4>驚異の翻訳</h4>
+      <p>鳩摩羅什が漢訳した経典は、それ以前の翻訳と別物とも言える完成度だった。単なる逐語訳ではなく、漢語として自然に読める「意訳」を重視。「法華経」「阿弥陀経」「金剛般若経」「維摩経」——これらすべての日本語読みの原典は彼の手から生まれた。</p>
+    </div>
+    <div class="c-card card-fact" style="border-color:#8a4a20">
+      <h4>波乱の生涯</h4>
+      <p>7歳で出家し、カシミールやインドで修行。帰国後、亀茲国で高名な僧として名声を得たが、後秦の将軍・呂光に捕らえられ17年間抑留。後秦の姚興皇帝に迎えられ長安に入り、国家プロジェクトとして翻訳事業に従事。悲劇的な境遇の中で生涯最大の仕事を成し遂げた。</p>
+    </div>
+    <div class="c-card card-fact" style="border-color:#8a4a20">
+      <h4>浄土真宗との縁</h4>
+      <p>鳩摩羅什訳の「阿弥陀経」は、今日も浄土真宗の勤行で読まれる。「南無阿弥陀仏」を称えることで極楽浄土に往生できると説くこの経典が、法然・親鸞の念仏革命の礎となった。1600年を超えて、彼の言葉は今なお生きている。</p>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card card-modern">
+      <h4>🌏 現代への意味</h4>
+      <p>鳩摩羅什の仕事は、単なる「翻訳」を超えた「文化の移植」だった。言語が違えば概念も変わる——それを承知で、彼はサンスクリット語の哲学をできる限り美しい漢語に置き換えた。「翻訳は裏切りである」という言葉があるが、鳩摩羅什は裏切りを芸術に変えた。異文化を繋ぐすべての人への勇気の源泉だ。</p>
+    </div>
+    <div class="c-card card-influence">
+      <h4>🌱 後世への影響</h4>
+      <div class="chain">
+        <span class="chain-node">鳩摩羅什の漢訳</span><span class="chain-arrow">→</span>
+        <span class="chain-node">曇鸞・道綽・善導</span><span class="chain-arrow">→</span>
+        <span class="chain-node">法然・親鸞</span><span class="chain-arrow">→</span>
+        <span class="chain-node">浄土真宗</span>
+      </div>
+      <p style="margin-top:8px;font-size:13px">彼の訳した阿弥陀経なくして、浄土思想の中国・日本への伝播はなかった。</p>
+    </div>
+  </div>
+
+  <div class="dyk"><strong>💡 知っていましたか？</strong>鳩摩羅什は死の間際、「私が訳した経典に誤りがなければ、火葬しても舌だけは燃えずに残るだろう」と言い遺した。伝承によれば火葬後、舌だけが赤蓮華のように燃え残ったという——真偽はともあれ、彼の言葉への絶対的な信頼を弟子たちが抱いていたことが伝わる逸話だ。</div>
+  <div class="quote-box">
+    <blockquote>月を指す指を見て、月だと思ってはならない。<br>経典は月を指す指に過ぎない。</blockquote>
+    <cite>— 鳩摩羅什の教えより</cite>
+  </div>
+</section>
+
+<!-- ============================================================
+     ⑥ 曇鸞・道綽・善導
+============================================================ -->
+<section class="fig-section" id="chinese3">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <img src="images/china.png" alt="曇鸞・道綽・善導" width="160" height="160" style="border-radius:50%; object-fit:cover; border:3px solid #703a70;">
+    </div>
+    <div>
+      <div class="fig-name">曇鸞・道綽・善導</div>
+      <div class="fig-name-en">Tánluán · Dàochuò · Shàndǎo — 中国浄土三祖</div>
+      <div class="fig-dates">曇鸞 476-542 ／ 道綽 562-645 ／ 善導 613-681</div>
+      <div class="fig-hook" style="margin-top:16px">「念仏」をインドから中国へ、そして日本へと橋渡しした三人のリレー。善導が確立した「南無阿弥陀仏」の実践が、後の法然・親鸞の革命を準備した。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">🇨🇳</span>三人とも中国（北朝〜唐）の僧</div>
+    <div class="fact-chip"><span class="fi">🔗</span>師弟の連鎖で浄土思想を完成</div>
+    <div class="fact-chip"><span class="fi">🖌️</span>善導：写経した阿弥陀経10万巻、浄土変相図多数</div>
+    <div class="fact-chip"><span class="fi">📖</span>曇鸞：往生論註で他力思想を確立</div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card card-fact" style="border-color:#703a70">
+      <h4>曇鸞の革新</h4>
+      <p>もとは道教を学んでいたが、菩提流支から浄土経典を受けて一転。「自力」の限界を認め、阿弥陀仏の「他力」に依ることを論証した。病弱だったからこそ「弱い者の救済」の論理を徹底した。</p>
+    </div>
+    <div class="c-card card-fact" style="border-color:#703a70">
+      <h4>道綽の貢献</h4>
+      <p>「聖道門」（悟りを自力で目指す道）と「浄土門」（阿弥陀仏に依る道）を明確に二分し、末法の世には浄土門だけが現実的だと断言。この「時代診断」が浄土思想の普及を加速させた。</p>
+    </div>
+    <div class="c-card card-fact" style="border-color:#703a70">
+      <h4>善導の完成</h4>
+      <p>念仏の実践を「観想念仏」から「称名念仏（声に出して唱える）」へと大衆化。「南無阿弥陀仏」と唱えることを正定業とした。この確信が法然に直接継承された。「称名念仏」の発明者。</p>
+    </div>
+  </div>
+  <div class="content-grid">
+    <div class="c-card card-modern">
+      <h4>🌏 現代への意味</h4>
+      <p>「努力すれば報われる」という自力主義が崩れた時代——善導の「弱い者のための念仏」は、現代の燃え尽き症候群や自己肯定感の低い人々へのメッセージとして新鮮に響く。「あなたのままで救われる」という宣言は、最も過激な形の「ありのまま肯定」だ。</p>
+    </div>
+    <div class="c-card card-influence">
+      <h4>🌱 後世への影響</h4>
+      <div class="chain">
+        <span class="chain-node">法然</span><span class="chain-arrow">→</span>
+        <span class="chain-node">親鸞</span><span class="chain-arrow">→</span>
+        <span class="chain-node">浄土真宗</span><span class="chain-arrow">→</span>
+        <span class="chain-node">日本最大宗派へ</span>
+      </div>
+      <p style="margin-top:8px;font-size:13px">法然は「善導一人に従う」と言い切った。善導なくして浄土真宗は存在しない。</p>
+    </div>
+  </div>
+  <div class="dyk"><strong>💡 知っていましたか？</strong>善導は写経に生涯を捧げ、阿弥陀経を10万巻書写したといわれる。また極楽の「浄土変相図」を多数描き、文字が読めない民衆にも「極楽とはこういうところだ」とビジュアルで伝えた——1300年前のインフォグラフィック作家ともいえる。</div>
+</section>
+
+<!-- ============================================================
+     ③ 聖徳太子
+============================================================ -->
+<section class="fig-section" id="shotoku">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <img src="images/shotoku.png" alt="聖徳太子" width="160" height="160" style="border-radius:50%; object-fit:cover; border:3px solid #4a6741;">
+    </div>
+    <div>
+      <div class="fig-name">聖徳太子（厩戸皇子）</div>
+      <div class="fig-name-en">Prince Shōtoku / Umayado no Miko</div>
+      <div class="fig-dates">574年〜622年</div>
+      <div class="fig-hook" style="margin-top:16px">「以和為貴」——和をもって貴しとなす。1400年前に書かれたこの一文が、今も日本人の無意識に刷り込まれている。聖徳太子は日本という国の「OS」をインストールした人物だ。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">👶</span>馬小屋の前で生まれた（諸説あり）</div>
+    <div class="fact-chip"><span class="fi">📜</span>十七条憲法（604年）制定</div>
+    <div class="fact-chip"><span class="fi">🛕</span>法隆寺・四天王寺を建立</div>
+    <div class="fact-chip"><span class="fi">🧠</span>同時に10人の話を聞いたという伝説</div>
+    <div class="fact-chip"><span class="fi">💴</span>かつて1万円札の顔</div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card card-unique">
+      <h4>🔍 独自の視点</h4>
+      <p>聖徳太子は「仏教の受容」だけでなく、仏教を<strong>政治思想に変換</strong>した最初の人物。「三宝（仏・法・僧）を敬え」と憲法に書いたことで、仏教は貴族の趣味から<em>国家の倫理基盤</em>へと昇格した。また「実は聖徳太子は複数人物の合成像では？」という学説も存在し、歴史の謎も深い。</p>
+    </div>
+    <div class="c-card card-modern">
+      <h4>🌏 現代への意味</h4>
+      <p>十七条憲法の「和をもって貴しとなす」は今も日本の会議文化・根回し文化・横並び意識の源流。良い面では協調性、問題面では「空気を読む」同調圧力にもなる。聖徳太子の遺産は、現代日本の光と影の両方に生きている。</p>
+    </div>
+  </div>
+  <div class="content-grid">
+    <div class="c-card card-legacy">
+      <h4>📜 何を残したか</h4>
+      <ul>
+        <li>十七条憲法——日本最初の成文憲法。仏教倫理を政治に組み込んだ</li>
+        <li>三経義疏——法華経・維摩経・勝鬘経の注釈書（現存最古の日本人の著作）</li>
+        <li>冠位十二階——能力主義人事の先駆け（家柄ではなく徳と才で位を与える）</li>
+        <li>遣隋使——大陸文明の積極的な輸入政策</li>
+      </ul>
+    </div>
+    <div class="c-card card-influence">
+      <h4>🌱 後世への影響</h4>
+      <p>聖徳太子への信仰は鎌倉時代の親鸞にも深く、親鸞は夢に太子が現れた体験を持ち、「和国の教主」と尊称して讃えた。法隆寺は現存最古の木造建築として世界遺産に。太子信仰は今も各地に残る。</p>
+    </div>
+  </div>
+  <div class="dyk"><strong>💡 知っていましたか？</strong>聖徳太子は「同時に10人の訴えを聞いた」という伝説から「十耳一心」と讃えられた。実際どうだったかはともかく、この伝説が生まれるほどに「超人的な政治家」として民衆に慕われたことがわかる。太子の死後、人々は「神仏の化身」として崇めた。</div>
+</section>
+
+<!-- ============================================================
+     ⑦ 源信僧都
+============================================================ -->
+<section class="fig-section" id="genshin">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <img src="images/genshin.png" alt="源信" width="160" height="160" style="border-radius:50%; object-fit:cover; border:3px solid #2a6060;">
+    </div>
+    <div>
+      <div class="fig-name">源信僧都（恵心僧都）</div>
+      <div class="fig-name-en">Genshin / Eshin Sōzu</div>
+      <div class="fig-dates">942年〜1017年</div>
+      <div class="fig-hook" style="margin-top:16px">「地獄のビジュアル化」でビビらせ、「極楽の美」で魅了した天才プロデューサー。彼の書いた『往生要集』は1000年以上前の「コンテンツマーケティング」の傑作だ。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">📍</span>大和国（現・奈良県）生まれ</div>
+    <div class="fact-chip"><span class="fi">🏔️</span>比叡山で生涯を送る</div>
+    <div class="fact-chip"><span class="fi">📚</span>主著：往生要集（985年）</div>
+    <div class="fact-chip"><span class="fi">🎨</span>源信の地獄絵が日本美術に与えた影響は計り知れない</div>
+    <div class="fact-chip"><span class="fi">🧒</span>幼少期から神童として知られた</div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card card-unique">
+      <h4>🔍 独自の視点：1000年前のコンテンツ戦略家</h4>
+      <p>源信は「念仏の大切さ」を伝えるために、まず地獄の恐怖を徹底的にリアルに描写した。八大地獄それぞれの苦しみをまるで目撃者のように記述——これは完全に<strong>「恐怖訴求」のマーケティング</strong>だ。そして地獄の後に極楽の美しさを説く「コントラスト効果」。源信は心理学を使っていた。</p>
+    </div>
+    <div class="c-card card-modern">
+      <h4>🌏 現代への意味</h4>
+      <p>往生要集の地獄描写はその後の日本美術（地獄絵）・文学・映像表現のルーツになった。現代のホラー映画や地獄の概念も源信の影響下にある。また「念仏を称えれば誰でも往生できる」という民主化の思想が、後の法然・親鸞の改革を準備した点で、思想史上の要所に位置する。</p>
+    </div>
+  </div>
+  <div class="content-grid">
+    <div class="c-card card-legacy">
+      <h4>📜 何を残したか</h4>
+      <ul>
+        <li>往生要集——中国・日本の経論から483の文献を引用した超大作。「念仏往生」を学術的に根拠づけた</li>
+        <li>源信の地獄観——日本人の地獄イメージの源泉。「針の山」「血の池地獄」は源信発</li>
+        <li>法然への直接的影響——法然は15歳で往生要集を読み、後の「念仏専修」に至った</li>
+      </ul>
+    </div>
+    <div class="c-card card-influence">
+      <h4>🌱 後世への影響</h4>
+      <div class="chain">
+        <span class="chain-node">法然</span><span class="chain-arrow">→</span>
+        <span class="chain-node">親鸞</span><span class="chain-arrow">→</span>
+        <span class="chain-node">日本美術（地獄絵）</span><span class="chain-arrow">→</span>
+        <span class="chain-node">現代ポップカルチャーの地獄観</span>
+      </div>
+    </div>
+  </div>
+  <div class="dyk"><strong>💡 知っていましたか？</strong>源信は比叡山から一度も出なかったと言われる。しかし往生要集は中国にまで伝わり、宋の僧侶たちが感動して「日本の源信という菩薩が書いた」と讃嘆した。「引きこもりの天才」がリモートで国際的影響力を持った、1000年前の先駆けともいえる。</div>
+</section>
+
+<!-- ============================================================
+     ⑧ 法然
+============================================================ -->
+<section class="fig-section" id="honen">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <img src="images/honen.png" alt="法然" width="160" height="160" style="border-radius:50%; object-fit:cover; border:3px solid #806030;">
+    </div>
+    <div>
+      <div class="fig-name">法然（源空）</div>
+      <div class="fig-name-en">Hōnen / Genkū</div>
+      <div class="fig-dates">1133年〜1212年</div>
+      <div class="fig-hook" style="margin-top:16px">「南無阿弥陀仏と称えるだけでいい」——この一言で、仏教を山の上から街へと降ろした革命家。比叡山の英才が、なぜ「捨てる」ことを選んだのか。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">😢</span>9歳で父を武士に殺される（父「恨むな、仏に帰依せよ」と遺言）</div>
+    <div class="fact-chip"><span class="fi">📚</span>比叡山で一切経を5回読破</div>
+    <div class="fact-chip"><span class="fi">⚡</span>43歳で「専修念仏」に開眼</div>
+    <div class="fact-chip"><span class="fi">🚫</span>75歳で四国へ流罪</div>
+    <div class="fact-chip"><span class="fi">👨‍👩‍👧‍👦</span>弟子に親鸞・証空ら多数</div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card card-unique">
+      <h4>🔍 独自の視点：「捨てる」勇気</h4>
+      <p>法然は比叡山で「これ以上修行しても普通の人間は救われない」という絶望に達した。そして善導の一句——「一心に阿弥陀仏の名を念じよ」——に目覚めた瞬間、比叡山の全ての修行体系を「捨てた」。これは2000冊以上の経論を読んだ末の選択。知り尽くした上で「シンプルさ」を選んだ——これが法然の革命だった。</p>
+    </div>
+    <div class="c-card card-modern">
+      <h4>🌏 現代への意味</h4>
+      <p>「難しいことができる人だけが救われる」という宗教的エリート主義を壊したのが法然。学者も、農民も、女性も、罪人も——「称名念仏」は条件なしに開かれていた。これは宗教史上の「ユニバーサルデザイン」の先駆けだ。現代の「インクルーシブ」の思想と深く共鳴する。</p>
+    </div>
+  </div>
+  <div class="content-grid">
+    <div class="c-card card-legacy">
+      <h4>📜 何を残したか</h4>
+      <ul>
+        <li>選択本願念仏集——「称名念仏こそが阿弥陀仏の本願」という主著</li>
+        <li>浄土宗の開創——念仏を専修する宗派として独立</li>
+        <li>「念仏の民主化」——貴族・僧侶だけの仏教を庶民に開いた</li>
+        <li>親鸞という弟子——法然の思想は親鸞によってさらに深化された</li>
+      </ul>
+    </div>
+    <div class="c-card card-influence">
+      <h4>🌱 後世への影響</h4>
+      <div class="chain">
+        <span class="chain-node">親鸞</span><span class="chain-arrow">→</span>
+        <span class="chain-node">証空</span><span class="chain-arrow">→</span>
+        <span class="chain-node">一遍</span><span class="chain-arrow">→</span>
+        <span class="chain-node">浄土系三宗派</span>
+      </div>
+      <p style="font-size:13px;margin-top:8px">弟子の数800名以上。浄土真宗・浄土宗・時宗のすべての源流に法然がいる。</p>
+    </div>
+  </div>
+  <div class="dyk"><strong>💡 知っていましたか？</strong>法然は75歳で流罪になったとき（1207年）、「これでやっと庶民と同じ立場になれた」と喜んだという。貴族や武家の礼遇を受けていた立場から、一般の人々と同じく辺境へ——その体験が思想をさらに深めた。</div>
+  <div class="quote-box">
+    <blockquote>浄土の業は念仏を本とす。故に一向に念仏すべし。</blockquote>
+    <cite>— 法然（一枚起請文）</cite>
+  </div>
+</section>
+
+<!-- ============================================================
+     ① 親鸞聖人
+============================================================ -->
+<section class="fig-section" id="shinran">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <img src="images/shinran.png" alt="親鸞" width="160" height="160" style="border-radius:50%; object-fit:cover; border:3px solid #7c3d1e;">
+    </div>
+    <div>
+      <div class="fig-name">親鸞聖人</div>
+      <div class="fig-name-en">Shinran Shōnin — 浄土真宗の開祖</div>
+      <div class="fig-dates">1173年〜1263年（享年90歳）</div>
+      <div class="fig-hook" style="margin-top:16px">近代において実在しなかったと言われたほど、史料に乏しかったが、その後発見された文書や伝聞により、伝説ではなく実在した思想家としての親鸞像が浮かび上がった。その完成された教学理論と信心は時代を超えて多くの人々に影響を与えている。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">👶</span>9歳で出家・比叡山へ</div>
+    <div class="fact-chip"><span class="fi">⚡</span>29歳：法然に出会い、100日間通い詰める</div>
+    <div class="fact-chip"><span class="fi">💒</span>結婚・子どもを持つ（「非僧非俗」の自覚）</div>
+    <div class="fact-chip"><span class="fi">🚫</span>35歳：越後へ流罪</div>
+    <div class="fact-chip"><span class="fi">📖</span>主著：教行信証（きょうぎょうしんしょう）</div>
+    <div class="fact-chip"><span class="fi">⏳</span>90年の生涯で最後まで書き続けた</div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card card-unique">
+      <h4>🔍 独自の視点①：「失格」を認めた宗教家</h4>
+      <p>親鸞は「善人なをもて往生をとぐ、いわんや悪人をや（善人でさえ往生できる、ましてや悪人は）」と言った。これは常識の逆転——普通は「善人が救われる」はずなのに。なぜ悪人の方が救われやすいか？阿弥陀仏は「自力では無理だ」と気づいた人間こそ救う。自覚なき善人より、自分の限界を知っている者の方が、他力に開かれている。</p>
+    </div>
+    <div class="c-card card-unique">
+      <h4>🔍 独自の視点②：なぜ現代に親鸞が読まれるのか</h4>
+      <p>「努力すれば報われる」が崩れた時代——格差、病気、老い、理不尽な死。どれだけ頑張っても超えられない壁がある。親鸞は「それでいい、そのままで救われる」と言った。これは甘えではない。限界を認めることから始まる、最も誠実な生き方の肯定だ。SNS時代の「完璧を演じる疲弊」への解毒剤として親鸞は今日も読まれる。</p>
+    </div>
+  </div>
+  <div class="content-grid">
+    <div class="c-card card-legacy">
+      <h4>📜 教えの特徴と残したもの</h4>
+      <ul>
+        <li><strong>他力本願</strong>——自分の力（自力）を捨て、阿弥陀仏の本願力（他力）に全てを委ねる</li>
+        <li><strong>悪人正機</strong>——救済の中心は「弱い人・ダメな人」にこそある</li>
+        <li><strong>非僧非俗</strong>——僧侶でも俗人でもない中間の存在として、普通の人々と共に生きる</li>
+        <li><strong>教行信証</strong>——仏教経典の膨大な引用で他力思想を組み上げた畢生の大作</li>
+        <li><strong>和讃</strong>——庶民に届く日本語の短詩で教えを詠んだ（俗語による宗教詩の先駆け）</li>
+      </ul>
+    </div>
+    <div class="c-card card-influence">
+      <h4>🌱 影響を受けた人たち</h4>
+      <ul>
+        <li>清沢満之——明治期に親鸞を西洋哲学で再解釈</li>
+        <li>曽我量深——「如来の自己表現としての自覚」という深化</li>
+        <li>金子大栄——教行信証の近代的解釈で多くの知識人を惹きつける</li>
+        <li>吉本隆明——「親鸞は日本が生んだ最大の思想家」と評価</li>
+        <li>五木寛之——作家として親鸞の生涯を小説化し広く普及</li>
+      </ul>
+    </div>
+  </div>
+  <div class="dyk"><strong>💡 知っていましたか？</strong>親鸞は「弟子一人ももたずさふらう（私には弟子は一人もいない）」と言い切った。なぜなら、師も弟子も同じく阿弥陀仏の前に平等に「救われる側」だから。これはピラミッド型の宗教組織への根本的な問い直しであり、1200年前の「フラットな組織論」だ。</div>
+  <div class="quote-box">
+    <blockquote>
+      善人なをもて往生をとぐ、いわんや悪人をや。<br>
+      しかるを世のひとつねにいはく、「悪人なほ往生す、いかにいはんや善人をや」。<br>
+      この条、一旦そのいはれあるに似たれども、本願他力の意趣にそむけり。
+    </blockquote>
+    <cite>— 歎異抄（たんにしょう）第三条</cite>
+  </div>
+</section>
+
+<!-- ============================================================
+     ⑪ 蓮如上人
+============================================================ -->
+<section class="fig-section" id="rennyo">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <img src="images/rennyo.png" alt="蓮如" width="160" height="160" style="border-radius:50%; object-fit:cover; border:3px solid #b06020;">
+    </div>
+    <div>
+      <div class="fig-name">蓮如上人</div>
+      <div class="fig-name-en">Rennyo Shōnin — 浄土真宗 中興の祖</div>
+      <div class="fig-dates">1415年〜1499年（享年84歳）</div>
+      <div class="fig-hook" style="margin-top:16px">親鸞の教えを「スタートアップ」から「全国ムーブメント」へ。御文（おふみ）という一枚の手紙で、日本の宗教史を塗り替えた男。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">👶</span>幼少期に母を失い、苦労の多い出自</div>
+    <div class="fact-chip"><span class="fi">🏯</span>本願寺第8代宗主</div>
+    <div class="fact-chip"><span class="fi">✉️</span>御文（ごぶんしょう）を200通以上書いた</div>
+    <div class="fact-chip"><span class="fi">⚔️</span>弟子たちが「一向一揆」を起こし戦国大名を震撼させた</div>
+    <div class="fact-chip"><span class="fi">👨‍👩‍👧‍👦</span>妻5人・子27人という壮大な家族</div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card card-unique">
+      <h4>🔍 独自の視点①：コンテンツマーケティングの元祖</h4>
+      <p>蓮如が作った「御文（おふみ）」は、当時の識字率・語彙レベルに合わせてひらがな多用の平易な文体で書かれた教えの手紙。難解な漢文仏教を「誰でも読めるコンテンツ」に変換した。各地の道場で音読・回覧される仕組みも作った——これは完全に「バイラルメディア戦略」だ。親鸞の思想という「コンテンツ」を、蓮如という「編集者兼配信者」が全国に届けた。</p>
+    </div>
+    <div class="c-card card-unique">
+      <h4>🔍 独自の視点②：スタートアップのスケールアップ</h4>
+      <p>蓮如が就任した頃の本願寺は極めて小規模で、比叡山延暦寺から迫害を受けて本堂を焼かれるほど弱体だった。そこから84年の生涯をかけて、北陸・近畿一帯に数十万の門徒を擁する巨大組織へ成長させた。「門徒組織（講）」という草の根ネットワークを築いたのが蓮如の最大の功績——1500年前のフランチャイズモデルだ。</p>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card card-legacy">
+      <h4>📜 何を残したか</h4>
+      <ul>
+        <li><strong>御文（ごぶんしょう）</strong>——平易な日本語で書かれた200通以上の手紙。現在も真宗寺院で読誦される「生きた経典」</li>
+        <li><strong>講（こう）の組織化</strong>——地域ごとの門徒組織を整備し、寺を中心としたコミュニティを形成</li>
+        <li><strong>山科本願寺・石山本願寺の建立</strong>——織田信長と10年以上戦った「石山合戦」の舞台となる巨大宗教都市</li>
+        <li><strong>「浄土真宗」という宗名の確立</strong>——親鸞が残したものを、宗派として制度化・可視化した</li>
+      </ul>
+    </div>
+    <div class="c-card card-influence">
+      <h4>🌱 後世への影響</h4>
+      <div class="chain">
+        <span class="chain-node">石山合戦（対信長）</span><span class="chain-arrow">→</span>
+        <span class="chain-node">東西本願寺の分立</span><span class="chain-arrow">→</span>
+        <span class="chain-node">大谷派・本願寺派</span>
+      </div>
+      <p style="margin-top:8px;font-size:13px">蓮如の死後、その孫の時代に豊臣秀吉・徳川家康の政策で本願寺は東西に分裂。現在の真宗大谷派（東）と浄土真宗本願寺派（西）の源流は蓮如にある。</p>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card card-modern">
+      <h4>🌏 現代への意味</h4>
+      <p>蓮如の御文が示したのは「難しいことを難しいまま伝えない」という覚悟だ。親鸞の深遠な思想を「わかりやすく、しかし本質を失わず」伝えることの難しさに真摯に向き合った。現代のコンテンツクリエイターや教育者、宗教者にとっても「伝わること」の本質を問いかける生き方だ。</p>
+    </div>
+    <div class="c-card card-fact" style="border-color:#b06020">
+      <h4>⚡ 一向一揆という「副作用」</h4>
+      <p>蓮如は「守護不入（しゅごふにゅう）」——領主の権力も及ばない自治区——を各地の門徒が形成するほどの結束力を生んだ。これが戦国時代の「一向一揆」につながり、加賀国（現・石川県）では約100年間、門徒が支配する「百姓の持ちたる国」が実現した。宗教が社会変革の力になった最大の事例の一つ。</p>
+    </div>
+  </div>
+
+  <div class="dyk"><strong>💡 知っていましたか？</strong>蓮如の御文の末尾には必ず「あなかしこ、あなかしこ」という言葉がある。「ああ、おそれ多い、おそれ多い」——阿弥陀仏への深い畏敬を表すこの言葉は、現代でも真宗の法事で読まれ続けている。シンプルな繰り返しの中に、蓮如の感謝と謙虚さが凝縮されている。</div>
+
+  <div class="quote-box" style="background:linear-gradient(135deg,#3a1e08,#5a2a10)">
+    <blockquote>
+      一切の女人の成仏ということ、釈迦如来のとき五障三従とて、女人は成仏しがたしと申すなり。しかれども弥陀の本願には女人成仏ということ、さらに難事にあらざるなり。
+    </blockquote>
+    <cite>— 蓮如上人 御文（女人往生の文）— 女性の救済を平易な言葉で語る</cite>
+  </div>
+</section>
+
+<!-- ============================================================
+     ⑨ 清沢満之
+============================================================ -->
+<section class="fig-section" id="kiyozawa">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <img src="images/manshi.png" alt="清沢満之" width="160" height="160" style="border-radius:50%; object-fit:cover; border:3px solid #404080;">
+    </div>
+    <div>
+      <div class="fig-name">清沢満之</div>
+      <div class="fig-name-en">Kiyozawa Manshi</div>
+      <div class="fig-dates">1863年〜1903年（享年40歳）</div>
+      <div class="fig-hook" style="margin-top:16px">カントやヘーゲルを読み込んだ明治の俊才が、西洋哲学のすべてを使い果たした末に「親鸞に帰った」。40年の短い生涯で、日本近代仏教思想の礎を一人で築いた。</div>
+    </div>
+  </div>
+
+  <div class="fact-strip">
+    <div class="fact-chip"><span class="fi">🎓</span>東京大学哲学科卒（西洋哲学を徹底的に学ぶ）</div>
+    <div class="fact-chip"><span class="fi">🏥</span>結核を患いながら思索・著作を続けた</div>
+    <div class="fact-chip"><span class="fi">📰</span>雑誌「精神界」を創刊（1901年）</div>
+    <div class="fact-chip"><span class="fi">🔄</span>浄土真宗の宗門改革運動「三河改革」を主導</div>
+    <div class="fact-chip"><span class="fi">✍️</span>骸骨の請（宗門への絶縁状のような辞表）で話題に</div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card card-unique">
+      <h4>🔍 独自の視点：哲学の敗北から信仰へ</h4>
+      <p>清沢は西洋哲学——カント、ヘーゲル、スペンサー——を総動員して「有限無限の関係」を論理で解こうとした。しかし結論：「論理では解けない」。病床で全てを失いかけた清沢が行き着いたのは「他力への絶対帰依」だった。これは敗北ではなく<strong>哲学が到達できる最高の地点</strong>だったと、後世は評価する。</p>
+    </div>
+    <div class="c-card card-modern">
+      <h4>🌏 現代への意味</h4>
+      <p>「精神主義（せいしんしゅぎ）」——物質的豊かさでも社会改革でもなく、内面の精神的自立を目指す清沢の思想。高度経済成長が終わり「豊かなのに満たされない」社会に生きる現代人にとって、清沢の問いは150年後も有効だ。「あなたは自分の内面の王国を持っているか？」</p>
+    </div>
+  </div>
+  <div class="content-grid">
+    <div class="c-card card-legacy">
+      <h4>📜 何を残したか</h4>
+      <ul>
+        <li>精神主義——物質・社会・制度ではなく「精神の自立」を核とする思想</li>
+        <li>「わが信念」——40歳の死の直前に書かれた短い信仰告白。日本近代宗教文学の傑作</li>
+        <li>雑誌「精神界」——当時の知識人・宗教者に多大な影響を与えた思想誌</li>
+      </ul>
+    </div>
+    <div class="c-card card-influence">
+      <h4>🌱 影響を受けた人たち</h4>
+      <div class="chain">
+        <span class="chain-node">暁烏敏</span><span class="chain-arrow">→</span>
+        <span class="chain-node">曽我量深</span><span class="chain-arrow">→</span>
+        <span class="chain-node">金子大栄</span><span class="chain-arrow">→</span>
+        <span class="chain-node">安田理深</span>
+      </div>
+      <p style="font-size:13px;margin-top:8px">清沢の周囲に集まった「精神界」同人たちが、20世紀の浄土真宗思想を形成した。</p>
+    </div>
+  </div>
+  <div class="dyk"><strong>💡 知っていましたか？</strong>清沢が重い結核を患いながら書いた「骸骨の請（がいこつのこい）」——これは宗門の腐敗・形式主義への激烈な批判状で、宗門を去る宣言だった。しかし仏教は捨てなかった。制度と信仰は別物だという清沢の確信が、後の思想の核心になる。</div>
+  <div class="quote-box">
+    <blockquote>われは宇宙の大霊に帰依する。<br>われはただこの信念によりて生き、またこの信念によりて死なんとす。</blockquote>
+    <cite>— 清沢満之「わが信念」</cite>
+  </div>
+</section>
+
+<!-- ============================================================
+     ⑩ 近代の高僧
+============================================================ -->
+<section class="fig-section" id="modern">
+  <div class="fig-header">
+    <div class="fig-portrait">
+      <img src="images/kindai.png" alt="近代の高僧たち" width="160" height="160" style="border-radius:50%; object-fit:cover; border:3px solid #506050;">
+    </div>
+    <div>
+      <div class="fig-name">近代の真宗大谷派の高僧たち</div>
+      <div class="fig-name-en">Modern Masters of Japanese Shin Buddhism</div>
+      <div class="fig-dates">明治〜昭和（1860年代〜1980年代）</div>
+      <div class="fig-hook" style="margin-top:16px">近代の激動のなかで、親鸞の教えをもう一度人間の問題として問い直した思想家たち。清沢満之が開いた「精神主義」の流れは、曽我量深・金子大栄・暁烏敏・安田理深・近角常観へと受け継がれ、真宗大谷派の近代思想を形成した。</div>
+    </div>
+  </div>
+
+  <div class="content-grid three">
+    <div class="c-card" style="background:linear-gradient(135deg,#f8fff8,#f0f8f0);border-color:#506050">
+      <h4>🌿 暁烏敏（あけがらす はや）<span style="font-size:11px;color:#8a7a6a;font-weight:normal;margin-left:8px">1877-1954</span></h4>
+      <p>清沢満之の最愛の弟子。「愛の仏教」を説き、人間の感情——愛・苦・喜び——を仏教の中心に置いた。浪漫主義と仏教を融合した文章は美文として名高く、当時の文学者にも強い影響を与えた。「恋愛と信仰は矛盾しない」と語り、大きな反響と批判を呼んだ型破りな僧。</p>
+    </div>
+    <div class="c-card" style="background:linear-gradient(135deg,#f8f0ff,#f0e8ff);border-color:#6050a0">
+      <h4>📚 金子大栄（かねこ だいえい）<span style="font-size:11px;color:#8a7a6a;font-weight:normal;margin-left:8px">1875-1971</span></h4>
+      <p>享年96歳。長寿を全うしながら教行信証の読解に生涯を捧げた碩学。「親鸞の言葉を今の人間の言葉に翻訳する」ことを使命とし、数百の著作を残した。「浄土とは、場所ではなく状態だ」という解釈は現代人にも受け入れやすい視点を開いた。</p>
+    </div>
+    <div class="c-card" style="background:linear-gradient(135deg,#fff8f0,#fff0e0);border-color:#c8902a">
+      <h4>🔥 曽我量深（そが りょうじん）<span style="font-size:11px;color:#8a7a6a;font-weight:normal;margin-left:8px">1875-1971</span></h4>
+      <p>「如来の自己表現としての人間」——難解だが、読む者の魂を揺さぶる言葉を使い続けた。「阿弥陀仏が私を通して自分自身に気づく」という独自の読みは、後の思想家に最も深い影響を与えた。金子大栄とともに浄土真宗近代思想の双璧をなす。</p>
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <div class="c-card" style="background:linear-gradient(135deg,#f0f8ff,#e8f0ff);border-color:#405080">
+      <h4>🔔 安田理深（やすだ りじん）<span style="font-size:11px;color:#8a7a6a;font-weight:normal;margin-left:8px">1900-1982</span></h4>
+      <p>曽我量深に師事し、「信心とは人間の仕事ではなく、如来の仕事だ」という徹底した他力の論理を生涯説き続けた。難解な言葉の奥に、聴く者の根底を揺さぶる力があった。録音された講義テープは今も研究・聴聞され続け、「安田先生の言葉がなければ念仏が分からなかった」と語る僧侶は多い。真宗大谷派近代思想の最高峰の一人。</p>
+    </div>
+    <div class="c-card" style="background:linear-gradient(135deg,#f8fff0,#f0ffe8);border-color:#4a6741">
+      <h4>🌿 近角常観（ちかずみ じょうかん）<span style="font-size:11px;color:#8a7a6a;font-weight:normal;margin-left:8px">1870-1941</span></h4>
+      <p>明治・大正期、「求道学舎」を拠点に知識人・文学者へ真宗を伝えた在家仏教の先駆者。内村鑑三のキリスト教運動に触発され、宗教体験の「直接性」を重視した布教を行った。倉田百三（『出家とその弟子』）は近角の影響を深く受けた一人。西洋思想と向き合いながら、念仏の人間的な意味を問い続けた。</p>
+    </div>
+  </div>
+
+  <div class="c-card card-modern" style="margin-top:16px">
+    <h4>🌏 現代への意味：「他力」の思想を生きる</h4>
+    <p>清沢満之から安田理深へと続く真宗大谷派の近代思想が問い続けたのは、ただ一つのことだ——「私はなぜ、念仏するのか」。自力で悟れないからではなく、すでに如来の願いに包まれているからこそ称える。この「逆説の信心」は、自己否定でも自己放棄でもなく、最も深い場所での自己肯定だ。喪失・挫折・老い・死——その只中で「南無阿弥陀仏」と声が出るところに、真宗の核心がある。</p>
+  </div>
+
+  <div class="content-grid" style="margin-top:16px">
+    <div class="c-card card-legacy">
+      <h4>📜 近代大谷派が問い直したもの</h4>
+      <ul>
+        <li>信心は人間の努力か、如来の回向か——安田理深の問い</li>
+        <li>念仏の「体験」とは何か——近角常観の宗教的実存</li>
+        <li>浄土とは場所か、状態か——金子大栄の再解釈</li>
+        <li>阿弥陀仏の自己表現としての人間——曽我量深の独自思想</li>
+      </ul>
+    </div>
+    <div class="c-card card-influence">
+      <h4>🌱 これからへの問い</h4>
+      <ul>
+        <li>「自力」が崩れた時代に、他力はどう響くか</li>
+        <li>孤独・自己嫌悪・無力感と「摂取不捨」の願い</li>
+        <li>死を前にした人間に、念仏は何をもたらすか</li>
+        <li>親鸞の言葉は、今この時代の人間に届いているか</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+  </main>
+</div><!-- /page-body -->
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">真照寺<small>Shinsho-ji Temple</small></div>
+      <p>心静かに、ともに歩む場所。<br>どなたでもお気軽にお越しください。</p>
+    </div>
+    <div>
+      <h4>ページ案内</h4>
+      <ul>
+        <li><a href="about.html">お寺の紹介</a></li>
+        <li><a href="teaching.html">法話・仏教の教え</a></li>
+        <li><a href="events.html">行事案内</a></li>
+        <li><a href="news.html">お知らせ・ブログ</a></li>
+        <li><a href="masters.html">偉大な師たち</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ご相談・ご連絡</h4>
+      <ul>
+        <li><a href="#">法事・葬儀のご相談</a></li>
+        <li><a href="#">お墓・納骨のご案内</a></li>
+        <li><a href="#">写経・座禅会</a></li>
+        <li><a href="#">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 真照寺 All Rights Reserved.</p></div>
+</footer>
+
+<script>
+// side nav highlight on scroll
+const sections = document.querySelectorAll('.fig-section');
+const navLinks = document.querySelectorAll('.side-nav a');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('cur'));
+      const link = document.querySelector(`.side-nav a[href="#${e.target.id}"]`);
+      if(link) link.classList.add('cur');
+    }
+  });
+},{rootMargin:'-30% 0px -60% 0px'});
+sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
