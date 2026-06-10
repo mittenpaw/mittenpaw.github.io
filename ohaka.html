@@ -14,18 +14,17 @@
     --font-serif: 'Yu Mincho', '游明朝', 'YuMincho', 'Hiragino Mincho Pro', serif;
     --radius: 8px; --shadow: 0 2px 16px rgba(60,30,0,.10);
   }
-  body { font-family: var(--font-main); background: var(--col-light); color: var(--col-dark); line-height: 1.8; font-size: 15px; }
+    header { background: var(--col-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+  .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; gap: 16px; }
+  .logo { font-size: 1.1rem; font-weight: 700; color: #f0d080; white-space: nowrap; text-decoration: none; padding: 10px 0; font-family: var(--font-serif, serif); letter-spacing: .1em; }
+  .logo small { display: block; font-size: .55rem; color: #c8a060; letter-spacing: .05em; font-family: var(--font-main, sans-serif); font-weight: normal; }
+  nav { flex: 1; overflow-x: auto; }
+  nav ul { list-style: none; display: flex; gap: 2px; white-space: nowrap; }
+  nav a { color: #e8d5b0; text-decoration: none; font-size: 13px; padding: 6px 8px; display: block; border-radius: 4px; transition: background .2s, color .2s; letter-spacing: .05em; }
+  nav a:hover, nav a.active { background: var(--col-accent); color: #fff; }
+body { font-family: var(--font-main); background: var(--col-light); color: var(--col-dark); line-height: 1.8; font-size: 15px; }
   a { color: inherit; text-decoration: none; }
   img { max-width: 100%; }
-
-  header { background: var(--col-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
-  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
-  .logo { font-family: var(--font-serif); font-size: 22px; letter-spacing: .2em; color: #f0dfc0; }
-  nav { display: flex; gap: 4px; }
-  nav a { color: #e8d5b0; font-size: 13px; padding: 6px 8px; border-radius: var(--radius); transition: background .2s, color .2s; letter-spacing: .05em; }
-  nav a:hover, nav a.active { background: var(--col-main); color: #fff; }
-  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
-  .menu-toggle span { display: block; width: 26px; height: 2px; background: #e8d5b0; border-radius: 2px; }
 
   /* ページヒーロー */
   .page-hero {
@@ -163,12 +162,7 @@
   .footer-bottom { max-width: 1100px; margin: 20px auto 0; text-align: center; font-size: 12px; color: #6a5840; }
 
   @media (max-width: 768px) {
-    nav { display: none; flex-direction: column; width: 100%; }
-    nav.open { display: flex; }
-    .header-inner { flex-wrap: wrap; height: auto; padding: 12px 16px; gap: 8px; }
-    .menu-toggle { display: flex; }
-    nav a { width: 100%; padding: 12px 16px; border-radius: 0; }
-    .footer-inner { grid-template-columns: 1fr; }
+.footer-inner { grid-template-columns: 1fr; }
     .grave-grid { grid-template-columns: 1fr; }
     .contact-box { padding: 32px 20px; }
   }
@@ -178,24 +172,22 @@
 
 <header>
   <div class="header-inner">
-    <a href="index.html" class="logo"></a>
-    <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
-    <nav id="main-nav">
-      <a href="index.html">ホーム</a>
-      <a href="about.html">お寺の紹介</a>
-      <a href="teaching.html">法話・教え</a>
-      <a href="events.html">行事案内</a>
-      <a href="news.html">お知らせ</a>
-      <a href="masters.html">偉大な師たち</a>
-      <a href="sougi.html">葬儀・法事</a>
-      <a href="ohaka.html" class="active">お墓・納骨</a>
-      <a href="opentemple.html">オープンテンプル</a>
-      <a href="otogi.html">お伽噺</a>
-      <a href="kissui.html">釈吉瑞</a>
-      <a href="kyogaku.html">大切な遺産</a>
-    </nav>
+    <a href="index.html" class="logo">真照寺<small>Shinsho-ji Temple</small></a>
+    <nav><ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="about.html">お寺の紹介</a></li>
+      <li><a href="teaching.html">法話・教え</a></li>
+      <li><a href="events.html">行事案内</a></li>
+      <li><a href="news.html">お知らせ</a></li>
+      <li><a href="masters.html">偉大な師たち</a></li>
+      <li><a href="sougi.html">葬儀・法事</a></li>
+      <li><a href="ohaka.html" class="active">お墓・納骨</a></li>
+      <li><a href="opentemple.html">オープンテンプル</a></li>
+      <li><a href="otogi.html">お伽噺</a></li>
+      <li><a href="kissui.html">釈吉瑞</a></li>
+      <li><a href="kyogaku.html">大切な遺産</a></li>
+      <li><a href="butten.html">仏典を紐解く</a></li>
+    </ul></nav>
   </div>
 </header>
 
@@ -453,11 +445,6 @@
   </div>
 </footer>
 
-<script>
-  function toggleMenu() {
-    const nav = document.getElementById('main-nav');
-    nav.classList.toggle('open');
-  }
-</script>
+
 </body>
 </html>

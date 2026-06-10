@@ -18,17 +18,15 @@
   a { color: inherit; text-decoration: none; }
 
   /* ヘッダー */
-  header { background: var(--col-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
-  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
-  .logo { font-family: var(--font-serif); font-size: 22px; letter-spacing: .2em; color: #f0dfc0; }
-  .logo small { display: block; font-size: 11px; letter-spacing: .15em; color: var(--col-accent); font-family: var(--font-main); margin-top: -4px; }
-  nav { display: flex; gap: 4px; }
-  nav a { color: #e8d5b0; font-size: 13px; padding: 6px 8px; border-radius: var(--radius); transition: background .2s, color .2s; letter-spacing: .05em; }
-  nav a:hover, nav a.active { background: var(--col-main); color: #fff; }
-  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
-  .menu-toggle span { display: block; width: 26px; height: 2px; background: #e8d5b0; border-radius: 2px; }
-
-  /* ページヒーロー */
+    header { background: var(--col-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+  .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; gap: 16px; }
+  .logo { font-size: 1.1rem; font-weight: 700; color: #f0d080; white-space: nowrap; text-decoration: none; padding: 10px 0; font-family: var(--font-serif, serif); letter-spacing: .1em; }
+  .logo small { display: block; font-size: .55rem; color: #c8a060; letter-spacing: .05em; font-family: var(--font-main, sans-serif); font-weight: normal; }
+  nav { flex: 1; overflow-x: auto; }
+  nav ul { list-style: none; display: flex; gap: 2px; white-space: nowrap; }
+  nav a { color: #e8d5b0; text-decoration: none; font-size: 13px; padding: 6px 8px; display: block; border-radius: 4px; transition: background .2s, color .2s; letter-spacing: .05em; }
+  nav a:hover, nav a.active { background: var(--col-accent); color: #fff; }
+/* ページヒーロー */
   .page-hero {
     background: linear-gradient(160deg, #1e0e04 0%, #4a2208 45%, #7c3d1e 100%);
     color: #f8f1e8; text-align: center; padding: 72px 24px 60px; position: relative; overflow: hidden;
@@ -178,6 +176,14 @@
   .story-source a { color: var(--col-accent); text-decoration: underline; }
   .story-source a:hover { color: var(--col-main); }
 
+  .story-body-inner .verse {
+    font-family: var(--font-serif);
+    line-height: 2.2;
+    color: #4a3020;
+    padding-left: 1em;
+    border-left: 2px solid #e0c898;
+    margin-bottom: 1.2em;
+  }
   /* 区切り */
   .divider {
     width: 100%; height: 1px;
@@ -198,12 +204,7 @@
   .footer-bottom { max-width: 1100px; margin: 20px auto 0; text-align: center; font-size: 12px; color: #6a5840; }
 
   @media (max-width: 768px) {
-    nav { display: none; flex-direction: column; width: 100%; }
-    nav.open { display: flex; }
-    .header-inner { flex-wrap: wrap; height: auto; padding: 12px 16px; gap: 8px; }
-    .menu-toggle { display: flex; }
-    nav a { width: 100%; padding: 12px 16px; border-radius: 0; }
-    .footer-inner { grid-template-columns: 1fr; }
+.footer-inner { grid-template-columns: 1fr; }
     .story-body-inner { padding: 24px 20px; }
     .index-bar { top: 0; }
   }
@@ -213,24 +214,22 @@
 
 <header>
   <div class="header-inner">
-    <a href="index.html" class="logo"></a>
-    <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
-    <nav id="main-nav">
-      <a href="index.html">ホーム</a>
-      <a href="about.html">お寺の紹介</a>
-      <a href="teaching.html">法話・教え</a>
-      <a href="events.html">行事案内</a>
-      <a href="news.html">お知らせ</a>
-      <a href="masters.html">偉大な師たち</a>
-      <a href="sougi.html">葬儀・法事</a>
-      <a href="ohaka.html">お墓・納骨</a>
-      <a href="opentemple.html">オープンテンプル</a>
-      <a href="otogi.html" class="active">お伽噺</a>
-      <a href="kissui.html">釈吉瑞</a>
-      <a href="kyogaku.html">大切な遺産</a>
-    </nav>
+    <a href="index.html" class="logo">真照寺<small>Shinsho-ji Temple</small></a>
+    <nav><ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="about.html">お寺の紹介</a></li>
+      <li><a href="teaching.html">法話・教え</a></li>
+      <li><a href="events.html">行事案内</a></li>
+      <li><a href="news.html">お知らせ</a></li>
+      <li><a href="masters.html">偉大な師たち</a></li>
+      <li><a href="sougi.html">葬儀・法事</a></li>
+      <li><a href="ohaka.html">お墓・納骨</a></li>
+      <li><a href="opentemple.html">オープンテンプル</a></li>
+      <li><a href="otogi.html" class="active">お伽噺</a></li>
+      <li><a href="kissui.html">釈吉瑞</a></li>
+      <li><a href="kyogaku.html">大切な遺産</a></li>
+      <li><a href="butten.html">仏典を紐解く</a></li>
+    </ul></nav>
   </div>
 </header>
 
@@ -247,6 +246,7 @@
     <a href="#story1" class="index-link"><span class="idx-num">一</span>蜘蛛の糸</a>
     <a href="#story2" class="index-link"><span class="idx-num">二</span>樹石問答</a>
     <a href="#story3" class="index-link"><span class="idx-num">三</span>初転法輪</a>
+    <a href="#story4" class="index-link"><span class="idx-num">四</span>龍樹の伝言</a>
   </div>
 </nav>
 
@@ -519,6 +519,162 @@
     </div><!-- /story-layout -->
   </div>
 
+  <div class="divider"></div>
+
+  <!-- ④ 龍樹の伝言 -->
+  <div class="story-block" id="story4">
+    <div class="story-num">其の四</div>
+    <h2 class="story-title">龍樹の伝言〜「実利主義」の現代人へ〜</h2>
+
+    <div class="story-preview">
+      結果を物差しにして生きるプラグマティズムに染まる現代人に、龍樹から十の諫言。<br><br>
+      他人の称賛が成功なのか。他人の支配が成功なのか。何かを得ることが成功なら、失うことは失敗か。何かによって、何者かになると信じるなら、何と虚しいことか——。成功・効率・合理性・所有・時間……あらゆる「現代の常識」に、龍樹が語りかける。
+    </div>
+
+    <details class="story-toggle">
+      <summary><span class="toggle-arrow">▼</span>続きを読む</summary>
+      <div class="story-body">
+        <div class="story-body-inner">
+          <p>結果を物差しにして生きるプラグマティズムに染まる現代人に、龍樹から十の諫言。</p>
+          <p>十方の諸仏に帰依します。真実の法に帰依します。菩薩道を歩む全ての存在に帰依します。</p>
+          <h3>一　あなたの「成功」について</h3>
+          <p class="verse">他人の称賛が成功なのか。<br>
+          他人の支配が成功なのか。<br>
+          他人の尊敬が成功なのか。<br>
+          何かを得ることが成功なら、失うことは失敗か。<br>
+          何かによって、何者かになると信じるなら、<br>
+          何と虚しいことか。<br>
+          何かも、何者かも、まるで実体がないではないか。<br>
+          縁に固執するから真実に生きられないのだ。<br>
+          縁から逃れたいから生きるのが苦しいのだ。<br>
+          成功という虚構に気づかないのか。<br>
+          真実こそが栄光であるというのに。</p>
+          <h3>二　あなたの「効率」について</h3>
+          <p class="verse">なぜ結果を求めるのか。<br>
+          なぜ効率を求めるのか。<br>
+          なぜ手段を求めるのか。<br>
+          やり方にあやかって、<br>
+          あなたは一体どこへ向かおうとするのか。<br>
+          種を蒔かずに刈り取ろうとする者は<br>
+          やがて何も刈り取れなくなる。<br>
+          善い行いの根は深く張るほど<br>
+          磐石の大木になるのだ。<br>
+          あなたは効率で得られることに、<br>
+          実体があると本当に思っているのか。</p>
+          <h3>三　あなたの「合理性」について</h3>
+          <p class="verse">合理性の追求だと、あなたは言う。<br>
+          では問おう——<br>
+          変化しない固定的なものに合理だというのか。<br>
+          成功方程式、黄金律、必勝法、あなたの合理性は、<br>
+          何を基盤にして組み立てられたのだ。<br>
+          固定の物や、変化しない事に、合理性を叫んでも<br>
+          そんなものはありはしない。<br>
+          あなたは昔の頭で、未来を考えるのか。<br>
+          全ては変化する関係性で発現している。<br>
+          本当に賢い人間は、合理性などととらわれない。</p>
+          <h3>四　あなたの「所有」について</h3>
+          <p class="verse">もっと所有することを求めるのか。<br>
+          所有していれば、幸福だと本気で思っているのか。<br>
+          欲しいものを買える力、奪える力があればいいのか。<br>
+          そのために、あなたは大切な時間を使い切るのか。<br>
+          持てば持つほど、重くなってゆくではないか。<br>
+          所有しない自分でいられたら、それこそが自由ではないか。<br>
+          背負い込んで、荷を担いで、身動きも取れずに、何を所有したいのだ。<br>
+          手放して、初めて軽さを知る。<br>
+          虚構の所有に囲まれて、真実は見えてこない。</p>
+          <h3>五　あなたの「身体」について</h3>
+          <p class="verse">あなたに自我が生まれる前から、あなたの身体はあったはず。<br>
+          いつの間にか、その身体を自分自身だと思い込み、<br>
+          その身体が、老いてゆき、衰えてゆき、死ぬことが不可避と知るとき、<br>
+          自分の最期だと狼狽える。<br>
+          あなたになる前から、身体があったにもかかわらずにだ。<br>
+          あなたが思っている自分自身とは、一体何なのだ。<br>
+          あなたの身体は、自然現象ではないのか。<br>
+          あなたが作ったわけでも、動かし続けているわけでもない。<br>
+          自然の産物なのだ。あなたの意思に関わらない生き物なのだ。<br>
+          生物である以上、必ず消滅するときが来る。<br>
+          その道理をどうかしようとすることに意味はない。<br>
+          身体は美しく保つためにあるのではない、美しく使うためにある。</p>
+          <h3>六　あなたの「関係」について</h3>
+          <p class="verse">あなたは、あなた一人であなたが成り立つと思っているのか。<br>
+          ひとり部屋にこもって、人間を信用せず、関係を絶ちたくても、<br>
+          一人で成り立たっていると思っていても、何かの関係を利用している。<br>
+          あなたは、個体の存在だと思っているが、関係の存在なのだ。<br>
+          それが気に入らなくても、知らなくても、関係の存在なのだ。<br>
+          関係の存在とは、真実であり道理である。あなたが決めることではない。<br>
+          敵か味方か、自分に害をなすか、役に立つか、不快な相手か、<br>
+          それらは、相手がそうだから自分が反応しているだけだというが、<br>
+          すべてあなたが勝手に決めていることだ。<br>
+          感情のあおりで真理をすり替えても、真実はあなたの都合で変わらない。<br>
+          それでも人は憎み合う、それでも人は殺しあう。<br>
+          時には正義の名のもとに。時には神の名のもとに。<br>
+          実体のないものに都合の良い思考を当てはめても、実体がないのだ。<br>
+          少し、変わらないか。少し、止まらないか。<br>
+          あなたは、単独で意味ある存在ではない。関係において意味となる存在なのだ。<br>
+          そろそろ、本当の真実に目覚めないか。</p>
+          <h3>七　あなたの「快楽」について</h3>
+          <p class="verse">快楽は続かない。<br>
+          けれどあなたはそれが続くことを願う。<br>
+          あなたは今しか生きられない。<br>
+          常に快楽を今に再現し続けることはできない。<br>
+          自己承認の快感、成功の快感、所有の快感、<br>
+          真実の道を歩む者は、快感すらない寂静に生きる。<br>
+          本当の喜びは、快感にあるわけではない。<br>
+          一時的な快感を求め続ける旅は終わりにしないか。<br>
+          幸せになりたいという必要もない。<br>
+          不幸になる心配をする必要もない。<br>
+          快楽を得る必要のない涼やかさに生きてみないか。</p>
+          <h3>八　あなたの「信念」について</h3>
+          <p class="verse">信念が強い人に憧れるのか。<br>
+          矜持のある人は素晴らしい。<br>
+          信念も、矜持も、言葉ではないか。<br>
+          あなたが思い描く概念ではないか。<br>
+          不動心という。何があっても動かない心などあるのか。<br>
+          動揺して良いのだ。ただし、復元できる力こそが大切ではないか。<br>
+          固定的な心など、格好が良いかもしれないが意味がない。<br>
+          心掛けも、精神論も、掛け声に過ぎない。<br>
+          信心も、信仰も、言葉であってはならない。<br>
+          本質に触れることのない、虚しい言葉の修飾はやめたらどうか。<br>
+          何があなたを縛っているのか。<br>
+          信念があるものは、信念を口にしない。その必要もない。<br>
+          あなたは生命があるが、生命があるのだと気にもしていないではないか。<br>
+          本質は、そういった言葉にはないのだ。</p>
+          <h3>九　あなたの「知識」について</h3>
+          <p class="verse">知識があれば、理解が進むだろう。<br>
+          しかし、真実は理解することではない。<br>
+          真実は、あなたと一体なのだ。<br>
+          仏教がわかる、ということほど無意味な言葉はない。<br>
+          あなたの心は真実と繋がりを持てているのか。<br>
+          あなたが分別して、知識体系を完成させても、<br>
+          あなたは何ら完成されない。<br>
+          あなたという縁の存在が顕現する根っこには何がある。<br>
+          それすらも、分かれば良いことだと言うのか。<br>
+          あなたは、あなた一人で成り立っていないのだ。</p>
+          <h3>十　あなたの「時間」について</h3>
+          <p class="verse">時間は流れると言う常識を持っている。<br>
+          過去、現在、未来という三世があるという。<br>
+          いっておくが、あなたが生きているのは今だけだ。<br>
+          明日になっても、あなたにはその時の今しかない。<br>
+          分かるだろうか、時間は今ある生命なのだ。<br>
+          時間が永遠に続くというなら、100年後あなたの存在しない<br>
+          世界で、あなたに時間はあるのか。<br>
+          世界も、宇宙も、あなたが生まれる前からあり、<br>
+          死んだ後も連綿として続いてゆく。<br>
+          それが真実だ。<br>
+          あなたは、時間というとき、<br>
+          あなた中心の時間を時間だと思っていないか。<br>
+          それなら、あなたが死んだ瞬間、時間はなくなる。<br>
+          つまり、あなたにとって時間すら空なのだ。<br>
+          涅槃は時間のない世界である。<br>
+          生きているうちに、今この時間を生命と思って使いきれ。</p>
+          <div class="story-source">
+            出典：<a href="https://note.com/triratna/n/n65be1dc3a479" target="_blank" rel="noopener">note.com｜Śākyamaṅgalaḥ「龍樹の伝言〜「実利主義」の現代人へ〜」</a>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
 </div><!-- /main -->
 
 <footer>
@@ -553,8 +709,6 @@
   </div>
 </footer>
 
-<script>
-function toggleMenu() { document.getElementById('main-nav').classList.toggle('open'); }
-</script>
+
 </body>
 </html>
