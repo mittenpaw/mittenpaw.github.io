@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>葬儀・法事のご相談 – 真照寺</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --col-main: #7c3d1e; --col-accent: #c8902a;
+    --col-light: #f8f1e8; --col-dark: #3a2510;
+    --col-gray: #8a7a6a; --col-green: #4a6741;
+    --font-main: 'Meiryo UI', 'メイリオ', Meiryo, sans-serif;
+    --font-serif: 'Yu Mincho', '游明朝', 'YuMincho', 'Hiragino Mincho Pro', serif;
+    --radius: 8px; --shadow: 0 2px 16px rgba(60,30,0,.10);
+  }
+  body { font-family: var(--font-main); background: var(--col-light); color: var(--col-dark); line-height: 1.8; font-size: 15px; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; }
+
+  header { background: var(--col-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+  .logo { font-family: var(--font-serif); font-size: 22px; letter-spacing: .2em; color: #f0dfc0; }
+  .logo small { display: block; font-size: 11px; letter-spacing: .15em; color: var(--col-accent); font-family: var(--font-main); margin-top: -4px; }
+  nav { display: flex; gap: 4px; }
+  nav a { color: #e8d5b0; font-size: 14px; padding: 8px 14px; border-radius: var(--radius); transition: background .2s, color .2s; letter-spacing: .05em; }
+  nav a:hover, nav a.active { background: var(--col-main); color: #fff; }
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+  .menu-toggle span { display: block; width: 26px; height: 2px; background: #e8d5b0; border-radius: 2px; }
+
+  /* ページヒーロー */
+  .page-hero {
+    background: linear-gradient(160deg, #2a1a08 0%, #5c2e10 50%, #8a4a20 100%);
+    color: #f8f1e8; text-align: center; padding: 72px 24px 60px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8902a' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .page-hero h1 { font-family: var(--font-serif); font-size: clamp(26px, 4vw, 44px); letter-spacing: .25em; position: relative; }
+  .page-hero .hero-sub { margin-top: 12px; color: #f0dfc0; font-size: 14px; letter-spacing: .12em; position: relative; }
+  .hero-deco { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--col-accent), transparent); margin: 20px auto; }
+
+  /* セクション */
+  .section { max-width: 960px; margin: 0 auto; padding: 64px 24px; }
+  .section-title { margin-bottom: 36px; }
+  .section-title h2 {
+    font-family: var(--font-serif); font-size: clamp(20px, 3vw, 30px);
+    letter-spacing: .2em; color: var(--col-main);
+    padding-left: 18px; border-left: 4px solid var(--col-accent);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-title .section-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--col-accent); color: #fff;
+    font-size: 15px; font-family: var(--font-main); font-weight: bold;
+    flex-shrink: 0;
+  }
+  .section-title p { margin-top: 10px; padding-left: 18px; color: var(--col-gray); font-size: 14px; }
+
+  /* 項目カード */
+  .item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 16px; }
+  .item-card {
+    background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+    border: 1px solid #e8ddd0; padding: 24px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .item-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(60,30,0,.15); }
+  .item-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .item-icon { font-size: 28px; }
+  .item-card h3 { font-family: var(--font-serif); font-size: 17px; color: var(--col-main); letter-spacing: .08em; }
+  .item-card p { font-size: 14px; color: #5a4530; line-height: 1.85; }
+
+  /* 注記ボックス */
+  .note-box {
+    background: #fff8f0; border: 1px solid #e8ddd0; border-left: 4px solid var(--col-accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 18px 22px; margin-top: 24px;
+    font-size: 14px; color: #5a4530; line-height: 1.9;
+  }
+  .note-box strong { color: var(--col-main); }
+
+  /* 法事セクション */
+  .hoji-box {
+    background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+    border: 1px solid #e8ddd0; padding: 32px 36px;
+  }
+  .hoji-box p { font-size: 15px; color: #5a4530; line-height: 2; }
+  .hoji-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
+  .hoji-table th { background: var(--col-main); color: #f8f1e8; padding: 10px 16px; text-align: left; font-weight: normal; letter-spacing: .05em; }
+  .hoji-table td { padding: 10px 16px; border-bottom: 1px solid #e8ddd0; color: #5a4530; }
+  .hoji-table tr:last-child td { border-bottom: none; }
+  .hoji-table tr:nth-child(even) td { background: #faf5ee; }
+
+  /* お問い合わせボックス */
+  .contact-box {
+    background: linear-gradient(135deg, var(--col-dark) 0%, #5c2e10 100%);
+    border-radius: var(--radius); padding: 40px 40px;
+    color: #f0dfc0; text-align: center;
+    box-shadow: 0 4px 24px rgba(60,30,0,.25);
+  }
+  .contact-box h3 { font-family: var(--font-serif); font-size: 22px; letter-spacing: .2em; margin-bottom: 16px; }
+  .contact-box p { font-size: 14px; color: #c8b89a; line-height: 2; margin-bottom: 28px; }
+  .contact-methods { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+  .contact-method {
+    background: rgba(255,255,255,.1); border: 1px solid rgba(200,144,42,.4);
+    border-radius: var(--radius); padding: 20px 32px; min-width: 200px;
+    display: block; text-decoration: none; color: inherit; cursor: pointer;
+    transition: background .2s, transform .2s, box-shadow .2s;
+  }
+  .contact-method:hover {
+    background: rgba(255,255,255,.2); transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,.2);
+  }
+  .contact-method .method-icon { font-size: 28px; margin-bottom: 8px; }
+  .contact-method .method-label { font-size: 12px; color: var(--col-accent); letter-spacing: .1em; margin-bottom: 6px; }
+  .contact-method .method-value { font-family: var(--font-serif); font-size: 18px; letter-spacing: .05em; }
+  .contact-method .method-note { font-size: 11px; color: #a89880; margin-top: 4px; }
+
+  /* お内仏セクション */
+  .onaifutsu-lead {
+    background: #fff; border-radius: var(--radius);
+    box-shadow: var(--shadow); border: 1px solid #e8ddd0;
+    padding: 32px 36px; margin-bottom: 32px;
+    position: relative; overflow: hidden;
+  }
+  .onaifutsu-lead::before {
+    content: '🏮'; font-size: 120px; opacity: .05;
+    position: absolute; right: -10px; top: -10px; line-height: 1;
+  }
+  .onaifutsu-lead p {
+    font-size: 16px; color: #5a4530; line-height: 2.1;
+    position: relative; z-index: 1;
+  }
+  .onaifutsu-lead p + p { margin-top: 14px; }
+  .onaifutsu-lead .lead-quote {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: var(--col-main); letter-spacing: .15em;
+    text-align: center; line-height: 2;
+    padding: 20px 0; border-top: 1px solid #e8ddd0;
+    border-bottom: 1px solid #e8ddd0;
+    margin: 24px 0;
+  }
+  .onaifutsu-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px; margin-top: 28px;
+  }
+  .onaifutsu-card {
+    background: #fff; border-radius: var(--radius);
+    border: 1px solid #e8ddd0; box-shadow: var(--shadow);
+    padding: 22px; text-align: center;
+  }
+  .onaifutsu-card .oc-icon { font-size: 36px; margin-bottom: 10px; }
+  .onaifutsu-card h3 {
+    font-family: var(--font-serif); font-size: 16px;
+    color: var(--col-main); letter-spacing: .1em;
+    margin-bottom: 8px;
+  }
+  .onaifutsu-card p { font-size: 13px; color: #5a4530; line-height: 1.9; }
+  .onaifutsu-invite {
+    margin-top: 32px;
+    background: linear-gradient(135deg, #fff8f0, #fef4e4);
+    border: 1px solid #e8c88a; border-radius: var(--radius);
+    padding: 28px 32px; text-align: center;
+  }
+  .onaifutsu-invite h3 {
+    font-family: var(--font-serif); font-size: 20px;
+    color: var(--col-main); letter-spacing: .18em; margin-bottom: 12px;
+  }
+  .onaifutsu-invite p {
+    font-size: 14px; color: #5a4530; line-height: 2;
+  }
+
+  .bg-warm { background: #f0e8d8; }
+  .bg-white { background: #fff; }
+
+  footer { background: var(--col-dark); color: #c8b89a; padding: 48px 24px 24px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(200,184,154,.2); }
+  .footer-brand .logo { font-size: 20px; }
+  .footer-brand p { margin-top: 12px; font-size: 13px; line-height: 1.8; color: #a89880; }
+  footer h4 { color: #f0dfc0; font-size: 14px; margin-bottom: 12px; letter-spacing: .1em; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; }
+  footer ul li a { font-size: 13px; color: #a89880; transition: color .2s; }
+  footer ul li a:hover { color: var(--col-accent); }
+  .footer-bottom { max-width: 1100px; margin: 20px auto 0; text-align: center; font-size: 12px; color: #6a5840; }
+
+  @media (max-width: 768px) {
+    nav { display: none; flex-direction: column; width: 100%; }
+    nav.open { display: flex; }
+    .header-inner { flex-wrap: wrap; height: auto; padding: 12px 16px; gap: 8px; }
+    .menu-toggle { display: flex; }
+    nav a { width: 100%; padding: 12px 16px; border-radius: 0; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .contact-box { padding: 28px 20px; }
+    .hoji-box { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo"></a>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="main-nav">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">お寺の紹介</a>
+      <a href="teaching.html">法話・教え</a>
+      <a href="events.html">行事案内</a>
+      <a href="news.html">お知らせ</a>
+      <a href="masters.html">偉大な師たち</a>
+      <a href="sougi.html" class="active">葬儀・法事</a>
+      <a href="ohaka.html">お墓・納骨</a>
+      <a href="otogi.html">お伽噺</a>
+      <a href="kissui.html">釈吉瑞</a>
+      <a href="kyogaku.html">大切な遺産</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ページヒーロー -->
+<div class="page-hero">
+  <h1>葬儀・法事のご相談</h1>
+  <div class="hero-deco"></div>
+  <p class="hero-sub">大切な方を見送る、そのときに。どうぞ安心してご相談ください。</p>
+</div>
+
+<!-- ① 葬儀のご相談 -->
+<div class="bg-white">
+  <div class="section">
+    <div class="section-title">
+      <h2><span class="section-num">①</span>葬儀のご相談</h2>
+      <p>浄土真宗の教えに基づき、故人を阿弥陀仏のみ教えのもとへお送りする葬儀について、丁寧にご相談に応じます。</p>
+    </div>
+
+    <div class="item-grid">
+
+      <div class="item-card">
+        <div class="item-card-header">
+          <span class="item-icon">☸️</span>
+          <h3>浄土真宗の葬儀の考え方と作法</h3>
+        </div>
+        <p>浄土真宗では、葬儀は故人が阿弥陀仏のはたらきによってすでに浄土へ往生されたことを確認し、そのご縁に感謝するご法要です。そのため、<strong>盛り塩・お清め塩は行いません</strong>（死を穢れとは考えないため）。また、数珠の持ち方・焼香の作法（真宗大谷派では額に押しいただかずに2回）など、真宗独自の作法でご案内します。</p>
+      </div>
+
+      <div class="item-card">
+        <div class="item-card-header">
+          <span class="item-icon">📋</span>
+          <h3>葬儀の流れ</h3>
+        </div>
+        <p>一般的な流れとして、<strong>枕経 → 通夜 → 告別式（葬儀） → 火葬 → 初七日法要</strong>の順で勤めます。通夜では阿弥陀経や正信偈をお勤めし、故人を偲びます。告別式後に出棺・火葬を行い、収骨後に初七日を合わせて勤めることも多くなっています。各ご家庭の事情に合わせて柔軟に対応いたします。</p>
+      </div>
+
+      <div class="item-card">
+        <div class="item-card-header">
+          <span class="item-icon">💴</span>
+          <h3>葬儀の費用</h3>
+        </div>
+        <p>葬儀の規模やご要望によって費用は大きく異なります。ご予算やご事情をお聞きしたうえで、無理のない形でのご提案をいたします。直葬・家族葬・一般葬など、さまざまな形式に対応しております。お気軽にご相談ください。</p>
+      </div>
+
+      <div class="item-card">
+        <div class="item-card-header">
+          <span class="item-icon">🏛️</span>
+          <h3>葬儀の運営・手配</h3>
+        </div>
+        <p>葬儀場の手配、葬儀社との連携、式の進行など、ご遺族が安心して故人をお送りできるよう、寺としてサポートいたします。突然のことで不安な方も、まずはお電話ください。葬儀社の選び方についてもご相談に応じます。</p>
+      </div>
+
+      <div class="item-card">
+        <div class="item-card-header">
+          <span class="item-icon">📜</span>
+          <h3>法名（ほうみょう）について</h3>
+        </div>
+        <p>浄土真宗では「戒名（かいみょう）」とは呼ばず、<strong>「法名（ほうみょう）」</strong>と申します。これは仏弟子としての名前であり、本来は生前に帰敬式（おかみそり）を受けていただくものです。院号・釋号のご相談も承ります。</p>
+      </div>
+
+      <div class="item-card">
+        <div class="item-card-header">
+          <span class="item-icon">🙏</span>
+          <h3>宗教・宗派を問わず</h3>
+        </div>
+        <p>故人やご遺族の宗教・宗派を問わず、葬儀のご相談をお受けします。ただし、当寺での葬儀は<strong>真宗大谷派の作法と声明（しょうみょう）</strong>にて執り行います。あらかじめご了承のうえ、どうぞご遠慮なくご相談ください。</p>
+      </div>
+
+    </div>
+
+    <div class="note-box">
+      <strong>浄土真宗の葬儀で行わないこと</strong><br>
+      盛り塩・お清め塩の使用 ／ 守り刀・逆さ屏風などの風習 ／ 友引を避けること（浄土真宗では友引という概念はありません）。これらは死を穢れとみなす考え方に基づくもので、すべての命を等しく尊ぶ浄土真宗の教えとは異なります。
+    </div>
+  </div>
+</div>
+
+<!-- ② 法事のご相談 -->
+<div class="bg-warm">
+  <div class="section">
+    <div class="section-title">
+      <h2><span class="section-num">②</span>法事のご相談</h2>
+      <p>回忌法要をはじめ、各種ご法事について丁寧にご相談に応じます。</p>
+    </div>
+
+    <div class="hoji-box">
+      <p>ご命日を縁として、故人を偲び、阿弥陀仏のみ教えを聴聞する場が法事です。年回法要（一周忌・三回忌など）のほか、納骨法要・月命日のお勤め・お彼岸・お盆のお参りなど、必要に応じてご相談ください。どのタイミングでどのような法要を行えばよいか分からない場合も、お気軽にお問い合わせください。</p>
+
+      <table class="hoji-table">
+        <thead>
+          <tr><th>時期</th><th>法要の名称</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ご逝去翌年の命日</td><td>一周忌</td></tr>
+          <tr><td>ご逝去から満2年目の命日</td><td>三回忌</td></tr>
+          <tr><td>ご逝去から満6年目の命日</td><td>七回忌</td></tr>
+          <tr><td>ご逝去から満12年目の命日</td><td>十三回忌</td></tr>
+          <tr><td>ご逝去から満16年目の命日</td><td>十七回忌</td></tr>
+          <tr><td>ご逝去から満22年目の命日</td><td>二十三回忌</td></tr>
+          <tr><td>ご逝去から満32年目の命日</td><td>三十三回忌</td></tr>
+          <tr><td>ご逝去から満49年目の命日</td><td>五十回忌</td></tr>
+          <tr><td>随時</td><td>納骨法要・月命日・お彼岸・お盆参り など</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ③ お内仏のある生活 -->
+<div class="bg-white">
+  <div class="section">
+    <div class="section-title">
+      <h2><span class="section-num">③</span>お内仏のある生活</h2>
+      <p>小さくてもお家にお内仏のある空間を持ちませんか？</p>
+    </div>
+
+    <div class="onaifutsu-lead">
+      <p>「お内仏（おないぶつ）」とは、ご家庭に置く仏壇のことです。真宗大谷派では古くから、お内仏を家の中心に据え、日々のお参りを暮らしの礎としてきました。</p>
+      <div class="lead-quote">
+        「朝に起き、夜に眠る。そのあいだに、手を合わせる場所がある。」
+      </div>
+      <p>現代の住まいは小さくなり、「仏壇を置く部屋がない」という方も増えています。しかしお内仏は、大きさや形よりも、<strong>手を合わせる場所・時間があること</strong>が大切です。コンパクトな上置き型でも、棚の一角を整えるだけでも——それがあなたのお内仏になります。</p>
+      <p>忙しい毎日のなかで、お内仏の前に座る数分間は、自分自身を取り戻す静かな時間です。故人を偲び、今日の感謝を声に出し、明日への力をいただく——そんな循環が、信仰生活から生まれます。</p>
+    </div>
+
+    <div class="onaifutsu-cards">
+      <div class="onaifutsu-card">
+        <div class="oc-icon">🕯️</div>
+        <h3>朝夕のお勤め</h3>
+        <p>正信偈・和讃を短くでも。声に出して読むことで、心が落ち着きます。難しく考えず、手を合わせるだけでも十分です。</p>
+      </div>
+      <div class="onaifutsu-card">
+        <div class="oc-icon">🌸</div>
+        <h3>お花・お香・ろうそく</h3>
+        <p>三具足（花・香炉・燭台）を整えましょう。季節の花を一輪供えるだけで、空間が静かに整います。</p>
+      </div>
+      <div class="onaifutsu-card">
+        <div class="oc-icon">📿</div>
+        <h3>故人との繋がり</h3>
+        <p>お内仏は「死者を祀る場所」ではなく、阿弥陀仏をご本尊として、先に逝った方々と共にいる場所です。</p>
+      </div>
+      <div class="onaifutsu-card">
+        <div class="oc-icon">🧘</div>
+        <h3>心を軽くする時間</h3>
+        <p>何か辛いとき、迷ったとき、ただ座って手を合わせる。それだけで少し楽になる——お内仏はそういう場所です。</p>
+      </div>
+    </div>
+
+    <div class="onaifutsu-invite">
+      <h3>お内仏を始めてみませんか</h3>
+      <p>
+        「どんなお内仏を選べばいいか」「お勤めの仕方がわからない」「久しぶりに手入れしたい」<br>
+        どんなことでも、住職が丁寧にご案内します。<br>
+        <strong>形は小さくても、信仰の灯は確かに燃えています。</strong><br>
+        お気軽にお声がけください。
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- お問い合わせ -->
+<div class="bg-white" style="padding-top:0;">
+  <div class="section">
+    <div class="contact-box">
+      <h3>ご相談・お問い合わせ</h3>
+      <p>葬儀・法事に関するご相談は、メールまたはお電話にてお気軽にご連絡ください。<br>
+      どのような些細なことでも、どうぞ遠慮なくお申し付けください。</p>
+      <div class="contact-methods">
+        <a href="tel:045-941-9736" class="contact-method">
+          <div class="method-icon">📞</div>
+          <div class="method-label">お電話</div>
+          <div class="method-value">045-941-9736</div>
+          <div class="method-note">受付時間：9:00〜17:00</div>
+        </a>
+        <a href="mailto:takusuisan.shinshoji@gmail.com?subject=葬儀・法事のご相談（真照寺）" class="contact-method">
+          <div class="method-icon">✉️</div>
+          <div class="method-label">メール</div>
+          <div class="method-value" style="font-size:14px;">メールを送る</div>
+          <div class="method-note">takusuisan.shinshoji@gmail.com</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">真照寺<small>Shinsho-ji Temple</small></div>
+      <p>心静かに、ともに歩む場所。<br>どなたでもお気軽にお越しください。</p>
+    </div>
+    <div>
+      <h4>ページ案内</h4>
+      <ul>
+        <li><a href="about.html">お寺の紹介</a></li>
+        <li><a href="teaching.html">法話・仏教の教え</a></li>
+        <li><a href="events.html">行事案内</a></li>
+        <li><a href="news.html">お知らせ・ブログ</a></li>
+        <li><a href="sougi.html">葬儀・法事のご相談</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ご相談・ご連絡</h4>
+      <ul>
+        <li><a href="sougi.html">法事・葬儀のご相談</a></li>
+        <li><a href="ohaka.html">お墓・納骨のご案内</a></li>
+        <li><a href="events.html">梵語で読経しよう</a></li>
+        <li><a href="events.html">声明を学ぼう</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 真照寺 All Rights Reserved.</p></div>
+</footer>
+
+<script>function toggleMenu() { document.getElementById('main-nav').classList.toggle('open'); }</script>
+</body>
+</html>

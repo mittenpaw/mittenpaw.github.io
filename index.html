@@ -303,6 +303,118 @@
     text-align: center; font-size: 12px; color: #6a5840;
   }
 
+  /* ---- お問い合わせフォーム ---- */
+  .contact-section {
+    background: #fff;
+  }
+  .contact-wrapper {
+    max-width: 720px; margin: 0 auto;
+  }
+  .contact-info {
+    display: flex; align-items: center; gap: 32px;
+    background: var(--col-light); border-radius: var(--radius);
+    padding: 24px 32px; margin-bottom: 36px;
+    border: 1px solid #e0d5c0;
+    flex-wrap: wrap;
+  }
+  .contact-info-item {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .contact-info-icon {
+    font-size: 22px;
+  }
+  .contact-info-label {
+    font-size: 12px; color: var(--col-gray); letter-spacing: .05em;
+  }
+  .contact-info-value {
+    font-size: 20px; font-weight: bold; color: var(--col-main);
+    letter-spacing: .08em; font-family: var(--font-serif);
+  }
+  .contact-form {
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .form-row {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .form-row label {
+    font-size: 13px; font-weight: bold; color: var(--col-dark);
+    letter-spacing: .05em;
+  }
+  .form-row label .required {
+    color: var(--col-main); font-size: 11px; margin-left: 4px;
+  }
+  .form-row input,
+  .form-row textarea {
+    font-family: var(--font-main); font-size: 14px;
+    border: 1px solid #d0c4b0; border-radius: var(--radius);
+    padding: 10px 14px; background: #fdfaf5;
+    color: var(--col-dark); transition: border-color .2s, box-shadow .2s;
+    outline: none;
+  }
+  .form-row input:focus,
+  .form-row textarea:focus {
+    border-color: var(--col-accent);
+    box-shadow: 0 0 0 3px rgba(200,144,42,.12);
+    background: #fff;
+  }
+  .form-row textarea {
+    resize: vertical; min-height: 140px; line-height: 1.8;
+  }
+  .form-privacy {
+    font-size: 12px; color: var(--col-gray);
+    text-align: center; line-height: 1.7;
+  }
+  .privacy-toggle {
+    border: 1px solid #d0c4b0; border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .privacy-toggle summary {
+    cursor: pointer; padding: 10px 16px;
+    font-size: 12px; color: var(--col-accent);
+    background: #fdfaf5; list-style: none;
+    display: flex; align-items: center; gap: 6px;
+    user-select: none;
+  }
+  .privacy-toggle summary::-webkit-details-marker { display: none; }
+  .privacy-toggle summary::before {
+    content: '▶'; font-size: 9px; transition: transform .2s;
+  }
+  .privacy-toggle[open] summary::before {
+    transform: rotate(90deg);
+  }
+  .privacy-body {
+    padding: 20px 24px;
+    font-size: 13px; line-height: 1.9; color: var(--col-dark);
+    background: #fff; border-top: 1px solid #e0d5c0;
+    text-align: left;
+  }
+  .privacy-body h3 {
+    font-size: 15px; font-weight: bold; color: var(--col-main);
+    margin: 20px 0 8px; letter-spacing: .05em;
+  }
+  .privacy-body h3:first-child { margin-top: 0; }
+  .privacy-body p { margin-bottom: 10px; }
+  .privacy-body ul {
+    list-style: disc; padding-left: 20px; margin-bottom: 10px;
+  }
+  .privacy-body ul li { margin-bottom: 4px; }
+  .form-submit {
+    text-align: center;
+  }
+  .btn-submit {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--col-main), var(--col-accent));
+    color: #fff; border: none; cursor: pointer;
+    padding: 14px 40px; border-radius: 32px;
+    font-family: var(--font-main); font-size: 15px;
+    letter-spacing: .08em; font-weight: bold;
+    box-shadow: 0 4px 16px rgba(124,61,30,.3);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-submit:hover {
+    transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,61,30,.35);
+  }
+
   /* ---- レスポンシブ ---- */
   @media (max-width: 768px) {
     nav { display: none; flex-direction: column; width: 100%; }
@@ -320,10 +432,7 @@
 <!-- ========== ヘッダー ========== -->
 <header>
   <div class="header-inner">
-    <a href="index.html" class="logo">
-      真照寺
-      <small>Shinsho-ji Temple</small>
-    </a>
+    <a href="index.html" class="logo"></a>
     <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニュー">
       <span></span><span></span><span></span>
     </button>
@@ -334,6 +443,10 @@
       <a href="events.html">行事案内</a>
       <a href="news.html">お知らせ</a>
       <a href="masters.html">偉大な師たち</a>
+      <a href="sougi.html">葬儀・法事</a>
+      <a href="ohaka.html">お墓・納骨</a>
+      <a href="otogi.html">お伽噺</a>
+      <a href="kissui.html">釈吉瑞</a>
       <a href="kyogaku.html">大切な遺産</a>
     </nav>
   </div>
@@ -495,6 +608,111 @@
   </div>
 </div>
 
+<!-- ========== お問い合わせ ========== -->
+<div class="contact-section" id="contact">
+  <div class="section">
+    <div class="section-title">
+      <h2>お問い合わせ</h2>
+      <p>ご法事・葬儀・その他、お気軽にご連絡ください</p>
+    </div>
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <a href="tel:045-941-9736" class="contact-info-item" style="text-decoration:none; color:inherit;">
+          <span class="contact-info-icon">📞</span>
+          <div>
+            <div class="contact-info-label">お電話でのご連絡</div>
+            <div class="contact-info-value">045-941-9736</div>
+          </div>
+        </a>
+        <div style="color:#d0c4b0; font-size:20px;">|</div>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">🕐</span>
+          <div>
+            <div class="contact-info-label">受付時間</div>
+            <div style="font-size:14px; color:var(--col-dark);">9:00 〜 17:00（年中無休）</div>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" action="mailto:takusuisan.shinshoji@gmail.com" method="post" enctype="text/plain">
+        <div class="form-row">
+          <label>お名前<span class="required">※必須</span></label>
+          <input type="text" name="name" placeholder="例：山田 花子" maxlength="40" required>
+        </div>
+        <div class="form-row">
+          <label>メールアドレスまたは電話番号<span class="required">※必須</span></label>
+          <input type="text" name="contact" placeholder="例：hanako@example.com　または　090-0000-0000" maxlength="60" required>
+        </div>
+        <div class="form-row">
+          <label>件名</label>
+          <input type="text" name="subject" placeholder="例：お盆法要について、葬儀のご相談　など" maxlength="80">
+        </div>
+        <div class="form-row">
+          <label>お問い合わせ内容<span class="required">※必須</span></label>
+          <textarea name="body" placeholder="ご質問・ご相談の内容をご記入ください。（500文字以内）" maxlength="500" required></textarea>
+        </div>
+        <div class="form-privacy">
+          <details class="privacy-toggle">
+            <summary>※プライバシーポリシーを表示</summary>
+            <div class="privacy-body">
+              <h3>個人情報の取り扱いについて</h3>
+
+              <h3>１．個人情報とは</h3>
+              <p>個人情報とは、お客さまからご提供いただいた氏名、電話番号、メールアドレス等によりお客さま自身を特定することができる情報を指します。</p>
+
+              <h3>２．個人情報の取得について</h3>
+              <p>当寺院ホームページでは、お客さまへ各種サービス等を適切に提供するために必要な範囲で、お客さまの個人情報を取得させていただくことがあります。取得にあたっては、あらかじめ利用目的を明示した上で、適正かつ公正な手段により行います。（なお、お客さまより個人情報をご提供いただけない場合には、一部商品・サービス等を適切に提供できない場合があることをあらかじめご了承ください。）</p>
+
+              <h3>３．個人情報の利用目的について</h3>
+              <p>当寺院ホームページでは、お客さまよりご提供いただいた個人情報を、以下の目的により、利用させていただきます。以下の利用目的の範囲を超えた取り扱いはいたしません。</p>
+              <ul>
+                <li>お客さまからのお問い合わせにお答えするため</li>
+                <li>お客さまからお問い合わせのあった各種サービス等の資料送付のため</li>
+                <li>お客さまからお申し込みいただいた各種サービス等を適切にご提供するため</li>
+                <li>お客さまに対し、当寺院にて取り扱う各種サービス等の有用な情報をご提供するため（このような情報提供を希望されないお客さまにつきましては、そのお申し出により情報提供を中止いたします。）</li>
+                <li>その他、何らかの理由でお客さまへ連絡する必要が生じたときのため</li>
+              </ul>
+
+              <h3>４．個人情報の提供・開示について</h3>
+              <p>当寺院は、お客さまからご提供いただいた個人情報を、以下に該当する場合を除き、第三者に対し提供または開示しません。</p>
+              <ul>
+                <li>お客さまの同意がある場合</li>
+                <li>法令等に基づく要請があり、開示が必要であると判断される場合</li>
+                <li>人の生命、身体または財産の保護に必要であると判断される場合</li>
+              </ul>
+              <p>また、当寺院は、お客さまからご提供いただいた個人情報を統計的に処理し、「統計情報」として提供または開示する場合がありますが、お客さま個人を特定できる情報は一切含まれておりません。</p>
+              <p>〈委託先への提供・開示について〉<br>
+              当寺院は、個人情報の取り扱いについて、第三者に業務を委託する場合があります。委託先に対し、必要な範囲でお客さまの個人情報を提供または開示する場合には、個人情報管理の徹底、再提供の禁止、情報漏えい防止等を契約で義務づけるなど、適切な措置を講じます。</p>
+
+              <h3>５．お客さまからの個人情報に関する開示・訂正・削除の請求について</h3>
+              <p>当寺院は、お客さまより個人情報の開示・訂正・削除等のご依頼があった場合は、当寺院所定の手続に従い、ご依頼者が本人または代理人であることを確認させていただいたうえで、合理的な範囲で速やかに対応いたします。</p>
+
+              <h3>６．個人情報の安全管理対策について</h3>
+              <p>当寺院ホームページでは、お客さまからご提供いただいた個人情報を、適切かつ厳重に管理し、個人情報への不正アクセスや個人情報の紛失・破壊・改ざん・漏えい等の防止に必要かつ十分な安全管理対策を実施します。</p>
+              <p>１）クッキー（cookie）の利用について<br>
+              当寺院ホームページでは、お客さまの負担を軽減し、より便利にご利用いただけるよう、クッキーと呼ばれる技術を使用しているページがあります。クッキーとは、お客さまがホームページに訪れた際にお客さまのコンピュータ内に蓄積される小さなテキストファイルのことです。これにより再度お客さまがホームページを訪れた際にお客さまのコンピュータが認識され、利便性が向上します。クッキーの中には個人が特定できる情報は残りません。ほとんどのコンピュータのブラウザがクッキーを受け入れられるように設定されていますが、ご使用のブラウザでクッキーの受け入れを拒否する設定をすることも可能です。但し、その結果、ホームページの一部の機能が正常に作動しない場合がありますのでご了承ください。</p>
+              <p>２）他サイトのリンクについて<br>
+              当寺院ホームページには、お客さまに対し、有用な情報・サービスをご提供するため他の会社の運営するホームページへのリンクがあります。リンク先のホームページにおける個人情報について、当社は一切責任を負うことができませんので、あらかじめご了承ください。</p>
+
+              <h3>７．個人情報の取り扱いの改定について</h3>
+              <p>当寺院は、お客さまの個人情報をより一層保護するため、本個人情報の取り扱いにおける取り組みについて、適宜見直し、改定いたします。なお、本個人情報の取り扱いの改定につきましては、当寺院ホームページで随時掲載いたします。</p>
+
+              <h3>８．個人情報についてのお問い合わせ先</h3>
+              <p>本個人情報の取り扱いに関するご意見・ご質問などは下記までご連絡ください。</p>
+              <p>真宗大谷派　真照寺<br>
+              住所：神奈川県横浜市都筑区折本町1604<br>
+              TEL：045-941-9736</p>
+            </div>
+          </details>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn-submit">個人情報の取り扱いに同意し、送信</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <!-- ========== フッター ========== -->
 <footer>
   <div class="footer-inner">
@@ -517,10 +735,9 @@
     <div>
       <h4>ご相談・ご連絡</h4>
       <ul>
-        <li><a href="#">法事・葬儀のご相談</a></li>
-        <li><a href="#">お墓・納骨のご案内</a></li>
-        <li><a href="#">写経・座禅会</a></li>
-        <li><a href="#">お問い合わせ</a></li>
+        <li><a href="sougi.html">法事・葬儀のご相談</a></li>
+        <li><a href="ohaka.html">お墓・納骨のご案内</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
       </ul>
     </div>
   </div>

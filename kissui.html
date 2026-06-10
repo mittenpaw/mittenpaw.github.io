@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>釈吉瑞こぼれ話 – 真照寺</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --col-main: #7c3d1e; --col-accent: #c8902a;
+    --col-light: #f8f1e8; --col-dark: #3a2510;
+    --col-gray: #8a7a6a; --col-green: #4a6741;
+    --font-main: 'Meiryo UI', 'メイリオ', Meiryo, sans-serif;
+    --font-serif: 'Yu Mincho', '游明朝', 'YuMincho', 'Hiragino Mincho Pro', serif;
+    --radius: 8px; --shadow: 0 2px 16px rgba(60,30,0,.10);
+  }
+  body { font-family: var(--font-main); background: var(--col-light); color: var(--col-dark); line-height: 1.8; font-size: 15px; }
+  a { color: inherit; text-decoration: none; }
+
+  header { background: var(--col-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+  .logo { font-family: var(--font-serif); font-size: 22px; letter-spacing: .2em; color: #f0dfc0; }
+  .logo small { display: block; font-size: 11px; letter-spacing: .15em; color: var(--col-accent); font-family: var(--font-main); margin-top: -4px; }
+  nav { display: flex; gap: 4px; }
+  nav a { color: #e8d5b0; font-size: 14px; padding: 8px 14px; border-radius: var(--radius); transition: background .2s, color .2s; letter-spacing: .05em; }
+  nav a:hover, nav a.active { background: var(--col-main); color: #fff; }
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+  .menu-toggle span { display: block; width: 26px; height: 2px; background: #e8d5b0; border-radius: 2px; }
+
+  /* ページヒーロー */
+  .page-hero {
+    background: linear-gradient(160deg, #1e0e04 0%, #4a2208 45%, #7c3d1e 100%);
+    color: #f8f1e8; text-align: center; padding: 60px 24px 50px; position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c8902a' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .page-hero h1 { font-family: var(--font-serif); font-size: clamp(26px, 4.5vw, 44px); letter-spacing: .25em; position: relative; }
+  .hero-deco { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--col-accent), transparent); margin: 16px auto; }
+  .page-hero .hero-sub { color: #c8a870; font-size: 13px; letter-spacing: .15em; position: relative; }
+
+  /* 著者プロフィール */
+  .author-bar {
+    background: #fff; border-bottom: 2px solid #e8ddd0;
+    box-shadow: 0 2px 8px rgba(60,30,0,.06);
+  }
+  .author-inner {
+    max-width: 960px; margin: 0 auto; padding: 24px 24px;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .author-icon {
+    width: 72px; height: 72px; border-radius: 50%;
+    overflow: hidden; flex-shrink: 0;
+    border: 3px solid var(--col-accent);
+    background: #e8ddd0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .author-icon img { width: 100%; height: 100%; object-fit: cover; }
+  .author-icon .icon-placeholder {
+    font-family: var(--font-serif); font-size: 22px; color: var(--col-main);
+    letter-spacing: .05em;
+  }
+  .author-info h2 {
+    font-family: var(--font-serif); font-size: 20px;
+    letter-spacing: .15em; color: var(--col-main); margin-bottom: 4px;
+  }
+  .author-info p { font-size: 14px; color: var(--col-gray); line-height: 1.7; }
+
+  /* INDEXバー */
+  .index-bar {
+    background: var(--col-dark); border-bottom: 2px solid var(--col-accent);
+    position: sticky; top: 64px; z-index: 90;
+  }
+  .index-inner {
+    max-width: 960px; margin: 0 auto; padding: 0 24px;
+    display: flex; gap: 0; flex-wrap: wrap;
+  }
+  .index-link {
+    color: #e8d5b0; font-size: 13px; padding: 13px 18px;
+    font-family: var(--font-serif); letter-spacing: .1em;
+    border-right: 1px solid rgba(200,144,42,.2);
+    transition: background .2s, color .2s;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .index-link:hover { background: rgba(200,144,42,.15); color: var(--col-accent); }
+  .index-link .idx-num { font-family: var(--font-main); font-size: 11px; color: var(--col-accent); letter-spacing: 0; }
+
+  /* メインコンテンツ */
+  .main { max-width: 960px; margin: 0 auto; padding: 52px 24px 80px; }
+
+  /* 各記事 */
+  .essay-block { margin-bottom: 48px; scroll-margin-top: 130px; }
+  .essay-num { font-size: 11px; color: var(--col-accent); letter-spacing: .2em; margin-bottom: 6px; }
+  .essay-title {
+    font-family: var(--font-serif); font-size: clamp(20px, 3.2vw, 30px);
+    letter-spacing: .18em; color: var(--col-main);
+    padding-bottom: 12px;
+    border-bottom: 2px solid;
+    border-image: linear-gradient(90deg, var(--col-accent), transparent) 1;
+    margin-bottom: 20px;
+  }
+
+  /* プレビュー */
+  .essay-preview {
+    font-size: 15px; color: #5a4530; line-height: 2;
+    background: #fff; border-radius: var(--radius);
+    padding: 24px 28px; border: 1px solid #e8ddd0;
+    box-shadow: var(--shadow); position: relative;
+  }
+  .essay-preview::before {
+    content: '✦';
+    font-size: 28px; color: var(--col-accent); opacity: .15;
+    position: absolute; top: 10px; left: 14px; line-height: 1;
+  }
+
+  /* アコーディオン */
+  .essay-toggle { border: none; margin-top: 16px; }
+  .essay-toggle summary {
+    list-style: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--col-accent); color: #fff;
+    padding: 10px 22px; border-radius: 24px;
+    font-size: 14px; letter-spacing: .06em;
+    transition: background .2s; user-select: none;
+  }
+  .essay-toggle summary::-webkit-details-marker { display: none; }
+  .essay-toggle summary:hover { background: var(--col-main); }
+  .essay-toggle summary .arrow { display: inline-block; transition: transform .3s; font-style: normal; font-size: 12px; }
+  .essay-toggle[open] summary .arrow { transform: rotate(180deg); }
+  .essay-toggle[open] summary { background: var(--col-main); }
+
+  /* 全文エリア */
+  .essay-body { animation: slideDown .35s ease both; }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .essay-body-inner {
+    background: #fff; border-radius: 0 0 var(--radius) var(--radius);
+    border: 1px solid #e8ddd0; border-top: none;
+    padding: 32px 36px; font-size: 15px; line-height: 2.1; color: #3a2510;
+    box-shadow: var(--shadow); margin-top: -1px;
+  }
+  .essay-body-inner p { margin-bottom: 1.2em; }
+  .essay-body-inner p:last-child { margin-bottom: 0; }
+  .essay-source {
+    margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid #e8ddd0;
+    font-size: 12px; color: var(--col-gray);
+  }
+  .essay-source a { color: var(--col-accent); text-decoration: underline; }
+  .essay-source a:hover { color: var(--col-main); }
+
+  /* 区切り */
+  .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, #d0c0a0, transparent); margin: 40px 0; }
+
+  .bg-warm { background: #f0e8d8; }
+
+  footer { background: var(--col-dark); color: #c8b89a; padding: 48px 24px 24px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(200,184,154,.2); }
+  .footer-brand .logo { font-size: 20px; }
+  .footer-brand p { margin-top: 12px; font-size: 13px; line-height: 1.8; color: #a89880; }
+  footer h4 { color: #f0dfc0; font-size: 14px; margin-bottom: 12px; letter-spacing: .1em; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; }
+  footer ul li a { font-size: 13px; color: #a89880; transition: color .2s; }
+  footer ul li a:hover { color: var(--col-accent); }
+  .footer-bottom { max-width: 1100px; margin: 20px auto 0; text-align: center; font-size: 12px; color: #6a5840; }
+
+  @media (max-width: 768px) {
+    nav { display: none; flex-direction: column; width: 100%; }
+    nav.open { display: flex; }
+    .header-inner { flex-wrap: wrap; height: auto; padding: 12px 16px; gap: 8px; }
+    .menu-toggle { display: flex; }
+    nav a { width: 100%; padding: 12px 16px; border-radius: 0; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .essay-body-inner { padding: 24px 18px; }
+    .index-bar { top: 0; }
+    .author-inner { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo"></a>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="main-nav">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">お寺の紹介</a>
+      <a href="teaching.html">法話・教え</a>
+      <a href="events.html">行事案内</a>
+      <a href="news.html">お知らせ</a>
+      <a href="masters.html">偉大な師たち</a>
+      <a href="sougi.html">葬儀・法事</a>
+      <a href="ohaka.html">お墓・納骨</a>
+      <a href="otogi.html">お伽噺</a>
+      <a href="kissui.html" class="active">釈吉瑞</a>
+      <a href="kyogaku.html">大切な遺産</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ページヒーロー -->
+<div class="page-hero">
+  <h1>釈吉瑞こぼれ話</h1>
+  <div class="hero-deco"></div>
+  <p class="hero-sub">Śākyamaṅgalaḥ</p>
+</div>
+
+<!-- 著者プロフィール -->
+<div class="author-bar">
+  <div class="author-inner">
+    <div class="author-icon">
+      <img src="images/kissui.png" alt="釈吉瑞" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <span class="icon-placeholder" style="display:none;">釈</span>
+    </div>
+    <div class="author-info">
+      <h2>釈吉瑞</h2>
+      <p>真照寺衆徒 釈吉瑞のエッセイ集です。</p>
+    </div>
+  </div>
+</div>
+
+<!-- INDEXバー -->
+<nav class="index-bar" aria-label="目次">
+  <div class="index-inner">
+    <a href="#essay1" class="index-link"><span class="idx-num">一</span>職場のインド人に人生を聞いてみた</a>
+    <a href="#essay2" class="index-link"><span class="idx-num">二</span>ヘルゴラント</a>
+    <a href="#essay3" class="index-link"><span class="idx-num">三</span>僧侶だけど宗教が嫌い</a>
+    <a href="#essay4" class="index-link"><span class="idx-num">四</span>悟りたいですか？</a>
+  </div>
+</nav>
+
+<!-- 本文 -->
+<div class="main">
+
+  <!-- ① 職場のインド人に人生を聞いてみた -->
+  <div class="essay-block" id="essay1">
+    <div class="essay-num">其の一</div>
+    <h2 class="essay-title">職場のインド人に人生を聞いてみた</h2>
+    <div class="essay-preview">
+      今の会社は、社員数35万人のうちインド人が27万人いるアメリカのAI関連企業だ。インドにいるのは、22万人ほど。日本国民の平均年齢は48歳、インド人平均年齢は28歳だそうだ。従い、インド人の多いウチの社員平均年齢も20代で、何兆円ものビジネスを動かしている。<br><br>
+      インド人といえば、ガンジス川で沐浴する姿を連想しがちだが、グローバル企業のビジネスの現場では、我々の共通言語は英語以上に数字と技術なのだ。小さいころから「人に迷惑をかけてはだめだよ」と聞かされることの多い我々は、「迷惑をかけて生きてゆくのだから、あなたも人を許しなさい」と育てられる彼らとは、なんとなく違いを肌で感じている……
+    </div>
+    <details class="essay-toggle">
+      <summary><span class="arrow">▼</span>続きを読む</summary>
+      <div class="essay-body">
+        <div class="essay-body-inner">
+          <p>今の会社は、社員数35万人のうちインド人が27万人いるアメリカのAI関連企業だ。インドにいるのは、22万人ほど。日本国民の平均年齢は48歳、インド人平均年齢は28歳だそうだ。従い、インド人の多いウチの社員平均年齢も20代で、何兆円ものビジネスを動かしている。これが、今どきのAIネイティブの若者が生み出すビジネスのダイナミズムなのだろう。社内では、いろいろな仕組みが、実社会のたぶん5年以上先の技術で動いている。</p>
+          <p>インド人といえば、ガンジス川で沐浴する姿を連想しがちだが、グローバル企業のビジネスの現場では、我々の共通言語は英語以上に数字と技術なのだ。会社のインド人幹部たちは、若い時に日系企業で仕事をした人が多い。ほんの40年ほど昔、駆け出しのころ叱られつつ頑張ったのだろう、そんな彼らは欧米にわたり、ITのオフショアモデルを立ち上げ、今や彼らの年収は億の額に至る。</p>
+          <p>日本の昭和成功モデルとは、また違ったモデルで新時代の流れにのったインドのトップ１％の人材。若さも、技術力も、国際性も、新しい時代に必要な能力を発揮して活躍する同僚は、実のところ日本人にはあまりない、鷹揚さがあるように思う。その背景になにがあるのか知りたかったのだ。</p>
+          <p>自分の知るインドの人々をしてインド人すべてがそうだという短絡な話ではない。ただ、小さいころから「人に迷惑をかけてはだめだよ」と聞かされることの多い我々は、「迷惑をかけて生きてゆくのだから、あなたも人を許しなさい」と育てられる彼らとは、なんとなく違いを肌で感じている。それはダイナミズムにも表れるし、スピード感もちがう。どちらが正しいとかどちらが優れているということではない、ただ根本の違いは文化や振る舞い、教育、街並みや国づくりにいたるまで影響はあるように思える。</p>
+          <p>同僚は、ヒンドゥー教、キリスト教、イスラム教（スンニ、シーア）、シク教など様々な信仰があるが、個人が理屈で宗教をしていないという側面がある。むしろアイデンティティ、自分の属性のようなものが宗教なのだなと思う。</p>
+          <p>そんな同僚に伝統的インド思想について聞いてみた。とはいえ、自分が伝統的日本思想とはどんなものなのと聞かれても回答に困る。あたりまえだが彼らも同じ反応だった。あのね、伝統的インド思想って言われても、同質的で統一的なものではないのだよ、と。そもそも現代のインド国の範囲をこの文脈でのインドというならそこから違う。５千年以上の昔にさかのぼり、シュメール、インダス文明、そしてペルシアから流入したアーリア人を先祖に持つ多くの民族、南方のドラヴィダ人やタミルやテルグの民族など、言語、文化、人種など今なおその多様性が色濃く残る。</p>
+          <p>インドにおいては、哲学・心理・宗教に明確な境界線がない。それらをひっくるめてインド思想というなら、それは主として人間の内面性、たとえば何に価値を認め、人生の目的は何で、自分が従うべきは何か、などそれらには日本人のそれとは違う側面がある。</p>
+          <p>例えば、インド思想を語るうえで「瞑想」は切っても切れない。理屈ではなく、ヨーガを通じて、そして瞑想による内面生活が、思索や宗教の教学以上に重きを置く。瞑想を通じて自分の中の真理に触れる。そして自己の内面に真理をもとめることは、そのまま宇宙の意識というところに行きつくような関連性もまたインド的な思想の特徴といえる。</p>
+          <p>ここで、同僚からはインド思想は一言では言えないし、専門的な総括でもないが、という前置きのうえで、少し基本的なところを教えてもらった。まずは今のヒンドゥー教の前身であるバラモン教の聖典「ヴェーダ」を知らねば始まらない、という。</p>
+          <p>「アタルヴァ・ヴェーダ」では、すべての生命が宇宙に浸透する意識（スートラ）で結ばれている。このスートラはブラフマン（宇宙意識）でもあるとする。「リグ・ヴェーダ」では、過去・現在・未来に宇宙に存在するものすべてが宇宙意識であり、それは不滅の存在だという。</p>
+          <p>サーンキャ学派では、プルシャ（宇宙意識）とプラクリティ（宇宙エネルギー）の相互作用による世界の創造や、自我（アハンカーラ）の発生によって個々の意識が生じると説く。この自我は欲望を持ち、それが行為や感覚、身体を動かす。結果、自身の望みが叶えば満足し、叶わなければ苦しみを感じる。釈迦は、この欲望が続く限り、苦しみは個人にも世界にも存在するとした。</p>
+          <p>このようにインド思想を本質的に言い表すとすれば、こんな感じではないか、という。<br>
+          ・ 宇宙は意識とエネルギーの現れである。<br>
+          ・ 個我も宇宙意識の一部だが、欲望で真の姿を見失う。<br>
+          ・ 欲望が苦しみを生み出す。<br>
+          ・ 苦しみを感じることで、その原因を探し、解放を求めるようになる。<br>
+          解放への道は、「自己の本質」に立ち返ること。つまり「サット・チット・アーナンダ（sat-cit-ānanda）」が先ず何より大切なのだ、という。</p>
+          <p>インド思想では、人は平等に生まれないとされている。古代インドにおいて様々な領域において優れた知識が生み出されたのは、お金や権力にとらわれず、知識の追求のためにのみ自分をささげた人々がいたからである。</p>
+          <p>古代インドには「人生の四段階（アーシュラマ）」という考え方があった。第一段階は学生期で、師から知識や技術、人間性を学ぶ期間。第二段階は結婚し家庭を持つ家住期で、社会の中心的役割を担う。第三段階は林住期で、子どもが独立した後、学びや瞑想に専念し、第四段階は遊行期で、修行者として世俗から離れ、得た知恵を広める。</p>
+          <p>最後に、人生の目的である。古代インドでは、人生の目的（Puruṣārtha）は４つあると考えられていた。ダルマ（法則）、アルタ（繁栄）、カーマ（欲望）、モクシャ（解脱）。人間は思考によって生き方が決まるといっていい。物質的な豊かさの追求そのものは否定されない。ただし、必ずダルマに従って生きるべきという。</p>
+          <p>４つめにある人生の目的「モクシャ（解脱）」は、絶対的な平安と幸福が得られ、宇宙意識との一体感を見出すことで、すべての束縛を超え、争いや対立がなくなり、完全な自由を得ることができる。肉体的欲求や社会条件、自分自身の心や自我によって束縛されている状態から離れることを解脱という。</p>
+          <p>自分の本質を知る、これが古代から伝統的インド文化に一貫する思想なのだろう。現代人は、退職後の生活を消化試合的に無意味な見方をしがちだが、古代インドでは家族の責任を終えた後こそ本当の人生が始まるとされた。責任から自由になったときこそ、自らの人生や成し遂げたことを振り返り、自分の内面の旅を始めて、自然の生み出した妙味を発見してゆくことが大切なのだ、という。</p>
+          <p>日本の伝統的な思想もすばらしいが、日本だけが素晴らしいのではないことがインド人の話から教わった気がする。</p>
+          <div class="essay-source">出典：<a href="https://note.com/triratna/n/n3f53e3d70926" target="_blank" rel="noopener">note.com｜Śākyamaṅgalaḥ「職場のインド人に人生を聞いてみた」</a></div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ② ヘルゴラント -->
+  <div class="essay-block" id="essay2">
+    <div class="essay-num">其の二</div>
+    <h2 class="essay-title">ヘルゴラント</h2>
+    <div class="essay-preview">
+      我々現代人が、便利に使っているが実はその本質をよく理解できていないこと、例えば「時間」「重力」「光」「空間」「温度」「物質」そして「生命」など、それぞれに実体があるように概念把握し、それらの言葉を使い常識にしている。<br><br>
+      此等の言葉は、現代の物理学でも再定義が進んできた。そして、それはお互いに関わり合って起きている事象につながっている。釈迦は、それを「縁起」と呼んだ……
+    </div>
+    <details class="essay-toggle">
+      <summary><span class="arrow">▼</span>続きを読む</summary>
+      <div class="essay-body">
+        <div class="essay-body-inner">
+          <p>我々現代人が、便利に使っているが実はその本質をよく理解できていないこと、例えば「時間」「重力」「光」「空間」「温度」「物質」そして「生命」など、それぞれに実体があるように概念把握し、それらの言葉を使い常識にしている。</p>
+          <p>此等の言葉は、現代の物理学でも再定義が進んできた。そして、それはお互いに関わり合って起きている事象につながっている。釈迦は、それを「縁起」と呼んだ。</p>
+          <p>「縁起」（pratītya-samutpāda）の語源を紐解けば、pratītya（प्रतीत्य）：「〜に依存して」「〜を縁として」、samutpāda（समुत्पाद）：「ともに生じること、共起」。合わせて「依存して共に生じること」である。つまり、「およそ生起するものは、いかなるものも条件に依存して生起する」という一般原理である。</p>
+          <p>夜空に見える星々は、彼らの過去の姿である。しかし見えている「色」は単に星の色ではない。相対速度次第でその色も変化する。「重力」によって光が直線に進まない結果、天体の裏に隠れている星も観測できることがある。</p>
+          <p>20世紀以降の物理学は、確かに古典的な「自性」観念を次々と崩してきた。「時間」と「空間」：絶対的背景としての時空は、相対論によって関係的・力学的な時空（spacetime）に置き換えられた。「物質」：原子論的な「小さな固体」は、場（field）の励起として再記述された。素粒子はもはや「もの」ではなく、相互作用のパターンに近い。</p>
+          <p>「光」もまた波の特徴と粒子の特徴を併せ持ちながら、波でも粒子でもない。観測の文脈に応じて両様に振る舞う。——奇遇だが、これは龍樹の四句分別の第三句・第四句に構造的に類似である。</p>
+          <p>近代物理の到達しているこれらすべてに共通するのは、「自存する単独の実体」（自性）が解体され、「関係・場・プロセス・文脈」（縁起）として捉え直されているということである。</p>
+          <p>『中論』第24章第18偈には、こうある。<br>
+          「およそ縁起するものを、我らは空性（śūnyatā）と呼ぶ。それは仮設（prajñapti）にして、すなわち中道である。」</p>
+          <p>とはいえ、科学もまた真理を追求する。理論物理学の権威でCarlo Rovelliというイタリアの学者が著した、『Helgoland』（邦題『世界は「関係」でできている』）は、量子力学の関係論的解釈を論じたものである。ロヴェッリはその著書で、量子力学の解き明かしつつある姿を、空（śūnyatā）・無自性という仏教の関係性世界観と絡め、「物事は他の物事との関係においてのみ性質をもつ」と、明示的に龍樹に重ねている。</p>
+          <p>『ヘルゴラント』では、世界とは独立した事物の集まりではなく、相互作用の網の目であると論じている。量子論の奇妙さも相対的な相互作用のネットワークとして説明される。ロヴェッリはこの構想を東洋思想、とりわけ龍樹と結びつけ、事物が独立した存在性をもたないという「空」の概念に焦点を当てる。</p>
+          <p>現代科学が明確にしつつあるのは、「最終的な実体（自性）」ではなく、「関係の網（縁起）」へと向かっている新たな地平のようでもある。</p>
+          <div class="essay-source">出典：<a href="https://note.com/triratna/n/n532a2ac06997" target="_blank" rel="noopener">note.com｜Śākyamaṅgalaḥ「ヘルゴラント」</a></div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ③ 僧侶だけど宗教が嫌い -->
+  <div class="essay-block" id="essay3">
+    <div class="essay-num">其の三</div>
+    <h2 class="essay-title">僧侶だけど宗教が嫌い</h2>
+    <div class="essay-preview">
+      昔から、「私は無宗教」と言って憚らなかった。いわゆる宗教というものには、そこまで興味もなく、よくある献金とか勧誘とかある宗教にはむしろ近づきたくない。<br><br>
+      大好きな本の一つに、リチャード・ドーキンス博士が著した「神は妄想であるー宗教との決別」がある。これは英語版も翻訳版も読んだ。世の宗教者はこの本を読むべきだとすら思う。宗教に根ざした争いが起こる原因など、彼の指摘した通りだろう……
+    </div>
+    <details class="essay-toggle">
+      <summary><span class="arrow">▼</span>続きを読む</summary>
+      <div class="essay-body">
+        <div class="essay-body-inner">
+          <p>昔から、「私は無宗教」と言って憚らなかった。いわゆる宗教というものには、そこまで興味もなく、よくある献金とか勧誘とかある宗教にはむしろ近づきたくない。職場はインド人が多く、彼らの宗教はむしろ自然に思える。嫌いではないし、クリスチャンが教会に行くのも、周りが神社に参拝するのも、素敵ですね、と思う。</p>
+          <p>大好きな本の一つに、リチャード・ドーキンス博士が著した「神は妄想であるー宗教との決別」がある。これは英語版も翻訳版も読んだ。世の宗教者はこの本を読むべきだとすら思う。宗教に根ざした争いが起こる原因など、彼の指摘した通りだろう。</p>
+          <p>自分の家系は、代々浄土真宗だった。播州門徒の端くれだったらしい。小さい時から、親に「ナムアミダブ〜言うときな。」と、根拠があるのかないのか言い聞かされてきた。コロナ禍を経て、近所の神社にお参りする習慣がついた。何をお願いすることもないが、柏手を打って、お辞儀をして帰るだけだ。</p>
+          <p>自分でもよく思い出せないが、京都に行って西と東の本願寺に行ったり、動画で法話を聞くようにもなった。いつの間にか、帰敬式を受けて門徒となり、翌年に得度して真宗大谷派の僧侶になった。気軽になった訳ではないが、そこまで強い思い込みがあった訳でもない。「導かれた」といえば、そうなのかも知れない。</p>
+          <p>さて、「神は妄想である」というのも、本当だとも嘘だとも思わない。《自分にとっては》そんなことは本質ではないからだ。同様に「仏は妄想である」と誰かが言ったとしても、どうでもいい。妄想したことを信じるな、ということが的外れなのだ。ハッキリしていることは、自分が信じようと、信じまいと、世の中何も変わらない。仏様が褒めてくれる訳でも、褒美をくれる訳でもない。</p>
+          <p>大谷派僧侶で金沢大学の教授だった出雲路暢良という偉いお坊さんが、「救済の七箇条」として以下のことを話されたと言われる。<br>
+          ・我々は救済を奇跡に求めることはできない<br>
+          ・我々は救済を陶酔に求めることはできない<br>
+          ・我々は救済を心の状態に求めることはできない<br>
+          ・我々は救済を不足物の補充に求めることはできない<br>
+          ・我々は救済を邪魔者の除去に求めることはできない<br>
+          ・我々は救済を精神的欠陥の改善に求めることはできない<br>
+          ・我々は救済を社会改良や革命に求めることはできない</p>
+          <p>ここにある通り、世の中で得てして持たれる宗教的な救済というイメージとはまるで違う。阿弥陀仏というのが、宇宙のどこかにいて救済を請け負うという発想など微塵もない。奇跡をもたらす、素晴らしい心の状態をもたらすとかいうの、妄想でしょ、という訳だ。</p>
+          <p>三木清という哲学者が著作「親鸞」のなかでこう記している。「宗教を単に体験のことと考えることは、宗教を主観化してしまうことである。宗教は単なる体験の問題ではなく、真理の問題である。」</p>
+          <p>真理は自分を超越している。たかだか数十年のある時代を生きるこの自分という存在が何をしていようが、生まれる前からあり、死んだ後もずっと続いてゆく、自分の主観など関係なくあり続ける。精神論だとか、生き方の方法論とか、入り込む余地がない。</p>
+          <p>ここまでが宗教ということへの答えではない。ここが入り口でしかない。神は妄想である、神も仏もあるものか、が入り口なのだ。理屈としては無宗教の入り口なのだろう。けれど実のところ、《自分にとっては》真宗の入り口だったのだ。</p>
+          <p>はるか先を歩かれた先達に、曽我量深という高僧がおられた。ある人が師にこう言われた。「おかげさまで、私は幸福に暮らしております。」ところが師の返答はこうだった。「浄土真宗は幸せになる教えではありません。幸せ不要の人間になることです。」</p>
+          <div class="essay-source">出典：<a href="https://note.com/triratna/n/n67cc0ccd3bb4" target="_blank" rel="noopener">note.com｜Śākyamaṅgalaḥ「僧侶だけど宗教が嫌い」</a></div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ④ 悟りたいですか？ -->
+  <div class="essay-block" id="essay4">
+    <div class="essay-num">其の四</div>
+    <h2 class="essay-title">悟りたいですか？</h2>
+    <div class="essay-preview">
+      「それして、悟れるんですか？」と言う人がいた。理解が追いつかなかった。そもそも自分には、悟りたいがためにしていることがないし、悟りをゴール設定にもできない。<br><br>
+      「求道心によって仏道を歩む」という。日常は、とかく忙しい。仕事、家族、人付き合い、全て自分をして生きる上での縁がある。縁が生み出す繁忙の中で、求道心だ、仏道だ、という……
+    </div>
+    <details class="essay-toggle">
+      <summary><span class="arrow">▼</span>続きを読む</summary>
+      <div class="essay-body">
+        <div class="essay-body-inner">
+          <p>「それして、悟れるんですか？」と言う人がいた。理解が追いつかなかった。そもそも自分には、悟りたいがためにしていることがないし、悟りをゴール設定にもできない。</p>
+          <p>「求道心によって仏道を歩む」という。歩む、と言っても物理的に歩くのではない。日常は、とかく忙しい。仕事、家族、人付き合い、全て自分をして生きる上での縁がある。縁が生み出す繁忙の中で、求道心だ、仏道だ、という。</p>
+          <p>俗世を離れて、仏との縁だけをたよりに生きた人もいただろうけれど、自分は生活を続ける。自分の領域に全うする。その上で、仏道にならないなら、それでいい。誰かが、仏道を定義している訳でもない。誰かが、求道心に認定を与える訳でもない。これは、むしろ厳しいことだと思う。</p>
+          <p>古来、仏教者は「悟り」ということを大切にしてきた。どういうわけか、僧侶でありながら、自分には悟りたいという気持ちがない。そもそも、悟りとされる意識の領域が分からない。</p>
+          <p>歎異抄の九章には、唯円房が「念仏しても、正直 喜ぶ心が生まれない、すぐにでも浄土に行きたいとも思えない、どうしたものでしょう」と親鸞に問う描写がある。親鸞は、「わたしも同じだ」という。何かあれば、すぐ死ぬことを恐れる。死にたくないと思っていても、「娑婆の縁つきて、ちからなくしておわるときに、かの土へはまいるべきなり。」と人間の現実を示す。そして、このような喜べない我々を「ことにあわれみたまうなり。」と仏の慈悲を説く。</p>
+          <p>もし自分が、仏になるのだ、悟るのだ、として大変な努力をして仏陀になったなら、「わたしは、大変な苦労をして仏になれたのだ。わたしは、今こうして仏になれたことを誇りに思う。」という心になるかもしれない。これは、仏陀ではない。人間の妄想が作り上げたただの偉い人だ。</p>
+          <p>親鸞たち高僧がみた仏は、親切も矜持もない。目標も努力もない。善も悪もない。仏だけで成り立つ実体もなく、真実の道理である他に何もない。仏でいたいから、人を救いたいから、という一方的な仏はない。あなたがあるから、仏がある。救いたいではない。救われるようになっている。</p>
+          <p>わたしというのは、実のところ、生命があっても、本質的に実体がない。いや、ここにいるではないか。頭もあり、体もあるではないか、と言うなら、それは、頭であり、体であるだけだ。あなたが作ったものでも、あなたが制御しているものでもない。数十年の間だけ、その個体をして自分だとしているだけだ。</p>
+          <p>仏もまた実体がない。仏像みたいなのが宇宙のどこかで座っている訳ではない。ただし、わたしは仏との縁があり仏の子となる。「釈」を名告る仏弟子である。この世の権威が決めることではない。自分と仏に縁ができた瞬間、それは実体となる。</p>
+          <p>それは理解でも解釈でもない。行であり日常を通じて縁となる。縁は道理であるがゆえに、努力も資格もいらない。恣意性なき結果でしかない。悟り、往生、成仏、は狙いでもなければ、対価でもない。</p>
+          <div class="essay-source">出典：<a href="https://note.com/triratna/n/n71a5c0e3c241" target="_blank" rel="noopener">note.com｜Śākyamaṅgalaḥ「悟りたいですか？」</a></div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+</div><!-- /main -->
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">真照寺<small>Shinsho-ji Temple</small></div>
+      <p>心静かに、ともに歩む場所。<br>どなたでもお気軽にお越しください。</p>
+    </div>
+    <div>
+      <h4>ページ案内</h4>
+      <ul>
+        <li><a href="about.html">お寺の紹介</a></li>
+        <li><a href="teaching.html">法話・仏教の教え</a></li>
+        <li><a href="events.html">行事案内</a></li>
+        <li><a href="kyogaku.html">大切な遺産</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ご相談・ご連絡</h4>
+      <ul>
+        <li><a href="sougi.html">法事・葬儀のご相談</a></li>
+        <li><a href="ohaka.html">お墓・納骨のご案内</a></li>
+        <li><a href="events.html">梵語で読経しよう</a></li>
+        <li><a href="events.html">声明を学ぼう</a></li>
+        <li><a href="news.html">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 真照寺 All Rights Reserved.</p></div>
+</footer>
+
+<script>function toggleMenu() { document.getElementById('main-nav').classList.toggle('open'); }</script>
+</body>
+</html>

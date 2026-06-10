@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>仏教お伽噺 – 真照寺</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --col-main: #7c3d1e; --col-accent: #c8902a;
+    --col-light: #f8f1e8; --col-dark: #3a2510;
+    --col-gray: #8a7a6a; --col-green: #4a6741;
+    --font-main: 'Meiryo UI', 'メイリオ', Meiryo, sans-serif;
+    --font-serif: 'Yu Mincho', '游明朝', 'YuMincho', 'Hiragino Mincho Pro', serif;
+    --radius: 8px; --shadow: 0 2px 16px rgba(60,30,0,.10);
+  }
+  body { font-family: var(--font-main); background: var(--col-light); color: var(--col-dark); line-height: 1.8; font-size: 15px; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ヘッダー */
+  header { background: var(--col-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+  .logo { font-family: var(--font-serif); font-size: 22px; letter-spacing: .2em; color: #f0dfc0; }
+  .logo small { display: block; font-size: 11px; letter-spacing: .15em; color: var(--col-accent); font-family: var(--font-main); margin-top: -4px; }
+  nav { display: flex; gap: 4px; }
+  nav a { color: #e8d5b0; font-size: 14px; padding: 8px 14px; border-radius: var(--radius); transition: background .2s, color .2s; letter-spacing: .05em; }
+  nav a:hover, nav a.active { background: var(--col-main); color: #fff; }
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+  .menu-toggle span { display: block; width: 26px; height: 2px; background: #e8d5b0; border-radius: 2px; }
+
+  /* ページヒーロー */
+  .page-hero {
+    background: linear-gradient(160deg, #1e0e04 0%, #4a2208 45%, #7c3d1e 100%);
+    color: #f8f1e8; text-align: center; padding: 72px 24px 60px; position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c8902a' fill-opacity='0.05'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .page-hero h1 { font-family: var(--font-serif); font-size: clamp(28px, 5vw, 48px); letter-spacing: .3em; position: relative; }
+  .page-hero .hero-sub { margin-top: 14px; color: #c8a870; font-size: 13px; letter-spacing: .15em; position: relative; }
+  .hero-deco { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--col-accent), transparent); margin: 18px auto; }
+
+  /* INDEXバー */
+  .index-bar {
+    background: var(--col-dark); border-bottom: 2px solid var(--col-accent);
+    position: sticky; top: 64px; z-index: 90;
+  }
+  .index-inner {
+    max-width: 960px; margin: 0 auto; padding: 0 24px;
+    display: flex; gap: 0; flex-wrap: wrap;
+  }
+  .index-link {
+    color: #e8d5b0; font-size: 14px; padding: 14px 20px;
+    font-family: var(--font-serif); letter-spacing: .12em;
+    border-right: 1px solid rgba(200,144,42,.2);
+    transition: background .2s, color .2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .index-link:hover { background: rgba(200,144,42,.15); color: var(--col-accent); }
+  .index-link .idx-num {
+    font-family: var(--font-main); font-size: 11px;
+    color: var(--col-accent); letter-spacing: 0;
+  }
+
+  /* メインコンテンツ */
+  .main { max-width: 960px; margin: 0 auto; padding: 56px 24px 80px; }
+
+  /* 各記事 */
+  .story-block { margin-bottom: 48px; scroll-margin-top: 120px; }
+
+  /* 画像＋テキスト 2カラムレイアウト */
+  .story-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  .story-img {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(60,30,0,.18);
+    border: 2px solid #e8ddd0;
+    background: #e8ddd0;
+    aspect-ratio: 3/4;
+  }
+  .story-img img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  @media (max-width: 680px) {
+    .story-layout { grid-template-columns: 1fr; }
+    .story-img { aspect-ratio: 16/9; max-height: 220px; }
+  }
+  .story-num {
+    font-size: 11px; color: var(--col-accent); letter-spacing: .2em;
+    font-family: var(--font-main); margin-bottom: 6px;
+  }
+  .story-title {
+    font-family: var(--font-serif); font-size: clamp(22px, 3.5vw, 32px);
+    letter-spacing: .2em; color: var(--col-main);
+    padding-bottom: 12px;
+    border-bottom: 2px solid;
+    border-image: linear-gradient(90deg, var(--col-accent), transparent) 1;
+    margin-bottom: 20px;
+  }
+
+  /* プレビュー */
+  .story-preview {
+    font-size: 15px; color: #5a4530; line-height: 2;
+    background: #fff; border-radius: var(--radius);
+    padding: 24px 28px;
+    border: 1px solid #e8ddd0;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .story-preview::before {
+    content: '「';
+    font-family: var(--font-serif); font-size: 56px;
+    color: var(--col-accent); opacity: .12;
+    position: absolute; top: 4px; left: 10px; line-height: 1;
+  }
+
+  /* アコーディオン */
+  .story-toggle {
+    border: none; margin-top: 16px;
+  }
+  .story-toggle summary {
+    list-style: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--col-accent); color: #fff;
+    padding: 10px 22px; border-radius: 24px;
+    font-size: 14px; letter-spacing: .06em;
+    transition: background .2s, transform .15s;
+    user-select: none;
+  }
+  .story-toggle summary::-webkit-details-marker { display: none; }
+  .story-toggle summary:hover { background: var(--col-main); }
+  .story-toggle summary .toggle-arrow {
+    display: inline-block; transition: transform .3s ease;
+    font-style: normal; font-size: 12px;
+  }
+  .story-toggle[open] summary .toggle-arrow { transform: rotate(180deg); }
+  .story-toggle[open] summary { background: var(--col-main); }
+
+  /* 全文エリア */
+  .story-body {
+    overflow: hidden;
+    animation: slideDown .35s ease both;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .story-body-inner {
+    background: #fff; border-radius: 0 0 var(--radius) var(--radius);
+    border: 1px solid #e8ddd0; border-top: none;
+    padding: 32px 36px;
+    font-size: 15px; line-height: 2.1; color: #3a2510;
+    box-shadow: var(--shadow);
+    margin-top: -1px;
+  }
+  .story-body-inner p { margin-bottom: 1.2em; }
+  .story-body-inner p:last-child { margin-bottom: 0; }
+  .story-body-inner h3 {
+    font-family: var(--font-serif); font-size: 17px;
+    color: var(--col-main); letter-spacing: .1em;
+    margin: 1.8em 0 .6em;
+    padding-left: 12px;
+    border-left: 3px solid var(--col-accent);
+  }
+  .story-source {
+    margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid #e8ddd0;
+    font-size: 12px; color: var(--col-gray);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .story-source a { color: var(--col-accent); text-decoration: underline; }
+  .story-source a:hover { color: var(--col-main); }
+
+  /* 区切り */
+  .divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, #d0c0a0, transparent);
+    margin: 40px 0;
+  }
+
+  /* フッター */
+  footer { background: var(--col-dark); color: #c8b89a; padding: 48px 24px 24px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(200,184,154,.2); }
+  .footer-brand .logo { font-size: 20px; }
+  .footer-brand p { margin-top: 12px; font-size: 13px; line-height: 1.8; color: #a89880; }
+  footer h4 { color: #f0dfc0; font-size: 14px; margin-bottom: 12px; letter-spacing: .1em; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; }
+  footer ul li a { font-size: 13px; color: #a89880; transition: color .2s; }
+  footer ul li a:hover { color: var(--col-accent); }
+  .footer-bottom { max-width: 1100px; margin: 20px auto 0; text-align: center; font-size: 12px; color: #6a5840; }
+
+  @media (max-width: 768px) {
+    nav { display: none; flex-direction: column; width: 100%; }
+    nav.open { display: flex; }
+    .header-inner { flex-wrap: wrap; height: auto; padding: 12px 16px; gap: 8px; }
+    .menu-toggle { display: flex; }
+    nav a { width: 100%; padding: 12px 16px; border-radius: 0; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .story-body-inner { padding: 24px 20px; }
+    .index-bar { top: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo"></a>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="main-nav">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">お寺の紹介</a>
+      <a href="teaching.html">法話・教え</a>
+      <a href="events.html">行事案内</a>
+      <a href="news.html">お知らせ</a>
+      <a href="masters.html">偉大な師たち</a>
+      <a href="sougi.html">葬儀・法事</a>
+      <a href="ohaka.html">お墓・納骨</a>
+      <a href="otogi.html" class="active">お伽噺</a>
+      <a href="kissui.html">釈吉瑞</a>
+      <a href="kyogaku.html">大切な遺産</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ページヒーロー -->
+<div class="page-hero">
+  <h1>仏教お伽噺</h1>
+  <div class="hero-deco"></div>
+  <p class="hero-sub">仏の教えが息づく物語</p>
+</div>
+
+<!-- INDEXバー -->
+<nav class="index-bar" aria-label="目次">
+  <div class="index-inner">
+    <a href="#story1" class="index-link"><span class="idx-num">一</span>蜘蛛の糸</a>
+    <a href="#story2" class="index-link"><span class="idx-num">二</span>樹石問答</a>
+    <a href="#story3" class="index-link"><span class="idx-num">三</span>初転法輪</a>
+  </div>
+</nav>
+
+<!-- 本文 -->
+<div class="main">
+
+  <!-- ① 蜘蛛の糸 -->
+  <div class="story-block" id="story1">
+    <div class="story-num">其の一</div>
+    <h2 class="story-title">蜘蛛の糸</h2>
+    <div class="story-layout">
+      <div class="story-img">
+        <img src="images/otogi1.png" alt="蜘蛛の糸">
+      </div>
+      <div class="story-content">
+
+    <div class="story-preview">
+      有名な芥川龍之介の掌編小説である。『蜘蛛の糸』は彼の独創ではなく、原典がある。19世紀ポール・ケーラスという人が著した『カルマ』という小説の中の一編らしい。鈴木大拙によって『因果の小車』として訳された仏教書である。<br><br>
+      地獄に落ちたカンダタという悪人が、生前一つだけ良いことをしたので、お釈迦さまが蜘蛛の糸を垂らして地獄から助けようとした。カンダタは天から垂れ下がるその糸を見つけ、必死に登って地獄から抜け出ようとするが、下を見ると多くの亡者が同じ蜘蛛の糸にぶら下がっている……
+    </div>
+
+    <details class="story-toggle">
+      <summary><span class="toggle-arrow">▼</span>続きを読む</summary>
+      <div class="story-body">
+        <div class="story-body-inner">
+          <p>有名な芥川龍之介の掌編小説である。『蜘蛛の糸』は彼の独創ではなく、原典がある。<br>
+          19世紀ポール・ケーラスという人が著した『カルマ』という小説の中の一編らしい。<br>
+          鈴木大拙によって『因果の小車』として訳された仏教書である。</p>
+          <p>地獄に落ちたカンダタという悪人が、生前一つだけ良いことをしたので、お釈迦さまが蜘蛛の糸を垂らして地獄から助けようとした。カンダタは天から垂れ下がるその糸を見つけ、必死に登って地獄から抜け出ようとするが、下を見ると多くの亡者が同じ蜘蛛の糸にぶら下がっている。カンダタはこの糸は自分のものだ、放せ放せと亡者どもに叫んでいたら、目の前で糸が切れて、地獄にまた落ちていった。</p>
+          <p>この筋書き、実は深い意味がある。<br>
+          まず、その亡者に見えていたものは、カンダタ自身の執着である。<br>
+          執着が多いほど、亡者の数が増える。糸はますます張りつめ、切れそうになる。</p>
+          <p>執着であれば、カンダタ自身が言うように、執着を放さなければ浄土には行けない。<br>
+          執着を放さなければなければならないが、カンダタは、それが自分の執着であることが分かっていなかった。<br>
+          放さなければならないのに、執着が強いほど握りしめる力が入る。執着が大きいほど重くなる。</p>
+          <p>糸にぶら下がっていた亡者がいなくなれば、カンダタは助かったのだ、ということでもない。<br>
+          カンダタは、糸は自分のものだ、と言ってしがみついていた。これが最後の執着だった。<br>
+          結局、彼は亡者のせいでもなく、糸の強度のせいでもなく、地獄に落ちた。</p>
+          <p>現代でも同じことが言える。<br>
+          救いの糸が、目の前に垂れていたら。<br>
+          幸せをたぐり寄せる糸があるとしたら、飛びつかないだろうか。</p>
+          <p>浄土につながる糸だとして、しがみ付くのが他力本願だろうか。<br>
+          むしろ、その手を緩めるだろう。<br>
+          しがみつかなくても大丈夫だという絶対の信心があるから。</p>
+          <p>自分だけが使える糸、切れたら困る糸、上らなければいけない糸。<br>
+          そういうものは要らない。<br>
+          自分が軽くなれば、糸はなくても正定聚に至る。</p>
+          <p>歎異抄第二章にある、親鸞が東国から訪ねてきたご同朋に話したことば。<br>
+          「念仏は、まことに浄土にうまるるたねにてやはんべるらん、また、地獄におつべき業にてやはんべるらん。総じてもって存知せざるなり。たとい、法然聖人にすかされまいらせて、念仏して地獄におちたりとも、さらに後悔すべからずそうろう。（……）いずれの行もおよびがたき身なれば、とても地獄は一定すみかぞかし。」</p>
+          <p>念仏したら浄土に行けるか、地獄に落ちるのか、私には分からない。どうでもいい、知ったことではない。<br>
+          法然聖人に騙されて、念仏して地獄行きになったとしてもそれでいい。修業して仏になれる私ではない。<br>
+          何をどうしたところで、元より私の住処は地獄と決まっていたのだ。</p>
+          <p>仮に念仏がその糸だとしても、見事に握りしめる手を緩めている。<br>
+          念仏して浄土に行けるよう励め、という考えがまるで見えてこない。<br>
+          期待、目的、獲得、そういった執着がない「ただ念仏して」とだけある。</p>
+          <div class="story-source">
+            出典：<a href="https://note.com/triratna/n/nc215819781ed" target="_blank" rel="noopener">note.com｜Śākyamaṅgalaḥ「蜘蛛の糸」</a>
+          </div>
+        </div>
+      </div>
+    </details>
+      </div><!-- /story-content -->
+    </div><!-- /story-layout -->
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ② 樹石問答 -->
+  <div class="story-block" id="story2">
+    <div class="story-num">其の二</div>
+    <h2 class="story-title">樹石問答</h2>
+    <div class="story-layout">
+      <div class="story-img">
+        <img src="images/otogi2.png" alt="樹石問答">
+      </div>
+      <div class="story-content">
+
+    <div class="story-preview">
+      日はすでに中天を過ぎていた。<br>
+      砂塵まじりの風が、街道の両脇に痩せ枝を垂らす菩提樹を、乾いた音を立てて揺らしていた。<br>
+      北へ向かう道であった。ガンジス川の支流をいくつか越え、やがて山岳の麓へと続くその道は、牛車の轍と旅人の足跡、それから幾人かの巡礼が残した石の小さな塔によってのみ、かろうじて「道」と呼べるものになっている。<br><br>
+      その道を、ひとりの僧が歩いていた――龍樹と呼ばれていた……
+    </div>
+
+    <details class="story-toggle">
+      <summary><span class="toggle-arrow">▼</span>続きを読む</summary>
+      <div class="story-body">
+        <div class="story-body-inner">
+          <p>日はすでに中天を過ぎていた。<br>
+          砂塵まじりの風が、街道の両脇に痩せ枝を垂らす菩提樹を、乾いた音を立てて揺らしていた。<br>
+          北へ向かう道であった。<br>
+          ガンジス川の支流をいくつか越え、やがて山岳の麓へと続くその道は、牛車の轍と旅人の足跡、それから幾人かの巡礼が残した石の小さな塔によってのみ、かろうじて「道」と呼べるものになっている。陽の色は黄味を帯びはじめ、地平の遠くには、霞のむこうに山並みが紫に沈んでいた。</p>
+          <p>その道を、ひとりの僧が歩いていた。<br>
+          髪は剃り、衣は麻の一重、足には粗末な草履。肩には小さな頭陀袋をただひとつ。急ぐでもなく、疲れるでもなく、淡々と歩き続ける。<br>
+          すでに南インドの諸国において、彼は文殊菩薩の化身として噂されていた。<br>
+          彼は、「龍樹」と呼ばれていた。</p>
+          <p>その日、街道の辻にさしかかったとき、日陰の石に腰をおろしていた一人の旅人が、僧の姿を認めて、ゆっくりと立ちあがった。旅装は埃にまみれ、目は落ちくぼんでいたが、そこには抜け目のなさと、別のなにか ― 疲れとも怒りともつかぬ色が同居していた。</p>
+          <p>旅人は、道を遮るようにして身を乗り出し、龍樹に話しかけた。<br>
+          「話には聞いていたが、まさかここで会えるとは。龍樹どのとお察しします。」</p>
+          <p>龍樹は足を止め、相手をしずかに見た。聞かれたことに、肯定も否定もしなかった。<br>
+          旅人は、道すがらそれまで説一切有部や諸派の行者とも議論をし、その知識を龍樹にぶつけて見たかったのだ。</p>
+          <p>旅人は龍樹に樹の下にある平らな岩場に休むようすすめ、自らも石に腰掛け、世間話もそこそこに単刀直入に切り出した。</p>
+          <p>「全てが空なのですよね。なら、あなたの路銀を私にください。それも空だから、あなたは困らないでしょう。」</p>
+          <p>風がひとすじ、砂を巻いて二人のあいだを抜けていった。藪から棒に路銀を出せという。この男は賊に見えたかもしれない。<br>
+          龍樹は、微笑を含んで、その人を見つめてこう答えた。<br>
+          「そもそも、私は路銀は持ち歩かない。道々施しを受けて歩いているのだ。仮に路銀を持っていたとしても、空なるものはやりとりができないよ。」</p>
+          <p>旅人は、言い返す。<br>
+          「では聞くが、世の中の人間は、カネで食べ物を買い、カネで生活をしているではないか。」</p>
+          <p>龍樹は、少し眉をあげて答えた。<br>
+          「その通りだ。カネと食べ物の関係を人間が決めているのだ。いくら払えば、何がどれだけ買えると。カネはカネだけで成り立たないのは分かるかね。買う対象がなくてはカネと言えない。食べ物も人が食べて食べ物と言えるのだ。交換も、価値も、人間が決めているものだ。」</p>
+          <p>旅人は、たまりかねてこう言った。<br>
+          「それは理屈だ。現実はそうは動いていない、あなたがそう考えたいだけのことでしょう。人間が決めていることに意味があるから社会が成り立っているのではないか。」</p>
+          <p>龍樹は、静かに言う。<br>
+          「そう、動物にはない人間の決め事。それを虚構という。それらを言葉にしたら仮論となる。それらを否定しているのではない。ただ本質ではないということだ。」</p>
+          <p>旅人「だから、そんな空想はいいと言っている。それこそ空論ではないか。現実を見たらどうか。」</p>
+          <p>龍樹「現実を見据えていないのは私か？あなたなのか？現実は真実が顕れた姿をいう。火を灯せば光と熱がでる。見えないが酸素を使い、二酸化炭素を出す。真実がそうあるから、現実として火は灯り、人はその火を便利につかうし、人はその火で災いにあう。」</p>
+          <p>旅人「事実、人間は火を使うではないか。」</p>
+          <p>龍樹「わかりませんか？人間が火を使うのは事実ではなく、人間の勝手なのだ。火がある、使えると思うのもまた人間の勝手である。火は人間がいようといまいと条件が揃えば発火する。」</p>
+          <p>旅人「私は物理の講釈を聞きたいのではい。火は空などではなく、実際にあるではないか。」</p>
+          <p>龍樹「空というのは、ある、ないのことを言っているのではない。有るも無いもそれだけで成り立たないと言っている。空は無ではない。火もまた火だけでなり立っているものではない。」</p>
+          <p>旅人「私は面倒臭い理屈は嫌いなのだ。結局、あなたは理屈をつけて自分のものを取られたくないのだな。」</p>
+          <p>龍樹「そう思うのも、あなたの勝手です。あなたが問題としているのは、私とあなたに、モノをやりとりする縁がないということなのだ。酸素がないところで火は灯らないし、着火する原因がなければ火は灯らない。燃える材料が燃える状態でなければまた火は灯らない。」</p>
+          <p>旅人「そういうことは、あなたでなくても商人でも知っている。条件が合わねば取引は成立しない。」</p>
+          <p>龍樹「それは商人がいくらなら売るかを決めていること。私は商売や、ものの値段を話しているのではない。」</p>
+          <p>旅人「偉そうなことを言っているが、結局、そんな理屈は何の役にも立たぬではないか。」</p>
+          <p>龍樹「役に立つ、役に立たない、というのを価値というなら、私は虚構の世界における価値は説いていない。」</p>
+          <p>旅人「ならば、あなたも、あなたの説くことも、何の価値もない。」</p>
+          <p>龍樹「あなたのいう価値とは、人間にとって役に立つこと、役に立たねば意味がないのだ、というのかね？」</p>
+          <p>旅人「役にも立たないことに、なぜ関わる必要がある？」</p>
+          <p>龍樹「自分にとって役立つ現実になれば良いというのだな？」</p>
+          <p>旅人「みなそう思って生きているではないか。あなたも空の理論が役に立つから説いているのだろう？」</p>
+          <p>龍樹「役に立つ、立たない以前に、思い違いや思い込みを否定しているのだ。」</p>
+          <p>旅人「私の言うことは、全ての人類が日々考えていることだ。あなたのほうが、現実を直視せず役立たない理屈をこねている事に気づかないのか？」</p>
+          <p>龍樹「ならば聞こう。なぜあなたは困る事があるのか。」</p>
+          <p>旅人「誰でも困ることはあるだろう。」</p>
+          <p>龍樹「それはあなたが困っているのだ。現実は、あなたが困ろうと、困るまいと、あなたがその現実の中にあるという関係ができているのだ。」</p>
+          <p>旅人「だから、困る現実があるというのだ。そういう現実が起こると言っている。」</p>
+          <p>龍樹「波のように、常に変わり、打ち上げてくるのが現実なのだ。永遠に変わらない現実などありはしない。」</p>
+          <p>そこまで言って、龍樹は、その旅人の表情がわずかに揺らいだのに気づいた。<br>
+          旅人は、しばしの沈黙ののち思い口を開くように、低い声で独り言のように呟いた。<br>
+          「私の子は、死んでしまった」</p>
+          <p>風が、もう一度、二人のあいだを通りぬけた。<br>
+          「その現実は、未来永劫、変わることはない」</p>
+          <p>龍樹は、目を伏せ気味に静かに<br>
+          「お察しします。」<br>
+          とその旅人に言った。その言葉は他人事の気休めでも、同情でもない響きを持っていた。</p>
+          <p>そしてしばらくおいて、旅人は続けた。<br>
+          「私の子は死んだ。その現実は未来永劫変わることはない。」</p>
+          <p>「あなたは、」<br>
+          しばらくおいて、龍樹はこう切り出した。<br>
+          「ただ、そのことによって、子がよみがえる現実、時間がさかのぼる現実があれば、それが実現してほしいと、思っているあなたがいる。そうではないか？」</p>
+          <p>旅人「それが親というものだ。」</p>
+          <p>龍樹「子があるから、初めて親と言える。あなたはまだ親である。その子はもういないと言うが、あなたはまだ親である。子がいないのに親とはいえない。」</p>
+          <p>旅人「ならばその縁とやらも、永久ではないのか。」</p>
+          <p>龍樹「あなたがこの世からいなくなったとき、あなたと子供は、親子であったと語られるだけになる。あなたが永遠がどうかを決める事ではないのだ。」</p>
+          <p>旅人「一体、あなたは、どうすれば良いと言っているのだ。」</p>
+          <p>龍樹「自分で真実を決めるな。それを思い違いと言っている。何が勝手な思い込みであったのか、なぜあらゆるもの、あらゆる出来事が、ある、ない、という見方しかできないのか。そこが入り口になろう。虚構も戯論も生きてゆくには必要なことだ。しかし仮論を真実と握りしめるとき、仮（prajñapti）は人を縛る縄（執＝grāha）になる。」</p>
+          <p>旅人「ならば浄土もまたないのか？仏もいないのか？」</p>
+          <p>龍樹「それも人間が決める事ではない。人間の見識ではあり得ないのだ。空とは、一切の見の出離を言っている。空を見として執する者もまた救い難い。真実も、浄土も、諸仏もまた空であり、人間の見にあり続ける限り自性として扱う戯論（prapañca）である。」</p>
+          <p>旅人「実体のないものに名があるのか。それこそ人間が勝手に名付けたのではないか。念仏でも唱えればいいのか？」</p>
+          <p>龍樹「自分主体に念仏を唱えて何を期待するのか。意味がある、役立つなら念仏してやってもいいというのか。人間が本来おかれている真実の名を称えるという以外に何もないのだ。」</p>
+          <p>旅人「役に立たないのか？効果はないのだな。」</p>
+          <p>龍樹「効果を期待するなら、人間にできることは最善を尽くす行いだけだ。そうすれば縁との関わりも違ってくるだろうが、努力の対価を期待するのもまた思い違いなのだ。真実が都合よく機能する訳ではないのだ。すがりつく真実があるのではない。逆だ。握りしめているものを、手放しなさい。子を返せ、時を戻せ、この波を鎮めよ――そう握りしめていた手を、ゆるめてゆきなさい。ひらいた手のうえに、あなたは、すでに限りない縁の中に置かれている。もとから置かれていたことに気づけたら、あなたの次の旅が始まる。」</p>
+          <p>旅人「結局は、自助努力か。」</p>
+          <p>龍樹「思い違いに気づかねば、思い違いから抜け出すことはできぬ。握りしめるような自助努力ではない。あなたがもっとも暗いところにいるときにも、なお、あなたに届いている。縁起のままに、すでにあなたは関係性のただなかにある。それを、忘れてはならない。」</p>
+          <p>旅人は、目が覚めた思いがしなかった。分かった気にもなれなかった。<br>
+          いつの間にか陽は、ついに山の稜線に触れた。<br>
+          街道の砂が、赤く染まり、二人の影が、東へ長く伸びていた。<br>
+          龍樹は、それ以上なにも言わなかった。<br>
+          ただ一礼し、草履のかすかな音を立てて、北へとまた歩きはじめた。</p>
+          <p>男は、その後ろ姿を、しばらく見ていた。<br>
+          夕日を浴びた背中の光陰が、ひとすじの線のように、道の向こうへ遠ざかっていく。</p>
+          <p>男は、自分の右の掌を、もう一度、そっとひらいて弱々しく首を振った。</p>
+          <p>やがて男は、立ちあがり、南へと、歩きだした。<br>
+          足は、先ほどまでと、同じ地を踏んでいた。<br>
+          荷の重さも、革袋の重みも、変わってはいなかった。<br>
+          ただ、一歩が、どういうわけか、さきほどまでとは、少しだけ違った感触を持っていた。</p>
+          <p>気づけば胸のうちで、忘れられない小さな子の名を、無意識に呼び続けている。<br>
+          名はこれほどまでに、自分の大切なことを象徴する。すでに影も形もないのに、その名は自分にとってすべてであった。<br>
+          自分で名付けたのに、自分のすべてになってしまった、もう消そうとも、消すべきものとも、思えなかった。</p>
+          <p>長い年月が経ち、ずっとのちに、我が子を呼ぶ名が、我が子という実体ではなくなっていた。<br>
+          それは、あのとき龍樹から聞いた名とともに、縁というつながりになっていた。</p>
+          <p>確かに、喜びの中で、我が子が誕生し、悲しみの中で、我が子を喪失した。自分にとっては、その通りだった。<br>
+          けれど、あのとき聞いた言葉が、この縁は、誕生を契機に生まれて、喪失を機に消滅しただけのものではないと思わせる。子を持てて親になれた。けれどその縁も消えずに、形を変え続けて私の中であり続けている。</p>
+          <p>私が握り続けることも、消し去ろうとすることもないのだ。<br>
+          理屈をつけて龍樹に迫り、理屈を言うなと吠えていた若き自分を思い起こして、すっかり痩せ細った老人は一人静かに笑っていた。</p>
+          <div class="story-source">
+            出典：<a href="https://note.com/triratna/n/n88d398201d82" target="_blank" rel="noopener">note.com｜Śākyamaṅgalaḥ「樹石問答」</a>
+          </div>
+        </div>
+      </div>
+    </details>
+      </div><!-- /story-content -->
+    </div><!-- /story-layout -->
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ③ 初転法輪 -->
+  <div class="story-block" id="story3">
+    <div class="story-num">其の三</div>
+    <h2 class="story-title">初転法輪</h2>
+    <div class="story-layout">
+      <div class="story-img">
+        <img src="images/otogi3.png" alt="初転法輪">
+      </div>
+      <div class="story-content">
+
+    <div class="story-preview">
+      文明は、大河に沿って生起した。単に水があったと言うよりは、肥沃な地質と水上交易が人々の集積をうみ、結果、都市を機能させ文明が成長した。<br><br>
+      インダス川流域に始まった文明が、アーリア人の移動と共に、北インドに大小の王国を建てるに至り、恐怖や苦悩に縛られて生きる人間は、そこからの「解脱」を方法論に求めた。解脱に人生を捧げた者たちを「沙門」といった――王子の身分を捨てて沙門となった釈迦族のゴータマも、解脱を求めて修行の日々を送った……
+    </div>
+
+    <details class="story-toggle">
+      <summary><span class="toggle-arrow">▼</span>続きを読む</summary>
+      <div class="story-body">
+        <div class="story-body-inner">
+          <h3>解脱を求めて</h3>
+          <p>文明は、大河に沿って生起した。単に水があったと言うよりは、肥沃な地質と水上交易が人々の集積をうみ、結果、都市を機能させ文明が成長した。</p>
+          <p>文明を作る目的で、誰も河を作ったりしていない。河は、大自然の秩序の通りに流れ、氾濫し、流域を変え続けた。</p>
+          <p>インダス川流域に始まった文明が、アーリア人の移動と共に、北インドに大小の王国を建てるに至り、王族、聖職者、戦士、商人、農民、奴隷と多様な階層を生み出し、それぞれに生存のための小競り合いがあり、死は常に身近にあって、恐怖や苦悩に縛られて生きる人間は、そこからの「解脱」を方法論に求めた。</p>
+          <p>解脱に人生を捧げた者たちを「沙門」といった。王子の身分を捨てて沙門となった釈迦族のゴータマも、解脱を求めて修行の日々を送った。はじめは修定といわれる瞑想の師につき、そこで行き詰まると、次はギリギリまで肉体の生命力を削り取り、死の刹那に覚醒するのではないかと、六年ものあいだ、徹底的に自分を追い込んだ。</p>
+          <p>解脱が目的、瞑想は手段。このやり方をすれば、解脱ができる。この、目的のための手段、がまた目的になり、またそのための手段を考えて、手段の目的化が堂々巡りする。この無限の螺旋から抜けねばならないのではないのか。</p>
+          <p>釈迦は、村娘の供げた乳粥を口にし、沐浴して、心を落ち着け考えた。<br>
+          苦しみというが、苦しみとは何なのか。</p>
+
+          <h3>沙門ゴータマの思惟</h3>
+          <p>生きる苦悩、病気、老衰、そして死、全て避けられないから苦悩ではないか。嫌なこともするし、嫌いな人間ともいなければならない。欲しいものが手に入らない。愛する者との別れもある。あらゆる渇愛に身を焦がす。何が原因で、これらが生じるのか。</p>
+          <p>苦しみは、どうしたら消せるのか。そもそも苦しみは消滅できるものなのか。消滅しなければならないと躍起になっていていいのか。痛いものは痛い。辛いものは辛いのだ。消えたと思い込んでも消えはしない。消えはしない、逃げきれないから苦しいのではないか。</p>
+          <p>むしろ痛さ、辛さ、苦しさを正しく受け止め、向き合えないのか。正しく共存するべきではないのか。消えないのだから。苦を消せないなら、苦との関係を見直すべきではないか。</p>
+          <p>考えてもみろ。10年前の苦しみは、今は何でもない。今の苦しみは永遠ではない。何かが重なって「今」苦しみとなって発現しているのだ。この苦しみが永遠に続かないのは、苦しみとの関係が変質したからではないのか。</p>
+
+          <h3>縁起の発見</h3>
+          <p>関係性を本質としてみるなら、苦しみは固定したモノではない。固定的な苦しみなどありはしない。逆に喜びも固定化し得ない。何かの因に縁が重なり苦楽といった結果が生じる。これを縁起と呼ぶ。</p>
+          <p>苦に苛まれる私がいるのは事実だが、私はそもそも苦そのものではない。苦しい私にしている縁がある。その縁を断ち切れないから、苦しい。何がその縁を呼び込んでいるのか。これがある限り今の苦しみは続く。</p>
+          <p>そもそも、苦しくない私も、苦しい私も、同じ私ではないか。何故苦しい私になってしまうのか。苦しい私などそもそも本質ではない。私が苦という縁を、私そのものとしてしまっているに過ぎない。</p>
+          <p>縁によって色の変わるような流転する「私」としていたもの。本来の「私」に立ち返るとすれば、そんな「私」は何なのか。楽しい私も、苦しい私も、本来の私ではなかった。私がなくなれば、苦も存立しえない。しかし私がなくなることがない。だから瞑想もしたし、苦行もした。</p>
+          <p>消せない私、あり続ける私とは、本来、単独で存立し得ていない。何かがあって私になっているから、本質的に縁起から離れた私などない。つまり、縁によって発現しているのは、苦ではなく私そのものではなかったか。</p>
+
+          <h3>縁起の中にある私</h3>
+          <p>苦と私を切り離す、または縁起を切り替える、こういうことはあり得るのか。縁起を見通せれば、苦を滅せずして無効にできる。真実の世界、透明の純粋性に私を同化できれば、真実と親和性のある縁起があるのではないか。私などない、しかし真実はある。縁起は真実のはたらき、発現である。</p>
+
+          <h3>真実は行いに宿る</h3>
+          <p>私ではなく、真実を主体にした縁起があるとき、私は、真実に正しく同期できていなければならない。物事の見方、思考展開、発する言葉、清廉な行動、生きる姿勢、精進の継続、思念の追求、瞑想と三昧、思いつくままに、真実に同化する正しい道を考えた。手なずけられない心を真理に投影すれば、縁起も秩序のもとに結果となる。</p>
+          <p>これは、目的と手段ではない。似て非なるものだが、因と縁と果である。目的と手段は自分の勝手なはからいだが、因縁果は真理である。</p>
+          <p>苦しみの無くなる人生がないなら、あらゆる縁起に正しく対応できる行いに生きるしかない。正しく、と簡単に言うが、概念的な考え方を奇貨として何かを期待することではない。目には見えない真実の世界に立ち、真実に生きる以外にない。そこでの縁起として私が発現する。</p>
+
+          <h3>思い違いとあやかり</h3>
+          <p>苦しみからの解脱、を目的にしてしまい、苦しみは消えるものだと思い込んで修行という方法論に飛びついていた。マントラや瞑想にあやかれば苦しみが消えるのだと信じて何年もやってきた。どこかで厚かましい思考の飛躍をしていた。</p>
+          <p>苦しみは消えない。除去することができないから苦しみなのだ。苦しみを無効にするのは、私ではない。縁起なのだ。苦しみを滅する方法論や考え方はない。苦しみそのものは実体ではない。</p>
+          <p>幸せも、因と縁起で現れる一つの事象であろう。固定的なものではない。何かの方法で幸せを所有する自分になれるものではない。幸せになりたい、というのも執着。幸せになる必要のない正しい生き方ができている方がよほど大切なことなのだ。</p>
+
+          <h3>真理は伝わるのか</h3>
+          <p>釈迦は、これは人に言っても通じるものではない、と直感した。虚しいことにあやかって生きようとしている人々を否定しても仕方がないことだろう。</p>
+          <p>釈迦は、七日間そのまま三昧にはいった。限りなく透明で、真実の世界に身を置いた。そして、場を変えさらに七日間、そしてまた別の場所で七日間、そしてまた、七日間。</p>
+          <p>悟りを開いたとか、成道した、と後世の人間は、釈迦のこの深い精神世界をそう表現した。釈迦は、そのひと月ほどの間、ただ喜んでいたのではない。彼の知っている時代に生きる人間は、この真理に気付かず生きて、死んでいく。その事実を目の当たりにしていながら、これを言語化して説いても何もならないという絶望に苦悶していた時間でもあった。</p>
+
+          <h3>機があり仏がある</h3>
+          <p>真理を覚知した仏陀が見たものは、人類が本来持っている「願い」というべきものだった。「いのち」そのものが「願い」といっていい。大いなるいのちが、数十年の生命として落在する。人間をしてその生命のあるうちに、どのような表現をするのか、世に生まれ出たの本懐のような何かを知らないのだ。</p>
+          <p>仏陀は違う。仏陀は、迷いの世界にある衆生を必要とする。真理の世界は、因、縁、果で生起する。固定的な存在としてはあり得ない。成道した仏陀と流転する衆生（機）が因であり、仏と機、お互いに縁を持つから、仏の願い、いのちの願いが成就する。</p>
+          <p>衆生があやかれる仏陀など存在しない。真実の世界に目を向けよ、真実に正しく生きよ、と教えを伝える。今現在説法しつづけている。あやかりと真理を混同するような思い違いから、抜け出せる人間がきっといるだろう。</p>
+          <p>釈迦がはじめに説くのを躊躇ったその教えに始まった説法は、彼が入寂するまで更なる広がりをみせ、弟子たちが読謡して伝えられ、700年後、龍樹という天才によりさらに無自性空という縁起の法則として展開された。さらに150年後に無著・世親の兄弟によって唯識の学説に大成され、大乗仏教の大きな流れとなっていった。</p>
+          <div class="story-source">
+            出典：<a href="https://note.com/triratna/n/nc3e063568c5d" target="_blank" rel="noopener">note.com｜Śākyamaṅgalaḥ「初転法輪のものがたり」</a>
+          </div>
+        </div>
+      </div>
+    </details>
+      </div><!-- /story-content -->
+    </div><!-- /story-layout -->
+  </div>
+
+</div><!-- /main -->
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">真照寺<small>Shinsho-ji Temple</small></div>
+      <p>心静かに、ともに歩む場所。<br>どなたでもお気軽にお越しください。</p>
+    </div>
+    <div>
+      <h4>ページ案内</h4>
+      <ul>
+        <li><a href="about.html">お寺の紹介</a></li>
+        <li><a href="teaching.html">法話・仏教の教え</a></li>
+        <li><a href="events.html">行事案内</a></li>
+        <li><a href="kyogaku.html">大切な遺産</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ご相談・ご連絡</h4>
+      <ul>
+        <li><a href="sougi.html">法事・葬儀のご相談</a></li>
+        <li><a href="ohaka.html">お墓・納骨のご案内</a></li>
+        <li><a href="events.html">梵語で読経しよう</a></li>
+        <li><a href="events.html">声明を学ぼう</a></li>
+        <li><a href="news.html">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 真照寺 All Rights Reserved.</p></div>
+</footer>
+
+<script>
+function toggleMenu() { document.getElementById('main-nav').classList.toggle('open'); }
+</script>
+</body>
+</html>

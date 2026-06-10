@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お墓・納骨のご案内 – 真照寺</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --col-main: #7c3d1e; --col-accent: #c8902a;
+    --col-light: #f8f1e8; --col-dark: #3a2510;
+    --col-gray: #8a7a6a; --col-green: #4a6741;
+    --font-main: 'Meiryo UI', 'メイリオ', Meiryo, sans-serif;
+    --font-serif: 'Yu Mincho', '游明朝', 'YuMincho', 'Hiragino Mincho Pro', serif;
+    --radius: 8px; --shadow: 0 2px 16px rgba(60,30,0,.10);
+  }
+  body { font-family: var(--font-main); background: var(--col-light); color: var(--col-dark); line-height: 1.8; font-size: 15px; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; }
+
+  header { background: var(--col-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+  .logo { font-family: var(--font-serif); font-size: 22px; letter-spacing: .2em; color: #f0dfc0; }
+  nav { display: flex; gap: 4px; }
+  nav a { color: #e8d5b0; font-size: 14px; padding: 8px 14px; border-radius: var(--radius); transition: background .2s, color .2s; letter-spacing: .05em; }
+  nav a:hover, nav a.active { background: var(--col-main); color: #fff; }
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+  .menu-toggle span { display: block; width: 26px; height: 2px; background: #e8d5b0; border-radius: 2px; }
+
+  /* ページヒーロー */
+  .page-hero {
+    background: linear-gradient(160deg, #1a2a1a 0%, #2e4a2a 50%, #3a6030 100%);
+    color: #f8f1e8; text-align: center; padding: 72px 24px 60px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8902a' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .page-hero h1 { font-family: var(--font-serif); font-size: clamp(26px, 4vw, 44px); letter-spacing: .25em; position: relative; }
+  .page-hero .hero-sub { margin-top: 12px; color: #f0dfc0; font-size: 14px; letter-spacing: .12em; position: relative; }
+  .hero-deco { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--col-accent), transparent); margin: 20px auto; }
+
+  /* セクション */
+  .section { max-width: 960px; margin: 0 auto; padding: 64px 24px; }
+  .section-title { margin-bottom: 36px; }
+  .section-title h2 {
+    font-family: var(--font-serif); font-size: clamp(20px, 3vw, 30px);
+    letter-spacing: .2em; color: var(--col-main);
+    padding-left: 18px; border-left: 4px solid var(--col-accent);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-title .section-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--col-accent); color: #fff;
+    font-size: 15px; font-family: var(--font-main); font-weight: bold; flex-shrink: 0;
+  }
+  .section-title p { margin-top: 10px; padding-left: 18px; color: var(--col-gray); font-size: 14px; }
+
+  /* 特徴リスト */
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .feature-list li {
+    background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+    border: 1px solid #e8ddd0; padding: 20px 24px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .feature-icon {
+    font-size: 26px; flex-shrink: 0; margin-top: 2px;
+  }
+  .feature-text h3 {
+    font-family: var(--font-serif); font-size: 17px; color: var(--col-main);
+    letter-spacing: .08em; margin-bottom: 6px;
+  }
+  .feature-text p { font-size: 14px; color: #5a4530; line-height: 1.9; }
+  .feature-text strong { color: var(--col-main); }
+
+  /* お墓パターングリッド */
+  .grave-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .grave-card {
+    background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+    border: 1px solid #e8ddd0; overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+    display: flex; flex-direction: column;
+  }
+  .grave-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(60,30,0,.15); }
+  .grave-card-header {
+    padding: 20px 22px 14px;
+    background: linear-gradient(135deg, var(--col-main), var(--col-accent));
+    color: #fff;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .grave-card-icon { font-size: 30px; }
+  .grave-card-header h3 {
+    font-family: var(--font-serif); font-size: 18px; letter-spacing: .1em;
+  }
+  .grave-card-header .grave-tag {
+    font-size: 11px; background: rgba(255,255,255,.2);
+    border-radius: 12px; padding: 2px 10px; margin-top: 4px;
+    display: inline-block; letter-spacing: .05em;
+  }
+  .grave-card-body { padding: 20px 22px; flex: 1; }
+  .grave-card-body p { font-size: 14px; color: #5a4530; line-height: 1.9; }
+  .grave-point {
+    margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .grave-point span {
+    font-size: 12px; background: var(--col-light);
+    border: 1px solid #d8cfc0; border-radius: 12px;
+    padding: 2px 10px; color: var(--col-gray);
+  }
+  .grave-point span.good { background: #e8f0e0; border-color: #b0c8a0; color: var(--col-green); }
+  .grave-point span.note { background: #fce8d0; border-color: #e0b888; color: #8a4a10; }
+
+  /* 注記ボックス */
+  .note-box {
+    background: #fff8f0; border: 1px solid #e8ddd0; border-left: 4px solid var(--col-accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 18px 22px; margin-top: 24px;
+    font-size: 14px; color: #5a4530; line-height: 1.9;
+  }
+  .note-box strong { color: var(--col-main); }
+
+  /* お問い合わせ */
+  .contact-box {
+    background: linear-gradient(135deg, var(--col-dark) 0%, #2e4a2a 100%);
+    border-radius: var(--radius); padding: 48px 40px;
+    color: #f0dfc0; text-align: center;
+    box-shadow: 0 4px 24px rgba(30,50,30,.3);
+  }
+  .contact-box h3 { font-family: var(--font-serif); font-size: 22px; letter-spacing: .2em; margin-bottom: 12px; }
+  .contact-box .contact-desc { font-size: 14px; color: #c8b89a; line-height: 2; margin-bottom: 36px; }
+  .contact-methods { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+  .contact-method {
+    background: rgba(255,255,255,.1); border: 1px solid rgba(200,144,42,.4);
+    border-radius: var(--radius); padding: 24px 36px; min-width: 220px;
+    text-decoration: none; color: inherit;
+    transition: background .2s, transform .2s;
+    display: block;
+  }
+  .contact-method:hover { background: rgba(255,255,255,.18); transform: translateY(-2px); }
+  .contact-method .method-icon { font-size: 32px; margin-bottom: 10px; }
+  .contact-method .method-label { font-size: 12px; color: var(--col-accent); letter-spacing: .1em; margin-bottom: 8px; }
+  .contact-method .method-value { font-family: var(--font-serif); font-size: 20px; letter-spacing: .05em; }
+  .contact-method .method-note { font-size: 11px; color: #a89880; margin-top: 6px; }
+
+  .bg-warm { background: #f0e8d8; }
+  .bg-white { background: #fff; }
+  .bg-green { background: #f0f4ee; }
+
+  footer { background: var(--col-dark); color: #c8b89a; padding: 48px 24px 24px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(200,184,154,.2); }
+  .footer-brand p { margin-top: 12px; font-size: 13px; line-height: 1.8; color: #a89880; }
+  footer h4 { color: #f0dfc0; font-size: 14px; margin-bottom: 12px; letter-spacing: .1em; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; }
+  footer ul li a { font-size: 13px; color: #a89880; transition: color .2s; }
+  footer ul li a:hover { color: var(--col-accent); }
+  .footer-bottom { max-width: 1100px; margin: 20px auto 0; text-align: center; font-size: 12px; color: #6a5840; }
+
+  @media (max-width: 768px) {
+    nav { display: none; flex-direction: column; width: 100%; }
+    nav.open { display: flex; }
+    .header-inner { flex-wrap: wrap; height: auto; padding: 12px 16px; gap: 8px; }
+    .menu-toggle { display: flex; }
+    nav a { width: 100%; padding: 12px 16px; border-radius: 0; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .grave-grid { grid-template-columns: 1fr; }
+    .contact-box { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo"></a>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="main-nav">
+      <a href="index.html">ホーム</a>
+      <a href="about.html">お寺の紹介</a>
+      <a href="teaching.html">法話・教え</a>
+      <a href="events.html">行事案内</a>
+      <a href="news.html">お知らせ</a>
+      <a href="masters.html">偉大な師たち</a>
+      <a href="sougi.html">葬儀・法事</a>
+      <a href="ohaka.html">お墓・納骨</a>
+      <a href="otogi.html">お伽噺</a>
+      <a href="kissui.html">釈吉瑞</a>
+      <a href="kyogaku.html">大切な遺産</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ページヒーロー -->
+<div class="page-hero">
+  <h1>お墓・納骨のご案内</h1>
+  <div class="hero-deco"></div>
+  <p class="hero-sub">阿弥陀仏のみ教えのもとに、故人を偲ぶ場所について。</p>
+</div>
+
+<!-- ① 浄土真宗のお墓の考え方 -->
+<div class="bg-white">
+  <div class="section">
+    <div class="section-title">
+      <h2><span class="section-num">①</span>浄土真宗のお墓の考え方</h2>
+      <p>浄土真宗のお墓には、他宗派とは異なるいくつかの特徴があります。その背景には、浄土真宗独自の教え——「阿弥陀仏の本願によって人は必ず救われる」——があります。</p>
+    </div>
+
+    <ul class="feature-list">
+      <li>
+        <span class="feature-icon">🪨</span>
+        <div class="feature-text">
+          <h3>卒塔婆（塔婆）を建てない</h3>
+          <p>卒塔婆は、生きている者の善行を故人に回向（追善供養）するためのものです。浄土真宗では、故人はすでに阿弥陀仏のはたらきによって浄土に往生されているという考えから、<strong>追善供養の必要がなく、卒塔婆を用いません</strong>。</p>
+        </div>
+      </li>
+      <li>
+        <span class="feature-icon">🙏</span>
+        <div class="feature-text">
+          <h3>「追善供養」の概念がない</h3>
+          <p>法事は「故人のために善を積む」ためではなく、<strong>阿弥陀仏のご恩に感謝し、ともに教えを聞く場</strong>として捉えます。お盆やお彼岸も、故人を呼び戻す儀式ではなく、私たちが仏縁をいただく機会です。</p>
+        </div>
+      </li>
+      <li>
+        <span class="feature-icon">📜</span>
+        <div class="feature-text">
+          <h3>「戒名」ではなく「法名」を刻む</h3>
+          <p>他宗派では故人に「戒名」を授けますが、浄土真宗では仏弟子として生前に帰依の証として「<strong>法名</strong>」をいただきます。墓石には法名・俗名のほか、「<strong>南無阿弥陀仏</strong>」「<strong>倶会一処（くえいっしょ）</strong>」などの文字を刻むことが多いです。</p>
+        </div>
+      </li>
+      <li>
+        <span class="feature-icon">💧</span>
+        <div class="feature-text">
+          <h3>お墓に水をかけない</h3>
+          <p>他宗派では「浄水供養」として墓石に水をかける習慣がありますが、浄土真宗では<strong>死を穢れとしないため、清め水の概念がなく</strong>、墓石への水かけは行いません。花・香・ろうそくをお供えします。</p>
+        </div>
+      </li>
+      <li>
+        <span class="feature-icon">🏠</span>
+        <div class="feature-text">
+          <h3>「〇〇家之墓」より「倶会一処」</h3>
+          <p>「先祖代々之墓」という家墓の形式もありますが、浄土真宗らしい墓碑銘として<strong>「倶会一処」（ともに一つの場所で出会う、浄土での再会を意味する）</strong>が広く用いられます。阿弥陀経に由来する言葉です。</p>
+        </div>
+      </li>
+      <li>
+        <span class="feature-icon">🧂</span>
+        <div class="feature-text">
+          <h3>清め塩を使わない</h3>
+          <p>葬儀の際も同様に、浄土真宗では<strong>死を穢れとみなさないため、帰宅時の清め塩は行いません</strong>。これは葬儀場から配られる塩を断ることも含まれます。お墓参り後の清め塩も不要です。</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="note-box">
+      <strong>📖 ご参考：</strong>浄土真宗では、お墓は故人の「魂が宿る場所」ではなく、<strong>故人を偲び、仏縁をいただくための場所</strong>と考えます。そのため、お参りは「供養」ではなく「お念仏を称えながら阿弥陀仏のご恩を感じる」時間です。
+    </div>
+  </div>
+</div>
+
+<!-- ② 現代のお墓・納骨の形 -->
+<div class="bg-warm">
+  <div class="section">
+    <div class="section-title">
+      <h2><span class="section-num">②</span>現代のお墓・納骨の形</h2>
+      <p>少子化・核家族化・都市集中など、現代の暮らしに合わせてさまざまな納骨の形が広がっています。真照寺ではご家族の状況に応じて、最適な方法をご一緒に考えます。</p>
+    </div>
+
+    <div class="grave-grid">
+
+      <div class="grave-card">
+        <div class="grave-card-header">
+          <span class="grave-card-icon">🪦</span>
+          <div>
+            <h3>一般墓（家墓）</h3>
+            <span class="grave-tag">伝統的</span>
+          </div>
+        </div>
+        <div class="grave-card-body">
+          <p>墓地に建立する石造りのお墓。家族・子孫が代々引き継いでいく伝統的なスタイルです。境内墓地や公営・民営霊園に建立します。墓石に「倶会一処」「南無阿弥陀仏」などを刻むことができます。</p>
+          <div class="grave-point">
+            <span class="good">形として残る</span>
+            <span class="good">家族みんなが入れる</span>
+            <span class="note">維持管理が必要</span>
+            <span class="note">継承者が必要</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grave-card">
+        <div class="grave-card-header">
+          <span class="grave-card-icon">🌿</span>
+          <div>
+            <h3>合祀墓・永代供養墓</h3>
+            <span class="grave-tag">後継者不要</span>
+          </div>
+        </div>
+        <div class="grave-card-body">
+          <p>複数の方の遺骨をひとつのお墓に合葬する形式。お寺や霊園が永続的に管理・供養します。「跡継ぎがいない」「子どもに迷惑をかけたくない」という方に選ばれています。個別安置期間を経て合祀するプランもあります。</p>
+          <div class="grave-point">
+            <span class="good">管理不要</span>
+            <span class="good">費用が抑えられる</span>
+            <span class="note">後から取り出せない場合も</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grave-card">
+        <div class="grave-card-header">
+          <span class="grave-card-icon">🌳</span>
+          <div>
+            <h3>樹木葬</h3>
+            <span class="grave-tag">自然志向</span>
+          </div>
+        </div>
+        <div class="grave-card-body">
+          <p>樹木や草花を墓標として、その根元に遺骨を埋葬する形式。「自然に還りたい」という方に人気です。区画ごとに個別埋葬するものから、シンボルツリーのもとに合祀するものまで様々なプランがあります。浄土真宗の教えと相容れる自然観です。</p>
+          <div class="grave-point">
+            <span class="good">自然な雰囲気</span>
+            <span class="good">管理しやすい</span>
+            <span class="note">宗派不問が多い</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grave-card">
+        <div class="grave-card-header">
+          <span class="grave-card-icon">🖼️</span>
+          <div>
+            <h3>納骨堂（パネル・ロッカー式）</h3>
+            <span class="grave-tag">都市型</span>
+          </div>
+        </div>
+        <div class="grave-card-body">
+          <p>屋内施設に遺骨を安置する形式。故人の写真パネルを飾る「パネル式」、個別区画に収納する「ロッカー式」、ICカードで自動搬送される「機械式」など様々です。天候に関係なくお参りでき、都市部に多い形式です。</p>
+          <div class="grave-point">
+            <span class="good">雨天でもお参り可能</span>
+            <span class="good">アクセス良好</span>
+            <span class="note">施設の維持費あり</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grave-card">
+        <div class="grave-card-header">
+          <span class="grave-card-icon">🌊</span>
+          <div>
+            <h3>散骨（自然葬）</h3>
+            <span class="grave-tag">墓不要</span>
+          </div>
+        </div>
+        <div class="grave-card-body">
+          <p>粉砕した遺骨を海や山などへ散布する形式。お墓を持たないため費用を最小限に抑えられます。海洋散骨が一般的です。手元に一部遺骨を残す「分骨」と組み合わせるご家族も増えています。事前に専門業者への確認が必要です。</p>
+          <div class="grave-point">
+            <span class="good">費用が少ない</span>
+            <span class="good">自然に還る</span>
+            <span class="note">お参りの場所がない</span>
+            <span class="note">専門業者への依頼が必要</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grave-card">
+        <div class="grave-card-header">
+          <span class="grave-card-icon">🏡</span>
+          <div>
+            <h3>手元供養・分骨</h3>
+            <span class="grave-tag">身近に偲ぶ</span>
+          </div>
+        </div>
+        <div class="grave-card-body">
+          <p>遺骨の一部を小さな骨壷や手元供養品に入れ、自宅で手元に置く形式。他の納骨形式と組み合わせることが多く、「いつも側にいてほしい」という気持ちに寄り添います。アクセサリーや小型仏壇と合わせることも。</p>
+          <div class="grave-point">
+            <span class="good">身近に感じられる</span>
+            <span class="good">他の方法と併用可</span>
+            <span class="note">次世代への引き継ぎの配慮が必要</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note-box">
+      <strong>🔔 真照寺からのご案内：</strong>どの形式をお選びになる場合も、ご納骨に際しては法要（納骨式）をお勤めします。「どれが自分たちに合っているかわからない」という方も、ぜひお気軽にご相談ください。ご家族の状況を伺いながら、一緒に考えます。
+    </div>
+  </div>
+</div>
+
+<!-- お問い合わせ -->
+<div class="bg-green">
+  <div class="section">
+    <div class="contact-box">
+      <h3>お墓・納骨のご相談</h3>
+      <p class="contact-desc">
+        「どうしたらいいかわからない」という段階からでも、どうぞお気軽にご連絡ください。<br>
+        住職が丁寧にお話を伺い、ご家族にとって最善の形をご一緒に考えます。
+      </p>
+      <div class="contact-methods">
+        <a href="tel:045-941-9736" class="contact-method">
+          <div class="method-icon">📞</div>
+          <div class="method-label">お電話でのご相談</div>
+          <div class="method-value">045-941-9736</div>
+          <div class="method-note">受付時間 9:00 〜 17:00（年中無休）</div>
+        </a>
+        <a href="mailto:takusuisan.shinshoji@gmail.com?subject=お墓・納骨のご相談（真照寺）&body=お名前：%0Aご連絡先（電話またはメール）：%0Aご相談内容：%0A" class="contact-method">
+          <div class="method-icon">✉️</div>
+          <div class="method-label">メールでのご相談</div>
+          <div class="method-value">メールを送る</div>
+          <div class="method-note">件名・内容を入力してお送りください</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- フッター -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo" style="font-family: var(--font-serif); font-size: 20px; letter-spacing: .2em; color: #f0dfc0;">真照寺</div>
+      <p>心静かに、ともに歩む場所。<br>どなたでもお気軽にお越しください。</p>
+    </div>
+    <div>
+      <h4>ページ案内</h4>
+      <ul>
+        <li><a href="about.html">お寺の紹介</a></li>
+        <li><a href="teaching.html">法話・仏教の教え</a></li>
+        <li><a href="events.html">行事案内</a></li>
+        <li><a href="news.html">お知らせ・ブログ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ご相談・ご連絡</h4>
+      <ul>
+        <li><a href="sougi.html">法事・葬儀のご相談</a></li>
+        <li><a href="ohaka.html">お墓・納骨のご案内</a></li>
+        <li><a href="index.html#contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 真照寺 All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const nav = document.getElementById('main-nav');
+    nav.classList.toggle('open');
+  }
+</script>
+</body>
+</html>

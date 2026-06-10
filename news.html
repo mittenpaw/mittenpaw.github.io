@@ -31,65 +31,74 @@
   .page-hero h1 { font-family: var(--font-serif); font-size: clamp(24px, 4vw, 42px); letter-spacing: .25em; }
   .page-hero p { margin-top: 10px; color: #f0dfc0; font-size: 14px; letter-spacing: .1em; }
 
-  /* レイアウト */
-  .main-layout { max-width: 1100px; margin: 0 auto; padding: 56px 24px; display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: start; }
+  /* レイアウト（シングルカラム） */
+  .main-layout { max-width: 900px; margin: 0 auto; padding: 56px 24px 80px; }
 
   /* 記事フィルター */
   .filter-bar { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
   .filter-btn {
     padding: 6px 16px; border-radius: 20px; font-size: 13px;
-    cursor: pointer; border: 1.5px solid #e0d0b8; background: #fff;
-    color: var(--col-gray); transition: all .2s;
+    border: none; cursor: pointer; font-family: var(--font-main);
+    background: #e8ddd0; color: var(--col-gray); transition: all .2s;
   }
-  .filter-btn.active, .filter-btn:hover { color: #fff; border-color: transparent; }
+  .filter-btn.active, .filter-btn:hover { color: #fff; }
   .filter-btn.f-all.active, .filter-btn.f-all:hover { background: var(--col-dark); }
   .filter-btn.f-info.active, .filter-btn.f-info:hover { background: var(--col-green); }
   .filter-btn.f-event.active, .filter-btn.f-event:hover { background: var(--col-main); }
   .filter-btn.f-blog.active, .filter-btn.f-blog:hover { background: #6050a0; }
 
   /* 記事カード */
-  .article-card {
-    background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
-    border: 1px solid #e8ddd0; margin-bottom: 20px;
-    overflow: hidden; transition: transform .2s, box-shadow .2s;
-    cursor: pointer;
-  }
-  .article-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(60,30,0,.15); }
-  .note-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(96,80,160,.20); }
-  .note-card a:hover .article-title { color: #6050a0; }
-  .article-card-inner { padding: 24px 28px; }
-  .article-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .article-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid #e8ddd0; margin-bottom: 20px; overflow: hidden; transition: box-shadow .2s; cursor: pointer; }
+  .article-card:hover { box-shadow: 0 4px 24px rgba(60,30,0,.16); }
+  .article-card.note-card { cursor: default; }
+  .article-card-inner { padding: 20px 24px; }
+  .article-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
   .article-date { font-size: 13px; color: var(--col-gray); font-variant-numeric: tabular-nums; }
-  .tag { display: inline-block; padding: 2px 12px; border-radius: 12px; font-size: 11px; font-weight: bold; }
+  .tag { padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; letter-spacing: .05em; }
   .tag-info { background: #e8f0e0; color: var(--col-green); }
   .tag-event { background: #fce8d0; color: var(--col-main); }
   .tag-blog { background: #e8e0f0; color: #6050a0; }
   .article-title { font-family: var(--font-serif); font-size: 18px; color: var(--col-dark); margin-bottom: 10px; letter-spacing: .05em; line-height: 1.5; }
   .article-card:hover .article-title { color: var(--col-main); }
   .article-excerpt { font-size: 13px; color: var(--col-gray); line-height: 1.8; }
-
-  /* 記事展開 */
-  .article-full { display: none; border-top: 1px solid #e8ddd0; padding: 0 28px 24px; }
+  .article-full { display: none; padding: 0 24px 20px; border-top: 1px solid #f0e8e0; margin-top: 0; }
   .article-full.open { display: block; }
-  .article-full p { font-size: 14px; color: #4a3520; line-height: 2.1; margin-bottom: 16px; }
+  .article-full p { margin-bottom: 1em; font-size: 14px; line-height: 1.9; }
   .article-full p:last-child { margin-bottom: 0; }
-  .article-full .img-placeholder { width: 100%; height: 180px; background: linear-gradient(135deg, #f0e8d8, #e0d0b8); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 40px; margin-bottom: 16px; }
 
-  /* サイドバー */
-  .sidebar { position: sticky; top: 80px; }
-  .sidebar-widget { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid #e8ddd0; padding: 20px; margin-bottom: 20px; }
-  .sidebar-widget h3 { font-family: var(--font-serif); font-size: 16px; color: var(--col-main); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--col-accent); letter-spacing: .1em; }
-  .archive-list { list-style: none; }
-  .archive-list li { padding: 6px 0; border-bottom: 1px solid #f0e8e0; font-size: 13px; color: var(--col-gray); display: flex; justify-content: space-between; }
-  .archive-list li:last-child { border-bottom: none; }
-  .archive-list a:hover { color: var(--col-main); }
-  .archive-count { background: #f0e8d8; color: var(--col-main); border-radius: 10px; padding: 0 8px; font-size: 11px; }
-  .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
-  .tag-cloud a { padding: 4px 12px; border-radius: 16px; font-size: 12px; background: var(--col-light); color: var(--col-gray); border: 1px solid #e0d0b8; transition: all .2s; }
-  .tag-cloud a:hover { background: var(--col-main); color: #fff; border-color: transparent; }
-
-  .bg-warm { background: #f0e8d8; }
-  .bg-white { background: #fff; }
+  /* ブログトグル（details/summary形式） */
+  .blog-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid #e8ddd0; margin-bottom: 20px; overflow: hidden; }
+  .blog-card-header { padding: 20px 24px; }
+  .blog-card-header .article-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+  .blog-card-header .article-date { font-size: 13px; color: var(--col-gray); }
+  .blog-title { font-family: var(--font-serif); font-size: 18px; color: var(--col-dark); margin-bottom: 8px; letter-spacing: .05em; line-height: 1.5; }
+  .blog-excerpt { font-size: 13px; color: var(--col-gray); line-height: 1.8; margin-bottom: 14px; }
+  .blog-toggle { border: none; }
+  .blog-toggle summary {
+    list-style: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--col-accent); color: #fff;
+    padding: 8px 20px; border-radius: 20px;
+    font-size: 13px; letter-spacing: .06em;
+    transition: background .2s; user-select: none;
+  }
+  .blog-toggle summary::-webkit-details-marker { display: none; }
+  .blog-toggle summary:hover { background: var(--col-main); }
+  .blog-toggle summary .arrow { display: inline-block; transition: transform .3s; font-style: normal; font-size: 11px; }
+  .blog-toggle[open] summary .arrow { transform: rotate(180deg); }
+  .blog-toggle[open] summary { background: var(--col-main); }
+  .blog-body { animation: slideDown .3s ease both; }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  .blog-body-inner {
+    padding: 24px 28px; font-size: 14px; line-height: 2; color: #3a2510;
+    border-top: 1px solid #f0e8e0; margin-top: 12px;
+  }
+  .blog-body-inner p { margin-bottom: 1.1em; }
+  .blog-body-inner p:last-child { margin-bottom: 0; }
+  .blog-source { margin-top: 16px; padding-top: 12px; border-top: 1px solid #e8ddd0; font-size: 12px; color: var(--col-gray); }
+  .blog-source a { color: var(--col-accent); text-decoration: underline; }
+  .blog-source a:hover { color: var(--col-main); }
+  .section-label { font-family: var(--font-serif); font-size: 13px; letter-spacing: .18em; color: var(--col-accent); margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 1px solid #e8ddd0; }
 
   footer { background: var(--col-dark); color: #c8b89a; padding: 48px 24px 24px; }
   .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(200,184,154,.2); }
@@ -108,9 +117,8 @@
     .header-inner { flex-wrap: wrap; height: auto; padding: 12px 16px; gap: 8px; }
     .menu-toggle { display: flex; }
     nav a { width: 100%; padding: 12px 16px; border-radius: 0; }
-    .main-layout { grid-template-columns: 1fr; }
-    .sidebar { position: static; }
     .footer-inner { grid-template-columns: 1fr; }
+    .blog-body-inner { padding: 20px 18px; }
   }
 </style>
 </head>
@@ -118,7 +126,7 @@
 
 <header>
   <div class="header-inner">
-    <a href="index.html" class="logo">真照寺<small>Shinsho-ji Temple</small></a>
+    <a href="index.html" class="logo"></a>
     <button class="menu-toggle" onclick="toggleMenu()" aria-label="メニュー">
       <span></span><span></span><span></span>
     </button>
@@ -129,204 +137,291 @@
       <a href="events.html">行事案内</a>
       <a href="news.html" class="active">お知らせ</a>
       <a href="masters.html">偉大な師たち</a>
+      <a href="sougi.html">葬儀・法事</a>
+      <a href="ohaka.html">お墓・納骨</a>
+      <a href="otogi.html">お伽噺</a>
+      <a href="kissui.html">釈吉瑞</a>
+      <a href="kyogaku.html">大切な遺産</a>
     </nav>
   </div>
 </header>
 
 <div class="page-hero">
-  <h1>📰 お知らせ・ブログ</h1>
+  <h1>お知らせ・ブログ</h1>
   <p>真照寺からの最新情報</p>
 </div>
 
 <div class="main-layout">
-  <!-- 記事一覧 -->
-  <main>
-    <div class="filter-bar">
-      <button class="filter-btn f-all active" onclick="filterArticles('all', this)">すべて</button>
-      <button class="filter-btn f-info" onclick="filterArticles('info', this)">お知らせ</button>
-      <button class="filter-btn f-event" onclick="filterArticles('event', this)">行事</button>
-      <button class="filter-btn f-blog" onclick="filterArticles('blog', this)">ブログ</button>
-    </div>
 
-    <!-- 記事1 -->
-    <div class="article-card" data-category="event" onclick="toggleArticle(this)">
-      <div class="article-card-inner">
-        <div class="article-meta">
-          <span class="article-date">2026年6月5日</span>
-          <span class="tag tag-event">行事</span>
+  <div class="filter-bar">
+    <button class="filter-btn f-all active" onclick="filterArticles('all', this)">すべて</button>
+    <button class="filter-btn f-info" onclick="filterArticles('info', this)">お知らせ</button>
+    <button class="filter-btn f-event" onclick="filterArticles('event', this)">行事</button>
+    <button class="filter-btn f-blog" onclick="filterArticles('blog', this)">ブログ</button>
+  </div>
+
+  <!-- ========== ブログ（釈吉瑞） ========== -->
+
+  <!-- ブログ1：我欲手伝う仏いまさず -->
+  <div class="blog-card" data-category="blog">
+    <div class="blog-card-header">
+      <div class="article-meta">
+        <span class="article-date">2026年6月7日</span>
+        <span class="tag tag-blog">ブログ</span>
+      </div>
+      <div class="blog-title">我欲手伝う仏いまさず</div>
+      <div class="blog-excerpt">故池田勇諦師のご法話「我欲手伝う仏在さず」。この言葉が、一番のきっかけだったかもしれない。気づけば、南無阿弥陀仏と合掌するとき、私心が入ることがある。けれど、この言葉に立ち返る……</div>
+      <details class="blog-toggle">
+        <summary><span class="arrow">▼</span>続きを読む</summary>
+        <div class="blog-body">
+          <div class="blog-body-inner">
+            <p>故池田勇諦師のご法話「我欲手伝う仏在さず」。この言葉が、一番のきっかけだったかもしれない。</p>
+            <p>気づけば、南無阿弥陀仏と合掌するとき、私心が入ることがある。けれど、この言葉に立ち返る。</p>
+            <p>私心のある仏は存在しない。そもそも初めから私などない真実が勝義諦（真理）である。そもそも私が私を無意識に作っているだけだ。深層心理の私は無意識の我執我欲を持ち合わせる。</p>
+            <p>我欲に仏を巻き込むな、と言われたとき、知らず知らず我欲に引っ張られている自我に気づく。欲や苦が切実で、そんな世俗にある自我が無くならないからこそ、この言葉が重く響く。</p>
+            <p>仏の領域を「浄土」という。我欲満たす浄土もなければ、我欲を持って行ける住居もない。そこは、自分が還るべき世界というよりは、招喚されて赴く領域だろうか。</p>
+            <p>無量寿経にある第十七願には、「十方世界の無量の諸仏、悉く咨嗟して、阿弥陀仏の名を称す」と諸仏の称揚を説いている。私は諸仏ではないが、念仏はそのまま諸仏の讃嘆の中に容れられる。</p>
+            <p>私は仏ではない。私心我欲を持つ凡夫である。煩悩や我欲を消し去ることはできない、同時に、喜びのある日常や生を謳歌する。</p>
+            <p>自分が手を合わせていた仏という存在は、人格神でも、創造神でもない。我欲手伝うことのない、存在である。我欲も歓喜も、世俗側の人間の都合であり、それを仏が助けるいわれなどない。</p>
+            <p>仏典の英訳に、浄土は"Pure Land"と訳されることがある。「純粋なる地」である。実際に国土ではないので「純粋領域」であり、そこは自我の世界ではない。失うものもない、得るものもない、持ち続けるものもない。空であるが、無ではない。</p>
+            <p>秩序があり、はたらきがあり、縁起がある。諸仏の浄土は、星の数より多い。阿弥陀仏の西方浄土は、自我ある存在そのままに大乗の舟で運ばれるという。</p>
+            <p>「我欲手伝う仏在さず」は「まず我欲を消せ、然る後に助ける」ということではない。「我欲に絡め取られた者を、その我欲に手を貸さぬまま掬い取る慈悲」をいう。</p>
+            <p>悟るという言葉は、夢から覚めると同義で、時に悟（さ）めると用いられる。問題は無我でいられるかではなく、夢から覚めていられるか。生ある中では、ずっと覚めていることは無理だが、夢から覚める導きが仏教ではないか。</p>
+            <p>曽我量深という昭和の高僧は、「如来我となりて我を救いたまう」と言った。我如来となる、ではない。如来我となる、は主語の大転換である。得てして私を主語とする私の常識がひっくり返る。</p>
+            <p>如来によって自我が溶解するわけではない。依然として自我はあり続ける。私が仏を念ずるのではない。私中心の世界で仏を動かすのではない。如来も、私も、勝義においては実体ではない。あるのは、関係性だけだ。</p>
+            <p>如来、私、その間にあるはたらき。自分がつくるはたらきではない。はたらきを受けて、全てが成り立つ。月は月だけで成り立たない。独立した自性はないが、関係の中ではたらきが生まれる。</p>
+            <p>執着なき如来と、煩悩まみれの私との関係。智慧光に照らされると喩えられるとおり、私が仏を握りしめることではなく、照らされてできる影に気づくことではないか。我欲の根源が自我であった。その自我は、仏により照らし出される。</p>
+            <p>如来も他力も握りしめる必要もない、信心もまた努力獲得ではなく、ただ与えられる。曽我のいう「救いたまう」は、自性ある如来の親切ではなく、縁起としてはたらく大悲ではないか。</p>
+            <div class="blog-source">出典：<a href="https://note.com/triratna/n/na23f7bb4ea5b" target="_blank" rel="noopener">note.com｜Śākyamaṅgalaḥ「我欲手伝う仏いまさず」</a></div>
+          </div>
         </div>
-        <div class="article-title">6月のお彼岸法要のご案内（6月21日）</div>
-        <div class="article-excerpt">夏至を迎える6月。今年の夏彼岸法要を6月21日（日）午前10時より執り行います。どなたでもご参加いただけます。</div>
-      </div>
-      <div class="article-full">
-        <p>夏彼岸法要を下記の通りご案内申し上げます。お気軽にお越しください。</p>
-        <p>
-          日時：令和8年6月21日（日）午前10時〜11時30分<br>
-          場所：真照寺 本堂<br>
-          内容：彼岸法要・住職の法話・ご先祖様へのご回向<br>
-          参加費：無料（お志は随時受け付けております）
-        </p>
-        <p>お彼岸はご先祖様を偲ぶとともに、自らの生き方を見つめ直す大切な期間です。どうぞ静かな気持ちでお参りください。ご不明の点はお気軽にお電話ください。</p>
-      </div>
+      </details>
     </div>
+  </div>
 
-    <!-- note記事1 -->
-    <div class="article-card note-card" data-category="blog" style="cursor:default;">
-      <a href="https://note.com/triratna/n/n3e2f2ff9f3ce" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
-      <div class="article-card-inner">
-        <div class="article-meta">
-          <span class="article-date">2025年10月4日</span>
-          <span class="tag tag-blog">ブログ</span>
-          <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
+  <!-- ブログ2：白石と龍樹 -->
+  <div class="blog-card" data-category="blog">
+    <div class="blog-card-header">
+      <div class="article-meta">
+        <span class="article-date">2026年5月25日</span>
+        <span class="tag tag-blog">ブログ</span>
+      </div>
+      <div class="blog-title">白石と龍樹</div>
+      <div class="blog-excerpt">江戸時代中期の著名な儒学者である新井白石は、それまでの日本人がほぼ経験していない西洋文明の基盤思想との接触を持つことのできた学者と言える。密航した宣教師シドッチを四度にわたり取り調べる役を通じて……</div>
+      <details class="blog-toggle">
+        <summary><span class="arrow">▼</span>続きを読む</summary>
+        <div class="blog-body">
+          <div class="blog-body-inner">
+            <p>江戸時代中期の著名な儒学者である新井白石は、それまでの日本人がほぼ経験していない西洋文明の基盤思想との接触を持つことのできた学者と言える。密航した宣教師シドッチを四度にわたり取り調べる役を通じて、その限られた情報源から、『西洋紀聞』『采覧異言』を著した。一般的には、キリスト教の否定で終わってしまう話だが、実のところ、優劣論で終わる話ではない。</p>
+            <p>彼がしたことは、ヒューム（David Hume）の『自然宗教をめぐる対話』に半世紀以上先立ち、シドッチ一人と独力でこの是々非々の弁別（つまり科学と宗教を腑分けする合理性と、第一原因論法への鋭敏な懐疑）に達したことは、純粋に思想史的事件として刮目に値する。</p>
+            <p>白石は、西洋文明の合理性を見抜いた上で、キリスト教の創造論を否定する。「デウス（ヤハウェ）自体、誰が造ったのか。天地がまだ存在しない時点で彼は生れたのか。デウスが自ら勝手に生れたのなら、天地も勝手に生まれておかしくないではないか。」</p>
+            <p>これらは、極めて理性的な疑問である。そして、その合理的思索は、一見龍樹の思想にも通じているようにも見える。「デウスを造ったものは何か」との反駁は、「もし自在天が万物の作者なら、その自在天を作ったものを問わねば無窮に陥る」という『大智度論』の論説と重なる。</p>
+            <p>しかし、龍樹の否定は代替命題を立てない。創造神の否定という破の側面では共振しつつ、自然へ着地する白石に対して、代替になる実体的なものを立てない。白石の否定が、自然から見た理（ことわり）に調和するのに対し、龍樹の否定は、縁起という空性的洞察へ向かう。</p>
+            <p>端的な思い違いは、龍樹の否定を「正しい世界観の獲得」として受け取ってしまうことである。白石の理性は求心的に働く。創造神という不整合な前提を除去し、理気の自然という理気二元論へ世界を回収し、そこには人為的な意図はなく、認識主体である私はそこに確かな足場を得る。</p>
+            <p>龍樹の否定は、これと逆向きである。なぜ龍樹は神を破斥しながら、「神は無い」という反対命題を立てないのか。この鍵は否定の二類型にある。白石の否定は非遮で、「神を消す→理気の内在秩序が残る」と代替命題を立てる。一方、龍樹の否定は無遮で、相手の前提の内在矛盾を示すのみで自らは何も立てない。</p>
+            <p>空はあらゆる見（dṛṣṭi）の止息であって、新たな一見ではない。『中論』第十三章八において「空を見と執する者は不化（asādhya, 救い難い）」と切って捨てるのはこのためである。立つべき足場を何も残さない。これが立つべき足場を確立する白石の方向性とは決定的に違ってくる。</p>
+            <p>最後の分かれ目は、空の正しさを握りしめるその手こそ、空が解き放そうとした当の手であることに気づくかどうかにある。放した手で、新たに何かを握り直すことではない。</p>
+            <div class="blog-source">出典：<a href="https://note.com/triratna/n/n4ca9188f0d31" target="_blank" rel="noopener">note.com｜Śākyamaṅgalaḥ「白石と龍樹」</a></div>
+          </div>
         </div>
-        <div class="article-title">論破王龍樹にAIを論破させてみた</div>
-        <div class="article-excerpt">龍樹（ナーガールジュナ）の帰謬論証法（プラサンガ）とAI言語モデルを比較・検証。「空」の論理を現代のAIに問いかける、知的好奇心あふれる考察。</div>
-        <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
-      </div>
-      </a>
+      </details>
     </div>
+  </div>
 
-    <!-- note記事2 -->
-    <div class="article-card note-card" data-category="blog" style="cursor:default;">
-      <a href="https://note.com/triratna/n/nc3f37e9b902a" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
-      <div class="article-card-inner">
-        <div class="article-meta">
-          <span class="article-date">2024年6月28日</span>
-          <span class="tag tag-blog">ブログ</span>
-          <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
+  <!-- ブログ3：「輪廻」て何？ -->
+  <div class="blog-card" data-category="blog">
+    <div class="blog-card-header">
+      <div class="article-meta">
+        <span class="article-date">2026年5月1日</span>
+        <span class="tag tag-blog">ブログ</span>
+      </div>
+      <div class="blog-title">「輪廻」て何？</div>
+      <div class="blog-excerpt">よく聞く「輪廻転生」という言葉。そもそも「輪廻（saṃsāra）」と「転生（punarbhava）」は、似て非なる言葉である。「輪廻」は、語源的には saṃ-√sṛ（共に流れる、巡り行く）に由来する。つまり、自分だけの輪廻ではない……</div>
+      <details class="blog-toggle">
+        <summary><span class="arrow">▼</span>続きを読む</summary>
+        <div class="blog-body">
+          <div class="blog-body-inner">
+            <p>よく聞く「輪廻転生」という言葉。そもそも「輪廻（saṃsāra）」と「転生（punarbhava）」は、似て非なる言葉である。</p>
+            <p>「輪廻」は、語源的には saṃ-√sṛ（共に流れる、巡り行く）に由来する。つまり、自分だけの輪廻ではない。諸行無常という通り、全てが移り変わる前提となる。自らの積極的な目的があって輪廻するというよりは、そうなるからそうなる。秩序として輪廻が位置付けられる。</p>
+            <p>「転生」は、世俗的には、生まれ変わることである。ただし、この世の未来に生まれ変わるとは限らない。人間は未来にも、過去にも生きることはできない。生きられるのは今だけなのだ。転生は、輪廻の縁起で引き継がれる実体的な魂の再生と信じられるが、無我の観点からは否定される。</p>
+            <p>そもそも輪廻は、生命の繰り返しというよりは苦の循環に着目して仏教では説いている。それが、十二因縁（pratītyasamutpāda）である。無明→行→識→名色→六処→触→受→愛→取→有→生→老死という連鎖により、苦の輪が廻り続ける。</p>
+            <p>人間の脳はモノ的に概念把握せねば説明が難しいらしい。龍樹は、輪廻そのものが自性（svabhāva）をもって実在するものではないとし、縁起（pratītyasamutpāda）として空（śūnya）であると説く。</p>
+            <p>『中論』第二十五章「観涅槃品」で「輪廻と涅槃には極微の差別もない（na saṃsārasya nirvāṇāt kiṃcid asti viśeṣaṇam）」と説かれている通り、両者を実体的に対立させる見方そのものを否定している。</p>
+            <p>親鸞は、歎異抄第十三章において、宿業を語る。「卯毛羊毛のさきにいるちりばかりもつくるつみの、宿業にあらずということなしとしるべし」。彼にとって宿業とはそのままに捨て置き、主眼は阿弥陀仏の本願で宿業に関わらず浄土往生という点にある。</p>
+            <p>個人的に、過去にどこかで生きていた人間が、今の自分になっているとは考えていないし、そもそも、過去生人格が今の自分をしているという感覚もない。人生にピリオドがあるが、縁起にピリオドはない。そういう見方をすれば、今のこの人生は、自分の人生だけのことではない、ということになる。</p>
+            <div class="blog-source">出典：<a href="https://note.com/triratna/n/nae51bb4fa0b9" target="_blank" rel="noopener">note.com｜Śākyamaṅgalaḥ「「輪廻」て何？」</a></div>
+          </div>
         </div>
-        <div class="article-title">仏説無量寿経 梵文現代語訳</div>
-        <div class="article-excerpt">サンスクリット原典「Sukhāvatīvyūha（スカーヴァティーヴューハ）」の現代語訳。阿弥陀仏の四十八願をはじめ、極楽浄土の荘厳を詳細に伝える浄土教の根本経典。PDF版もダウンロード可。</div>
-        <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
-      </div>
-      </a>
+      </details>
     </div>
+  </div>
 
-    <!-- note記事3 -->
-    <div class="article-card note-card" data-category="blog" style="cursor:default;">
-      <a href="https://note.com/triratna/n/n71c93c90ec0e" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
-      <div class="article-card-inner">
-        <div class="article-meta">
-          <span class="article-date">2024年3月23日</span>
-          <span class="tag tag-blog">ブログ</span>
-          <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
+  <!-- ブログ4：「慈悲」て何？ -->
+  <div class="blog-card" data-category="blog">
+    <div class="blog-card-header">
+      <div class="article-meta">
+        <span class="article-date">2026年4月29日</span>
+        <span class="tag tag-blog">ブログ</span>
+      </div>
+      <div class="blog-title">「慈悲」て何？</div>
+      <div class="blog-excerpt">大乗仏教は慈悲をその中核にしているという。本当のところ、慈悲とは何なのか？ 親切、人情、救済、それらと同じと思ってないか。慈悲は、慈悲だけで成り立っているわけではない。対象（所縁）があり、主体（能縁）が前提となる……</div>
+      <details class="blog-toggle">
+        <summary><span class="arrow">▼</span>続きを読む</summary>
+        <div class="blog-body">
+          <div class="blog-body-inner">
+            <p>大乗仏教は慈悲をその中核にしているという。本当のところ、慈悲とは何なのか？ 親切、人情、救済、それらと同じと思ってないか。</p>
+            <p>慈悲は、慈悲だけで成り立っているわけではない。対象（所縁：ālambana）があり、主体（能縁：ālambaka）が前提となる。【能縁＝私】が、【所縁＝困っている人】を助ける、これは衆生縁とされる。そして衆生縁は小慈悲という。親鸞はこれを「聖道の慈悲」と呼んだ。</p>
+            <p>では、大慈悲とは何なのか。大慈悲に相応する縁は、無縁とされる。大乗仏教の祖・龍樹が立てたこの構造において、無縁とは能と所のあいだの縁が空であるということ。つまり能も所もSubject、Objectとして独立して成り立たない。</p>
+            <p>法縁は、世俗諦であり、人間が理解する仏教の教えといえる。無縁は、勝義諦であり、文字化できない真理そのものといえる。従い大慈悲、中慈悲と言っても、格付けでもスケールでもない。ここでの大はすべての基盤であり、すべてを包括する意味での大である。</p>
+            <p>慈悲は感情ではなく、智慧（prajñā）の顕現である。空性（śūnyatā）として世界を観ずれば、自他の対立、利害関係など虚構にすぎない。空の智慧と大悲（mahākaruṇā）は両輪として菩薩道を支える。</p>
+            <p>自他不二という。自己の救済と他者の救済は分けられない。慈悲の実践は、親切な行為というよりは、もっと深いところから自然に顕現する。他者を哀れむ情緒ではなく、縁起と空に目覚めた者の生き方そのものであり、智慧が他者へと向かう時に必然的に生まれる相であると言える。</p>
+            <p>歎異抄第四章はこう続く。「浄土の慈悲というは、念仏して、いそぎ仏になりて、大慈大悲心をもって、おもうがごとく衆生を利益するをいうべきなり。（…）念仏もうすのみぞ、すえとおりたる大慈悲心にてそうろうべきと云々」</p>
+            <p>親鸞がいう「浄土の慈悲」は、生死を超えている。生と死を表裏とした「いのち」をいう。生死を出離している真実のいのちを仏という。そしてそれは、真実つまり勝義諦であり無自性空である。</p>
+            <div class="blog-source">出典：<a href="https://note.com/triratna/n/n9d090ea8b81d" target="_blank" rel="noopener">note.com｜Śākyamaṅgalaḥ「「慈悲」て何？」</a></div>
+          </div>
         </div>
-        <div class="article-title">唯識三十頌（真諦訳）</div>
-        <div class="article-excerpt">天親（ヴァスバンドゥ）菩薩著、真諦訳によるサンスクリット日本語対訳・漢文英語対訳。阿頼耶識・末那識・唯識の三十偈を丁寧に解説する、唯識思想の入門テキスト。</div>
-        <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
-      </div>
-      </a>
+      </details>
     </div>
+  </div>
 
-    <!-- 記事3 -->
-    <div class="article-card" data-category="info" onclick="toggleArticle(this)">
-      <div class="article-card-inner">
-        <div class="article-meta">
-          <span class="article-date">2026年5月20日</span>
-          <span class="tag tag-info">お知らせ</span>
-        </div>
-        <div class="article-title">夏季期間中のご相談受付について</div>
-        <div class="article-excerpt">8月13日〜16日のお盆期間中は法要が集中するため、個別のご相談受付が変更となります。ご確認ください。</div>
-      </div>
-      <div class="article-full">
-        <p>平素より真照寺をご支援いただき、誠にありがとうございます。</p>
-        <p>8月13日（木）〜8月16日（日）のお盆期間中は、法要・読経が集中いたします。この期間中の個別のご相談（法事・墓地・納骨等）のご予約受付は、下記の通り変更となります。</p>
-        <p>
-          ■ 通常受付：8月12日（水）まで<br>
-          ■ お盆期間中：電話・メールのみ（訪問での受付は不可）<br>
-          ■ 再開：8月17日（月）より通常受付
-        </p>
-        <p>ご不便をおかけして申し訳ございませんが、何卒よろしくお願い申し上げます。</p>
-      </div>
-    </div>
+  <!-- ========== お知らせ・行事 ========== -->
+  <div class="section-label">お知らせ・行事</div>
 
-    <!-- 記事4 -->
-    <div class="article-card" data-category="event" onclick="toggleArticle(this)">
-      <div class="article-card-inner">
-        <div class="article-meta">
-          <span class="article-date">2026年5月10日</span>
-          <span class="tag tag-event">行事</span>
-        </div>
-        <div class="article-title">花まつり（仏生会）を無事に終えました。ありがとうございました</div>
-        <div class="article-excerpt">4月8日に執り行いました花まつりには、多くの皆様にご参加いただきました。心より御礼申し上げます。</div>
+  <!-- 記事1 -->
+  <div class="article-card" data-category="event" onclick="toggleArticle(this)">
+    <div class="article-card-inner">
+      <div class="article-meta">
+        <span class="article-date">2026年6月5日</span>
+        <span class="tag tag-event">行事</span>
       </div>
-      <div class="article-full">
-        <div class="img-placeholder">🌸</div>
-        <p>令和8年4月8日、お釈迦様のお誕生日をお祝いする花まつり（仏生会）を執り行いました。当日は地域の皆様、檀家の皆様、そして多くの子どもたちにご参加いただき、境内は温かな笑顔にあふれました。</p>
-        <p>花御堂の誕生仏に甘茶を注ぐ子どもたちの姿はとても微笑ましく、「すべての命はかけがえない」というお釈迦様のお言葉を、あらためて実感した一日でした。</p>
-        <p>ご参加いただいた皆様に、心より感謝申し上げます。来年もどうぞよろしくお願いいたします。（住職）</p>
-      </div>
+      <div class="article-title">6月のお彼岸法要のご案内（6月21日）</div>
+      <div class="article-excerpt">夏至を迎える6月。今年の夏彼岸法要を6月21日（日）午前10時より執り行います。どなたでもご参加いただけます。</div>
     </div>
+    <div class="article-full">
+      <p>夏彼岸法要を下記の通りご案内申し上げます。お気軽にお越しください。</p>
+      <p>日時：令和8年6月21日（日）午前10時〜11時30分<br>
+      場所：真照寺 本堂<br>
+      内容：彼岸法要・住職の法話・ご先祖様へのご回向<br>
+      参加費：無料（お志は随時受け付けております）</p>
+      <p>お彼岸はご先祖様を偲ぶとともに、自らの生き方を見つめ直す大切な期間です。どうぞ静かな気持ちでお参りください。ご不明の点はお気軽にお電話ください。</p>
+    </div>
+  </div>
 
-    <!-- note記事4 -->
-    <div class="article-card note-card" data-category="blog" style="cursor:default;">
-      <a href="https://note.com/triratna/n/n786ba73dd3bc" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
-      <div class="article-card-inner">
-        <div class="article-meta">
-          <span class="article-date">2022年9月29日</span>
-          <span class="tag tag-blog">ブログ</span>
-          <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
-        </div>
-        <div class="article-title">般若心経 サンスクリット読み・玄奘訳</div>
-        <div class="article-excerpt">「gate gate pāragate pārasaṃgate bodhi svāhā」——サンスクリット原文の発音と玄奘訳の漢文を対照しながら、般若波羅蜜多心経の全文を読み解く。</div>
-        <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
+  <!-- 記事2 -->
+  <div class="article-card" data-category="info" onclick="toggleArticle(this)">
+    <div class="article-card-inner">
+      <div class="article-meta">
+        <span class="article-date">2026年5月20日</span>
+        <span class="tag tag-info">お知らせ</span>
       </div>
-      </a>
+      <div class="article-title">夏季期間中のご相談受付について</div>
+      <div class="article-excerpt">8月13日〜16日のお盆期間中は法要が集中するため、個別のご相談受付が変更となります。ご確認ください。</div>
     </div>
+    <div class="article-full">
+      <p>平素より真照寺をご支援いただき、誠にありがとうございます。</p>
+      <p>8月13日（木）〜8月16日（日）のお盆期間中は、法要・読経が集中いたします。この期間中の個別のご相談（法事・墓地・納骨等）のご予約受付は、下記の通り変更となります。</p>
+      <p>■ 通常受付：8月12日（水）まで<br>
+      ■ お盆期間中：電話・メールのみ（訪問での受付は不可）<br>
+      ■ 再開：8月17日（月）より通常受付</p>
+      <p>ご不便をおかけして申し訳ございませんが、何卒よろしくお願い申し上げます。</p>
+    </div>
+  </div>
 
-    <!-- note記事5 -->
-    <div class="article-card note-card" data-category="blog" style="cursor:default;">
-      <a href="https://note.com/triratna/n/n3f3b1787b815" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
-      <div class="article-card-inner">
-        <div class="article-meta">
-          <span class="article-date">2021年7月21日</span>
-          <span class="tag tag-blog">ブログ</span>
-          <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
-        </div>
-        <div class="article-title">問対略記 ——明治の浄土真宗とフランス人の問答</div>
-        <div class="article-excerpt">明治9年（1876年）、フランス人実業家エミール・ギメが浄土真宗の高僧たちと7時間に及んだ問答の記録。創造主の有無・因縁・輪廻・道徳……異文化の眼が真宗の本質を照らし出す。</div>
-        <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
+  <!-- 記事3 -->
+  <div class="article-card" data-category="event" onclick="toggleArticle(this)">
+    <div class="article-card-inner">
+      <div class="article-meta">
+        <span class="article-date">2026年5月10日</span>
+        <span class="tag tag-event">行事</span>
       </div>
-      </a>
+      <div class="article-title">花まつり（仏生会）を無事に終えました。ありがとうございました</div>
+      <div class="article-excerpt">4月8日に執り行いました花まつりには、多くの皆様にご参加いただきました。心より御礼申し上げます。</div>
     </div>
+    <div class="article-full">
+      <p>令和8年4月8日、お釈迦様のお誕生日をお祝いする花まつり（仏生会）を執り行いました。当日は地域の皆様、檀家の皆様、そして多くの子どもたちにご参加いただき、境内は温かな笑顔にあふれました。</p>
+      <p>花御堂の誕生仏に甘茶を注ぐ子どもたちの姿はとても微笑ましく、「すべての命はかけがえない」というお釈迦様のお言葉を、あらためて実感した一日でした。</p>
+      <p>ご参加いただいた皆様に、心より感謝申し上げます。来年もどうぞよろしくお願いいたします。（住職）</p>
+    </div>
+  </div>
 
-  </main>
+  <!-- ========== 過去のブログ（外部リンク） ========== -->
+  <div class="section-label">過去の記事</div>
 
-  <!-- サイドバー -->
-  <aside class="sidebar">
-    <div class="sidebar-widget">
-      <h3>カテゴリ</h3>
-      <div class="tag-cloud">
-        <a href="#">お知らせ</a>
-        <a href="#">行事</a>
-        <a href="#">法話</a>
-        <a href="#">ブログ</a>
-        <a href="#">座禅会</a>
-        <a href="#">写経</a>
-        <a href="#">季節</a>
+  <div class="article-card note-card" data-category="blog" style="cursor:default;">
+    <a href="https://note.com/triratna/n/n3e2f2ff9f3ce" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
+    <div class="article-card-inner">
+      <div class="article-meta">
+        <span class="article-date">2025年10月4日</span>
+        <span class="tag tag-blog">ブログ</span>
+        <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
       </div>
+      <div class="article-title">論破王龍樹にAIを論破させてみた</div>
+      <div class="article-excerpt">龍樹（ナーガールジュナ）の帰謬論証法（プラサンガ）とAI言語モデルを比較・検証。「空」の論理を現代のAIに問いかける、知的好奇心あふれる考察。</div>
+      <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
     </div>
-    <div class="sidebar-widget">
-      <h3>アーカイブ</h3>
-      <ul class="archive-list">
-        <li><a href="#">2026年6月</a><span class="archive-count">1</span></li>
-        <li><a href="#">2025年10月</a><span class="archive-count">1</span></li>
-        <li><a href="#">2024年6月</a><span class="archive-count">1</span></li>
-        <li><a href="#">2024年3月</a><span class="archive-count">1</span></li>
-        <li><a href="#">2022年9月</a><span class="archive-count">1</span></li>
-        <li><a href="#">2021年7月</a><span class="archive-count">1</span></li>
-      </ul>
+    </a>
+  </div>
+
+  <div class="article-card note-card" data-category="blog" style="cursor:default;">
+    <a href="https://note.com/triratna/n/nc3f37e9b902a" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
+    <div class="article-card-inner">
+      <div class="article-meta">
+        <span class="article-date">2024年6月28日</span>
+        <span class="tag tag-blog">ブログ</span>
+        <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
+      </div>
+      <div class="article-title">仏説無量寿経 梵文現代語訳</div>
+      <div class="article-excerpt">サンスクリット原典「Sukhāvatīvyūha」の現代語訳。阿弥陀仏の四十八願をはじめ、極楽浄土の荘厳を詳細に伝える浄土教の根本経典。</div>
+      <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
     </div>
-    <div class="sidebar-widget">
-      <h3>お問い合わせ</h3>
-      <p style="font-size:13px; color:var(--col-gray); line-height:1.8;">
-        📞 045-941-9736<br>
-        受付 9:00〜17:00<br><br>
-        ✉ info@shinsho-ji.example.jp<br><br>
-        法事・葬儀・お墓・納骨など、<br>お気軽にご相談ください。
-      </p>
+    </a>
+  </div>
+
+  <div class="article-card note-card" data-category="blog" style="cursor:default;">
+    <a href="https://note.com/triratna/n/n71c93c90ec0e" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
+    <div class="article-card-inner">
+      <div class="article-meta">
+        <span class="article-date">2024年3月23日</span>
+        <span class="tag tag-blog">ブログ</span>
+        <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
+      </div>
+      <div class="article-title">唯識三十頌（真諦訳）</div>
+      <div class="article-excerpt">天親（ヴァスバンドゥ）菩薩著、真諦訳によるサンスクリット日本語対訳・漢文英語対訳。阿頼耶識・末那識・唯識の三十偈を丁寧に解説する、唯識思想の入門テキスト。</div>
+      <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
     </div>
-  </aside>
+    </a>
+  </div>
+
+  <div class="article-card note-card" data-category="blog" style="cursor:default;">
+    <a href="https://note.com/triratna/n/n786ba73dd3bc" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
+    <div class="article-card-inner">
+      <div class="article-meta">
+        <span class="article-date">2022年9月29日</span>
+        <span class="tag tag-blog">ブログ</span>
+        <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
+      </div>
+      <div class="article-title">般若心経 サンスクリット読み・玄奘訳</div>
+      <div class="article-excerpt">「gate gate pāragate pārasaṃgate bodhi svāhā」——サンスクリット原文の発音と玄奘訳の漢文を対照しながら、般若波羅蜜多心経の全文を読み解く。</div>
+      <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
+    </div>
+    </a>
+  </div>
+
+  <div class="article-card note-card" data-category="blog" style="cursor:default;">
+    <a href="https://note.com/triratna/n/n3f3b1787b815" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;">
+    <div class="article-card-inner">
+      <div class="article-meta">
+        <span class="article-date">2021年7月21日</span>
+        <span class="tag tag-blog">ブログ</span>
+        <span style="font-size:11px;color:#9080c0;margin-left:4px;">📝 note</span>
+      </div>
+      <div class="article-title">問対略記 ——明治の浄土真宗とフランス人の問答</div>
+      <div class="article-excerpt">明治9年（1876年）、フランス人実業家エミール・ギメが浄土真宗の高僧たちと7時間に及んだ問答の記録。創造主の有無・因縁・輪廻・道徳……異文化の眼が真宗の本質を照らし出す。</div>
+      <div style="margin-top:12px;"><span style="font-size:12px;color:#6050a0;font-weight:bold;">note.comで読む →</span></div>
+    </div>
+    </a>
+  </div>
+
 </div>
 
 <footer>
@@ -342,15 +437,18 @@
         <li><a href="teaching.html">法話・仏教の教え</a></li>
         <li><a href="events.html">行事案内</a></li>
         <li><a href="news.html">お知らせ・ブログ</a></li>
+        <li><a href="otogi.html">仏教お伽噺</a></li>
+        <li><a href="kissui.html">釈吉瑞こぼれ話</a></li>
       </ul>
     </div>
     <div>
       <h4>ご相談・ご連絡</h4>
       <ul>
-        <li><a href="#">法事・葬儀のご相談</a></li>
-        <li><a href="#">お墓・納骨のご案内</a></li>
-        <li><a href="#">写経・座禅会</a></li>
-        <li><a href="#">お問い合わせ</a></li>
+        <li><a href="sougi.html">法事・葬儀のご相談</a></li>
+        <li><a href="ohaka.html">お墓・納骨のご案内</a></li>
+        <li><a href="events.html">梵語で読経しよう</a></li>
+        <li><a href="events.html">声明を学ぼう</a></li>
+        <li><a href="news.html">お問い合わせ</a></li>
       </ul>
     </div>
   </div>
@@ -362,18 +460,21 @@ function toggleMenu() { document.getElementById('main-nav').classList.toggle('op
 
 function toggleArticle(card) {
   const full = card.querySelector('.article-full');
-  full.classList.toggle('open');
+  if (full) full.classList.toggle('open');
 }
 
 function filterArticles(category, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.article-card').forEach(card => {
+  document.querySelectorAll('.article-card, .blog-card').forEach(card => {
     if (category === 'all' || card.dataset.category === category) {
       card.style.display = '';
     } else {
       card.style.display = 'none';
     }
+  });
+  document.querySelectorAll('.section-label').forEach(el => {
+    el.style.display = (category === 'all') ? '' : 'none';
   });
 }
 </script>
