@@ -101,8 +101,22 @@
   footer ul li a:hover { color: var(--col-accent); }
   .footer-bottom { max-width: 1100px; margin: 20px auto 0; text-align: center; font-size: 12px; color: #6a5840; }
 
+  /* 浄土真宗Q&A */
+  .qa-list { display: flex; flex-direction: column; gap: 10px; }
+  .qa-item { background: #fff; border-radius: var(--radius); border: 1px solid #e8ddd0; overflow: hidden; box-shadow: var(--shadow); }
+  .qa-item summary { list-style: none; cursor: pointer; padding: 16px 20px; display: flex; align-items: flex-start; gap: 14px; font-size: 15px; color: var(--col-dark); font-weight: bold; transition: background .2s; letter-spacing: .04em; }
+  .qa-item summary::-webkit-details-marker { display: none; }
+  .qa-item summary:hover { background: var(--col-light); }
+  .qa-item[open] summary { background: var(--col-light); border-bottom: 1px solid #e0d0b8; }
+  .qa-num { background: var(--col-accent); color: #fff; font-size: 12px; font-weight: bold; border-radius: 50%; min-width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .qa-q { flex: 1; }
+  .qa-arrow { margin-left: auto; font-size: 11px; transition: transform .3s; flex-shrink: 0; margin-top: 4px; color: var(--col-accent); }
+  .qa-item[open] .qa-arrow { transform: rotate(180deg); }
+  .qa-body { padding: 16px 20px 20px 58px; font-size: 14px; color: #5a4530; line-height: 2; }
+
   @media (max-width: 768px) {
 .footer-inner, .sanpo-grid { grid-template-columns: 1fr; }
+.qa-body { padding-left: 20px; }
   }
 </style>
 </head>
@@ -228,6 +242,63 @@
         <div class="sanpo-title">僧（そう）</div>
         <p>教えを実践し伝える僧侶・修行者の集まり。ともに学び歩む仲間のことです。</p>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- 浄土真宗Q&A -->
+<div class="bg-warm">
+  <div class="section">
+    <div class="section-title">
+      <h2 style="padding-left:16px; border-left: 4px solid var(--col-accent);">浄土真宗Q&amp;A</h2>
+    </div>
+    <div class="qa-list">
+
+      <details class="qa-item">
+        <summary><span class="qa-num">1</span><span class="qa-q">仏様と神様の違いとは？</span><span class="qa-arrow">▼</span></summary>
+        <div class="qa-body">仏様は星の数ほど沢山おられます。そして創造主でもバチを与える存在でもありません。元々は人間です。正覚を得て精神的高次元の存在となった世尊です。</div>
+      </details>
+
+      <details class="qa-item">
+        <summary><span class="qa-num">2</span><span class="qa-q">なぜ南無阿弥陀仏？</span><span class="qa-arrow">▼</span></summary>
+        <div class="qa-body">お経には諸仏が阿弥陀仏を讃嘆し、その名を称えたとされています。阿弥陀仏は衆生を救うと誓われた仏様です。</div>
+      </details>
+
+      <details class="qa-item">
+        <summary><span class="qa-num">3</span><span class="qa-q">他力本願は他人まかせ？</span><span class="qa-arrow">▼</span></summary>
+        <div class="qa-body">本願とはそもそも阿弥陀仏の根本の誓願のことです。人間の本心や願掛けではありません。他力とは仏様のはたらきです。</div>
+      </details>
+
+      <details class="qa-item">
+        <summary><span class="qa-num">4</span><span class="qa-q">死んだらどうなる？</span><span class="qa-arrow">▼</span></summary>
+        <div class="qa-body">浄土真宗では死んだら身体を持たない存在として浄土という純粋領域に生まれるとされています。</div>
+      </details>
+
+      <details class="qa-item">
+        <summary><span class="qa-num">5</span><span class="qa-q">どういう修行をするの？</span><span class="qa-arrow">▼</span></summary>
+        <div class="qa-body">真宗では修行はしません。聞法を続け、お念仏をし、親鸞聖人の聖教を学び、作法に基づいたお勤めをします。</div>
+      </details>
+
+      <details class="qa-item">
+        <summary><span class="qa-num">6</span><span class="qa-q">献金とか勧誘はするの？</span><span class="qa-arrow">▼</span></summary>
+        <div class="qa-body">それはないです。洗脳も、拘束もありません。自由意志を尊重しています。</div>
+      </details>
+
+      <details class="qa-item">
+        <summary><span class="qa-num">7</span><span class="qa-q">用事がなくてもお寺に行ける？</span><span class="qa-arrow">▼</span></summary>
+        <div class="qa-body">開門時間であればご自由にお入りください。必要に応じてアポを頂ければ応対させていただきます。</div>
+      </details>
+
+      <details class="qa-item">
+        <summary><span class="qa-num">8</span><span class="qa-q">仏教を勉強すれば偉くなりますか？</span><span class="qa-arrow">▼</span></summary>
+        <div class="qa-body">偉くなれるか分かりませんが、伝わっている大切な教えに触れることができます。</div>
+      </details>
+
+      <details class="qa-item">
+        <summary><span class="qa-num">9</span><span class="qa-q">女性や外国人に差別はないですか？</span><span class="qa-arrow">▼</span></summary>
+        <div class="qa-body">ありません。仏典の中には差別的表現が一部散見されますが、ダイバーシティ＆インクルージョンの姿勢を徹底しています。</div>
+      </details>
+
     </div>
   </div>
 </div>
