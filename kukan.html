@@ -469,12 +469,11 @@ document.getElementById('apiKeyInp').addEventListener('keydown',e=>{
 const PROXY_URL = 'https://cool-bush-3d79.yoshio-kawamoto.workers.dev';
 
 async function callAnthropic(url, apiKey, body){
-  const headers = {
-    'Content-Type':'application/json',
-    'anthropic-version':'2023-06-01',
-  };
+  const headers = { 'Content-Type':'application/json' };
   if(apiKey){
+    // Anthropic直接呼び出し時のみ追加ヘッダーを設定
     headers['x-api-key'] = apiKey;
+    headers['anthropic-version'] = '2023-06-01';
     headers['anthropic-dangerous-direct-browser-access'] = 'true';
   }
   const resp = await fetch(url, { method:'POST', headers, body:JSON.stringify(body) });
