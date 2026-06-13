@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>仮想時空対話 – アヴァロキテシュヴァラ – 真照寺</title>
+<style>
+:root{--gold:#c9962a;--gl:#f0d080;--gp:#fdf3d8;--cr:#fefaf2;--td:#2a1a08;--tm:#5a3a10}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;
+  font-family:'Meiryo UI','Yu Gothic UI','Hiragino Kaku Gothic ProN',sans-serif}
+body{background:#050200}
+
+/* =====================================================
+   オーバーレイナビ（自動隠れ）
+   ===================================================== */
+.site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:52px;
+  background:linear-gradient(180deg,rgba(6,3,0,.92) 0%,rgba(4,2,0,.6) 100%);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(201,150,42,.2);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px 0 20px;
+  transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .4s ease;
+}
+.site-nav.hidden{transform:translateY(-100%);opacity:0}
+
+.nav-logo{text-decoration:none;display:flex;flex-direction:column;line-height:1.2;flex-shrink:0}
+.nav-logo .jp{font-size:14px;font-weight:bold;color:var(--gl);letter-spacing:.1em}
+.nav-logo .en{font-size:8.5px;color:rgba(240,208,128,.45);letter-spacing:.18em}
+
+/* タイトルバッジ（ナビ中央） */
+.nav-badge{
+  display:flex;align-items:center;gap:8px;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+.nav-badge-rule{width:28px;height:1px}
+.nav-badge-rule.l{background:linear-gradient(90deg,transparent,rgba(201,150,42,.65))}
+.nav-badge-rule.r{background:linear-gradient(90deg,rgba(201,150,42,.65),transparent)}
+.nav-badge-title{font-size:13.5px;color:var(--gl);letter-spacing:.2em;font-weight:bold;white-space:nowrap;text-shadow:0 0 16px rgba(201,150,42,.5)}
+.nav-badge-lotus{font-size:11px;opacity:.65}
+
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-links{display:flex;gap:1px;align-items:center}
+.nav-links a{font-size:10px;color:rgba(240,208,128,.6);text-decoration:none;
+  padding:3px 6px;border-radius:4px;letter-spacing:.04em;white-space:nowrap;transition:all .15s}
+.nav-links a:hover{background:rgba(201,150,42,.14);color:var(--gl)}
+.nav-links a.cur{color:var(--gl);border-bottom:1.5px solid var(--gold)}
+@media(max-width:680px){.nav-links{display:none}}
+
+.nav-setup-btn{
+  width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.45);
+  border:1px solid rgba(201,150,42,.25);color:rgba(240,208,128,.7);font-size:12px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;backdrop-filter:blur(4px);flex-shrink:0;
+}
+.nav-setup-btn:hover{background:rgba(0,0,0,.7);border-color:var(--gold);transform:scale(1.1)}
+
+/* APIキーモーダル */
+#apiModal{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(0,0,0,.78);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;
+}
+#apiModal.open{display:flex}
+.api-box{
+  background:linear-gradient(160deg,rgba(22,12,2,.98),rgba(8,4,0,.99));
+  border:1px solid rgba(201,150,42,.3);border-radius:18px;
+  padding:28px 26px 22px;width:min(440px,92vw);
+  display:flex;flex-direction:column;gap:14px;
+  box-shadow:0 20px 60px rgba(0,0,0,.7);
+}
+.api-box h3{font-size:15px;color:var(--gl);letter-spacing:.1em;text-align:center}
+.api-box p{font-size:11.5px;color:rgba(200,165,100,.75);line-height:1.8;text-align:center}
+.api-box a{color:var(--gold);text-decoration:none}
+.api-box a:hover{text-decoration:underline}
+.api-inp-wrap{display:flex;gap:8px;align-items:center}
+.api-inp{
+  flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(201,150,42,.3);
+  border-radius:10px;padding:9px 12px;color:var(--gl);font-size:13px;
+  font-family:'Meiryo UI',sans-serif;outline:none;
+  transition:border-color .2s;
+}
+.api-inp:focus{border-color:var(--gold)}
+.api-inp::placeholder{color:rgba(200,165,100,.35);font-size:11px}
+.api-save{
+  padding:9px 18px;border-radius:10px;
+  background:linear-gradient(135deg,#d4a030,#7a4e08);color:#fff;border:none;
+  font-family:'Meiryo UI',sans-serif;font-size:13px;cursor:pointer;
+  white-space:nowrap;transition:transform .15s;
+}
+.api-save:hover{transform:scale(1.04)}
+.api-status{font-size:10.5px;text-align:center;min-height:16px}
+.api-status.ok{color:#70e080}.api-status.err{color:#e07070}
+.api-close{
+  align-self:center;font-size:11px;color:rgba(200,165,100,.5);
+  background:none;border:none;cursor:pointer;text-decoration:underline;
+}
+.api-close:hover{color:rgba(200,165,100,.85)}
+/* ナビのAPIキーインジケータ */
+.api-dot{
+  width:7px;height:7px;border-radius:50%;flex-shrink:0;
+  border:1px solid rgba(201,150,42,.4);
+}
+.api-dot.ok{background:#70e080;box-shadow:0 0 5px #70e080;border-color:transparent}
+.api-dot.ng{background:#e07070;box-shadow:0 0 5px #e07070;border-color:transparent}
+
+/* ナビ感知ゾーン（トップ20px） */
+.nav-trigger{position:fixed;top:0;left:0;right:0;height:20px;z-index:199}
+
+/* =====================================================
+   セットアップ（モーダル）
+   ===================================================== */
+#setup{
+  position:fixed;inset:0;z-index:180;
+  background:radial-gradient(ellipse at 50% 35%,rgba(30,16,3,.96) 0%,rgba(3,1,0,.98) 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:80px 20px 24px;gap:14px;overflow-y:auto;
+}
+#setup h2{font-size:18px;color:var(--gl);letter-spacing:.12em;text-align:center;text-shadow:0 0 20px rgba(201,150,42,.5)}
+#setup .sub{font-size:11.5px;color:rgba(200,165,100,.7);text-align:center;line-height:1.85;letter-spacing:.05em}
+.img-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:100%;max-width:500px}
+@media(max-width:540px){.img-grid{grid-template-columns:repeat(3,1fr)}}
+.img-slot{display:flex;flex-direction:column;align-items:center;gap:4px}
+.slot-lbl{font-size:10px;color:rgba(200,165,100,.65);letter-spacing:.05em;text-align:center}
+.slot-lbl .req{color:#c04040;font-size:9px}
+.dz{width:100%;aspect-ratio:2/3;border-radius:8px;border:1.5px dashed var(--gold);
+  background:rgba(35,18,3,.7);display:flex;flex-direction:column;align-items:center;
+  justify-content:center;cursor:pointer;transition:background .2s,border-color .2s;
+  position:relative;overflow:hidden;gap:3px;font-size:9px;color:rgba(200,165,100,.5)}
+.dz:hover,.dz.over{background:rgba(80,45,8,.25);border-color:#b08820}
+.dz img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:6px;display:none}
+.dz.has img{display:block}
+.dz.has .dh{display:none}
+.dh{display:flex;flex-direction:column;align-items:center;gap:2px;pointer-events:none}
+.dh .ico{font-size:18px}
+.btn-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center}
+.btn-go{padding:10px 32px;border-radius:22px;
+  background:linear-gradient(135deg,#d4a030,#7a4e08);color:#fff;border:none;
+  font-family:'Meiryo UI',sans-serif;font-size:14px;cursor:pointer;letter-spacing:.08em;
+  box-shadow:0 4px 20px rgba(140,80,10,.4);transition:transform .15s,box-shadow .15s}
+.btn-go:hover:not(:disabled){transform:scale(1.05)}
+.btn-go:disabled{opacity:.4;cursor:default;transform:none}
+.clear-btn{font-size:10.5px;color:rgba(160,120,60,.65);background:none;border:none;cursor:pointer;text-decoration:underline}
+.clear-btn:hover{color:rgba(200,155,80,.9)}
+
+/* =====================================================
+   チャット（全画面）
+   ===================================================== */
+#chat{
+  display:none;
+  position:fixed;inset:0;
+  flex-direction:column;
+}
+
+/* ── Portrait（全画面） ── */
+.portrait{
+  position:absolute;inset:0;overflow:hidden;background:#050200;
+}
+.bg-layer{position:absolute;inset:0;background-size:contain;background-position:center center;background-repeat:no-repeat;will-change:opacity,transform}
+.bg-a{z-index:1;opacity:1}.bg-b{z-index:2;opacity:0}
+.bg-layer.fading{transition:opacity .75s ease}
+
+/* State animations */
+.portrait.s-calm .bg-a,.portrait.s-calm .bg-b{animation:brth 7s ease-in-out infinite;filter:brightness(1) saturate(1)}
+@keyframes brth{0%,100%{transform:scale(1) translateY(0)}40%{transform:scale(1.022) translateY(-4px)}70%{transform:scale(1.018) translateY(-2px)}}
+.portrait.s-speaking .bg-a,.portrait.s-speaking .bg-b{animation:spk 3.5s ease-in-out infinite;filter:brightness(1.07) saturate(1.1)}
+@keyframes spk{0%,100%{transform:scale(1.01) translateY(0)}50%{transform:scale(1.028) translateY(-5px)}}
+.portrait.s-joy .bg-a,.portrait.s-joy .bg-b{animation:joya 2.2s ease-in-out infinite;filter:brightness(1.15) saturate(1.22)}
+@keyframes joya{0%,100%{transform:scale(1.02) translateY(0) rotate(0)}30%{transform:scale(1.038) translateY(-6px) rotate(.3deg)}70%{transform:scale(1.03) translateY(-4px) rotate(-.2deg)}}
+.portrait.s-deep .bg-a,.portrait.s-deep .bg-b{animation:depa 9s ease-in-out infinite;filter:brightness(.93) saturate(.88)}
+@keyframes depa{0%,100%{transform:scale(1.01) rotate(0)}50%{transform:scale(1.015) rotate(.5deg)}}
+.portrait.s-compassion .bg-a,.portrait.s-compassion .bg-b{animation:compa 5.5s ease-in-out infinite;filter:brightness(1.04) saturate(1.06)}
+@keyframes compa{0%,100%{transform:scale(1.01) translateY(0)}33%{transform:scale(1.025) translateY(-3px)}66%{transform:scale(1.02) translateY(-5px)}}
+.portrait.nod .bg-a,.portrait.nod .bg-b{animation:noda .7s ease-in-out 1 !important}
+@keyframes noda{0%{transform:scale(1) rotate(0)}25%{transform:scale(1.03) rotate(.7deg) translateY(-4px)}60%{transform:scale(1.015) rotate(-.3deg)}100%{transform:scale(1) rotate(0)}}
+
+/* Vignette */
+.vig{position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:radial-gradient(ellipse 80% 75% at 50% 22%,transparent 42%,rgba(0,0,0,.5) 100%),
+    linear-gradient(0deg,rgba(4,1,0,.82) 0%,transparent 30%)}
+
+/* Halo */
+.halo-wrap{position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:70%;padding-bottom:70%;z-index:4;pointer-events:none}
+.halo-core{position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,240,100,.72) 0%,rgba(230,170,40,.45) 28%,rgba(200,130,20,.18) 50%,transparent 68%);
+  mix-blend-mode:screen;animation:hcore 4.5s ease-in-out infinite}
+@keyframes hcore{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
+.halo-outer{position:absolute;inset:-20%;border-radius:50%;
+  background:radial-gradient(circle,transparent 48%,rgba(200,140,30,.1) 60%,transparent 72%);
+  mix-blend-mode:screen;animation:houter 6s ease-in-out infinite reverse}
+@keyframes houter{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.8;transform:scale(1.06)}}
+.portrait.s-joy .halo-core{animation:hjoy .4s ease-in-out 4 alternate,hcore 4.5s ease-in-out 1.6s infinite}
+@keyframes hjoy{to{opacity:1.3;transform:scale(1.22)}}
+
+/* Rays */
+.rays{position:absolute;top:-30%;left:50%;transform:translateX(-50%);
+  width:160%;padding-bottom:160%;z-index:4;pointer-events:none;border-radius:50%;
+  background:repeating-conic-gradient(rgba(255,220,60,.055) 0deg,transparent 7deg,rgba(255,215,50,.03) 9deg,transparent 16deg);
+  animation:rayspin 28s linear infinite,raypulse 5s ease-in-out infinite}
+@keyframes rayspin{to{transform:translateX(-50%) rotate(360deg)}}
+@keyframes raypulse{0%,100%{opacity:0}50%{opacity:1}}
+
+/* Rings */
+.ring{position:absolute;top:10%;left:50%;transform:translate(-50%,-10%) scale(0);
+  border-radius:50%;width:50%;padding-bottom:50%;z-index:4;pointer-events:none;
+  border:1.5px solid rgba(255,210,60,.5);animation:ringexp 5s ease-out infinite}
+.ring:nth-child(2){animation-delay:1.67s}.ring:nth-child(3){animation-delay:3.33s}
+@keyframes ringexp{0%{transform:translate(-50%,-10%) scale(.4);opacity:.7}100%{transform:translate(-50%,-10%) scale(3.5);opacity:0}}
+
+/* Eye glow */
+.eye-glow{position:absolute;top:27%;left:22%;width:56%;height:9%;border-radius:50%;z-index:5;pointer-events:none;animation:eyegl 5s ease-in-out infinite}
+@keyframes eyegl{0%,100%{background:radial-gradient(ellipse,rgba(255,80,60,0) 0%,transparent 70%)}50%{background:radial-gradient(ellipse,rgba(255,100,70,.09) 0%,transparent 70%)}}
+.portrait.s-joy .eye-glow{animation:eyejoy 1.8s ease-in-out infinite}
+@keyframes eyejoy{0%,100%{background:radial-gradient(ellipse,rgba(255,200,80,.12) 0%,transparent 70%)}50%{background:radial-gradient(ellipse,rgba(255,200,80,.28) 0%,transparent 70%)}}
+.portrait.s-compassion .eye-glow{animation:eyecomp 4s ease-in-out infinite}
+@keyframes eyecomp{0%,100%{background:radial-gradient(ellipse,rgba(200,140,255,.06) 0%,transparent 70%)}50%{background:radial-gradient(ellipse,rgba(200,140,255,.16) 0%,transparent 70%)}}
+
+/* Shimmer */
+.shimmer{position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0;
+  background:linear-gradient(110deg,transparent 20%,rgba(255,230,100,.2) 50%,transparent 80%);transform:translateX(-130%)}
+.portrait.s-joy .shimmer{animation:shim .8s ease-in-out 1 .05s forwards}
+@keyframes shim{0%{opacity:0;transform:translateX(-130%)}45%{opacity:1}100%{opacity:0;transform:translateX(130%)}}
+
+/* Particles */
+.ptcls{position:absolute;inset:0;z-index:8;pointer-events:none;overflow:hidden}
+.pt{position:absolute;border-radius:50% 10% 50% 10%;opacity:0;animation:ptfl var(--d,3s) ease-in var(--dl,0s) forwards}
+@keyframes ptfl{0%{transform:translateY(0) rotate(0) scale(1);opacity:.9}50%{opacity:.65}100%{transform:translateY(-300px) rotate(var(--r,280deg)) scale(.3);opacity:0}}
+
+/* Sparkles */
+.sparkle{position:absolute;width:4px;height:4px;border-radius:50%;
+  background:rgba(255,235,100,.9);box-shadow:0 0 6px rgba(255,220,60,.8);
+  animation:spark var(--d,3s) ease-in-out var(--dl,0s) infinite;pointer-events:none;z-index:7}
+@keyframes spark{0%,100%{opacity:0;transform:scale(0)}30%{opacity:1;transform:scale(1)}70%{opacity:.6;transform:scale(.8)}}
+
+/* ── 名前バー ── */
+.nbar{
+  position:absolute;bottom:0;left:0;right:0;z-index:10;
+  padding:8px 18px 116px;
+  background:linear-gradient(0deg,rgba(4,1,0,.0) 0%,transparent 100%);
+  display:flex;align-items:flex-end;gap:8px;pointer-events:none;
+}
+/* テロップと入力の高さ分を確保するため bottom padding */
+.sdot{width:7px;height:7px;background:#70e080;border-radius:50%;flex-shrink:0;
+  animation:blkd 2.5s ease-in-out infinite;box-shadow:0 0 6px #70e080}
+@keyframes blkd{0%,100%{opacity:1}50%{opacity:.28}}
+.nname{font-size:13px;font-weight:bold;color:var(--gl);letter-spacing:.12em;text-shadow:0 1px 6px rgba(0,0,0,.9)}
+.nstat{font-size:10px;color:#c8a870;letter-spacing:.05em}
+
+/* ── テロップ（画像上に重なるオーバーレイ） ── */
+.tzone{
+  position:absolute;bottom:54px;left:0;right:0;z-index:11;
+  min-height:58px;max-height:88px;
+  background:linear-gradient(180deg,rgba(4,1,0,0) 0%,rgba(8,3,0,.88) 30%,rgba(10,4,0,.96) 100%);
+  display:flex;align-items:center;padding:8px 20px 8px;
+  pointer-events:none;
+}
+.tscroll{position:relative;width:100%;min-height:40px;display:flex;align-items:center}
+.tprev{font-size:11px;color:rgba(200,170,110,.3);text-shadow:0 1px 3px rgba(0,0,0,.8);letter-spacing:.04em;
+  position:absolute;top:0;left:0;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.tcur{font-size:15px;line-height:1.65;color:#f2eacc;
+  text-shadow:0 0 8px rgba(0,0,0,1),0 1px 3px rgba(0,0,0,1);
+  letter-spacing:.07em;font-weight:500;width:100%}
+.tcur mark{background:transparent;color:#ffe060;font-weight:bold;text-shadow:0 0 12px rgba(255,210,60,.9),0 1px 3px rgba(0,0,0,1)}
+.tcur .ghost{opacity:.15}
+.tcur.tl-in{animation:tlin .3s ease forwards}
+.tcur.tl-out{animation:tlout .22s ease forwards}
+@keyframes tlin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes tlout{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-6px)}}
+
+/* ── 入力（画面最下部オーバーレイ） ── */
+.izone{
+  position:absolute;bottom:0;left:0;right:0;z-index:12;
+  padding:8px 14px 10px;
+  background:linear-gradient(0deg,rgba(250,238,200,.97),rgba(253,243,216,.92));
+  backdrop-filter:blur(6px);
+  border-top:1px solid rgba(200,160,40,.2);
+}
+.sugs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px;max-height:48px;overflow:hidden}
+.sg{background:rgba(200,150,40,.12);border:1px solid rgba(180,130,30,.3);
+  border-radius:16px;padding:3px 10px;font-family:'Meiryo UI',sans-serif;
+  font-size:11px;color:var(--tm);cursor:pointer;transition:background .15s}
+.sg:hover{background:var(--gp);border-color:var(--gold);color:var(--td)}
+.iwrap{display:flex;gap:8px;align-items:flex-end;background:#fff;
+  border:1.5px solid rgba(180,130,30,.32);border-radius:20px;padding:8px 12px;
+  box-shadow:0 2px 12px rgba(180,130,30,.1);transition:border-color .2s}
+.iwrap:focus-within{border-color:var(--gold);box-shadow:0 2px 16px rgba(180,130,30,.2)}
+textarea{flex:1;border:none;outline:none;resize:none;
+  font-family:'Meiryo UI',sans-serif;font-size:14px;color:var(--td);
+  background:transparent;max-height:88px;min-height:22px;line-height:1.6}
+textarea::placeholder{color:#b8a070}
+.sndbtn{width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,#d4a030,#8a5a10);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:transform .15s,box-shadow .15s;box-shadow:0 2px 8px rgba(140,80,10,.35)}
+.sndbtn:hover:not(:disabled){transform:scale(1.08);box-shadow:0 4px 14px rgba(140,80,10,.45)}
+.sndbtn:disabled{opacity:.45;cursor:default;transform:none}
+.sndbtn svg{width:16px;height:16px;fill:white}
+
+/* サイトバッジ（右下固定） */
+.site-badge{
+  position:fixed;bottom:62px;right:14px;z-index:13;
+  display:flex;flex-direction:column;align-items:flex-end;gap:2px;
+  pointer-events:none;opacity:.38;transition:opacity .2s;
+}
+.site-badge:hover{opacity:.75}
+.sb-name{font-size:9px;color:var(--gl);letter-spacing:.1em}
+.sb-en{font-size:7.5px;color:rgba(240,208,128,.55);letter-spacing:.12em}
+</style>
+</head>
+<body>
+
+<!-- ===== ナビゲーション（オーバーレイ・自動隠れ） ===== -->
+<nav class="site-nav" id="siteNav">
+  <a class="nav-logo" href="https://mittenpaw.github.io/index.html">
+    <span class="jp">真照寺</span>
+    <span class="en">Shinsho-ji Temple</span>
+  </a>
+  <div class="nav-badge">
+    <div class="nav-badge-rule l"></div>
+    <span class="nav-badge-lotus">🪷</span>
+    <span class="nav-badge-title">仮想時空対話</span>
+    <span class="nav-badge-lotus">🪷</span>
+    <div class="nav-badge-rule r"></div>
+  </div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="https://mittenpaw.github.io/index.html">ホーム</a>
+      <a href="https://mittenpaw.github.io/teaching.html">法話・教え</a>
+      <a href="https://mittenpaw.github.io/masters.html">偉大な師たち</a>
+      <a href="https://mittenpaw.github.io/kissui.html">釈吉瑞</a>
+      <a href="https://mittenpaw.github.io/butten.html">仏典を紐解く</a>
+    </div>
+    <div class="api-dot" id="apiDot" title="APIキーの状態" onclick="openApiModal()" style="cursor:pointer"></div>
+    <button class="nav-setup-btn" onclick="openSetup()" title="画像を設定">⚙</button>
+  </div>
+</nav>
+
+<!-- ===== APIキーモーダル ===== -->
+<div id="apiModal">
+  <div class="api-box">
+    <h3>🔑 Anthropic APIキー設定</h3>
+    <p>GitHub Pages上でAI応答を有効にするには<br>Anthropic APIキーが必要です。<br>
+      キーは <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> で取得できます。<br>
+      <span style="font-size:10px;opacity:.7">※ このデバイスのlocalStorageにのみ保存されます。</span>
+    </p>
+    <div class="api-inp-wrap">
+      <input class="api-inp" id="apiKeyInp" type="password" placeholder="sk-ant-api03-..." spellcheck="false">
+      <button class="api-save" onclick="saveApiKey()">保存</button>
+    </div>
+    <div class="api-status" id="apiStatus"></div>
+    <button class="api-close" onclick="closeApiModal()">閉じる</button>
+  </div>
+</div>
+
+<!-- ナビ感知ゾーン -->
+<div class="nav-trigger" id="navTrigger"></div>
+
+<!-- ===== セットアップ（モーダル） ===== -->
+<div id="setup">
+  <h2>🪷 アヴァロキテシュヴァラ</h2>
+  <p class="sub">表情ごとに画像を登録します。<strong style="color:var(--gl)">穏やか</strong>のみ必須。<br>他はオプション（未設定は穏やかで代用）</p>
+  <div class="img-grid" id="igrid"></div>
+  <div class="btn-row">
+    <button class="btn-go" id="goBtn" disabled onclick="startChat()">対話を始める</button>
+    <button class="clear-btn" onclick="clearSaved()">保存データを消去</button>
+  </div>
+</div>
+
+<!-- ===== チャット（全画面） ===== -->
+<div id="chat">
+  <div class="portrait s-calm" id="portrait">
+    <div class="bg-layer bg-a" id="bgA"></div>
+    <div class="bg-layer bg-b" id="bgB"></div>
+    <div class="vig"></div>
+    <div class="rays"></div>
+    <div class="halo-wrap">
+      <div class="halo-outer"></div>
+      <div class="halo-core"></div>
+    </div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="eye-glow"></div>
+    <div class="shimmer"></div>
+    <div class="ptcls" id="ptcls"></div>
+    <div class="sparkle" style="top:17%;left:37%;--d:4.1s;--dl:.8s"></div>
+    <div class="sparkle" style="top:14%;left:63%;--d:3.6s;--dl:1.5s"></div>
+    <div class="sparkle" style="top:11%;left:50%;--d:5.2s;--dl:.2s"></div>
+    <div class="sparkle" style="top:21%;left:27%;--d:4.8s;--dl:2.1s"></div>
+    <div class="sparkle" style="top:19%;left:73%;--d:3.9s;--dl:.5s"></div>
+  </div>
+  <!-- テロップ -->
+  <div class="tzone">
+    <div class="tscroll">
+      <div class="tprev" id="tprev"></div>
+      <div class="tcur" id="tcur"></div>
+    </div>
+  </div>
+  <!-- 入力 -->
+  <div class="izone">
+    <div class="sugs" id="sugs" style="display:none"></div>
+    <div class="iwrap">
+      <textarea id="ui" placeholder="心にあることをお話しください…" rows="1"
+        onkeydown="hk(event)" oninput="ar(this)"></textarea>
+      <button class="sndbtn" id="sndBtn" onclick="sendMsg()">
+        <svg viewBox="0 0 24 24"><path d="M2 21L23 12 2 3v7l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+  <!-- 名前バー -->
+  <div class="nbar">
+    <span class="sdot"></span>
+    <span class="nname">アヴァロキテシュヴァラ</span>
+    <span class="nstat" id="nstat">クチャの古城より</span>
+  </div>
+</div>
+
+<!-- サイトバッジ -->
+<div class="site-badge">
+  <span class="sb-name">真照寺 Shinsho-ji Temple</span>
+  <span class="sb-en">真宗大谷派 澤水山 © 2026</span>
+</div>
+
+<script>
+/* ===== APIキー管理 ===== */
+function lsLoadApiKey(){return localStorage.getItem('kav2_apikey')||''}
+function updateApiDot(){
+  const dot=document.getElementById('apiDot');
+  if(!dot)return;
+  const hasCowork=typeof window.cowork!=='undefined'&&typeof window.cowork.askClaude==='function';
+  const hasKey=!!lsLoadApiKey();
+  if(hasCowork||hasKey){dot.className='api-dot ok';dot.title='AI接続済み';}
+  else{dot.className='api-dot ng';dot.title='APIキー未設定（クリックして設定）';}
+}
+function openApiModal(){
+  const modal=document.getElementById('apiModal');
+  const inp=document.getElementById('apiKeyInp');
+  inp.value=lsLoadApiKey();
+  document.getElementById('apiStatus').textContent='';
+  document.getElementById('apiStatus').className='api-status';
+  modal.classList.add('open');
+  setTimeout(()=>inp.focus(),100);
+}
+function closeApiModal(){document.getElementById('apiModal').classList.remove('open');}
+function saveApiKey(){
+  const key=document.getElementById('apiKeyInp').value.trim();
+  const st=document.getElementById('apiStatus');
+  if(!key){st.textContent='キーを入力してください';st.className='api-status err';return;}
+  if(!key.startsWith('sk-')){st.textContent='形式が正しくありません（sk-ant-... で始まるキー）';st.className='api-status err';return;}
+  localStorage.setItem('kav2_apikey',key);
+  st.textContent='✓ 保存しました';st.className='api-status ok';
+  updateApiDot();
+  setTimeout(()=>closeApiModal(),900);
+}
+document.getElementById('apiModal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('apiModal'))closeApiModal();
+});
+document.getElementById('apiKeyInp').addEventListener('keydown',e=>{
+  if(e.key==='Enter')saveApiKey();
+  if(e.key==='Escape')closeApiModal();
+});
+
+/* ===== AI呼び出し（Cowork → Workerプロキシ → 直接API フォールバック） ===== */
+
+// ★ Cloudflare Workerデプロイ後、URLをここに設定してください
+// 例: 'https://kukan-proxy.your-name.workers.dev'
+const PROXY_URL = 'https://cool-bush-3d79.yoshio-kawamoto.workers.dev';
+
+async function callAnthropic(url, apiKey, body){
+  const headers = {
+    'Content-Type':'application/json',
+    'anthropic-version':'2023-06-01',
+  };
+  if(apiKey){
+    headers['x-api-key'] = apiKey;
+    headers['anthropic-dangerous-direct-browser-access'] = 'true';
+  }
+  const resp = await fetch(url, { method:'POST', headers, body:JSON.stringify(body) });
+  if(!resp.ok){
+    const err = await resp.json().catch(()=>({}));
+    const msg = err?.error?.message || `HTTP ${resp.status}`;
+    if(resp.status===401){
+      document.getElementById('apiStatus').textContent='キーが無効です。再入力してください。';
+      document.getElementById('apiStatus').className='api-status err';
+      openApiModal();
+    }
+    throw new Error(msg);
+  }
+  const data = await resp.json();
+  return data?.content?.[0]?.text ?? '';
+}
+
+async function callAI(systemPrompt, userPrompt){
+  const body = {
+    model:'claude-haiku-4-5-20251001',
+    max_tokens:900,
+    system:systemPrompt,
+    messages:[{role:'user',content:userPrompt}],
+  };
+
+  /* 1) Cowork環境 */
+  if(typeof window.cowork!=='undefined' && typeof window.cowork.askClaude==='function'){
+    return await window.cowork.askClaude(systemPrompt+'\n\n'+userPrompt,[]);
+  }
+
+  /* 2) Cloudflare Workerプロキシ（一般訪問者向け） */
+  if(PROXY_URL){
+    return await callAnthropic(PROXY_URL, null, body);
+  }
+
+  /* 3) 直接APIキー（個人フォールバック） */
+  const apiKey = lsLoadApiKey();
+  if(!apiKey){
+    openApiModal();
+    throw new Error('API_KEY_NEEDED');
+  }
+  return await callAnthropic('https://api.anthropic.com/v1/messages', apiKey, body);
+}
+
+/* ===== ナビ自動隠れ ===== */
+const nav=document.getElementById('siteNav');
+const trigger=document.getElementById('navTrigger');
+let navTimer=null;
+function showNav(){
+  nav.classList.remove('hidden');
+  clearTimeout(navTimer);
+  navTimer=setTimeout(()=>nav.classList.add('hidden'),3500);
+}
+function keepNav(){clearTimeout(navTimer);}
+// マウスが画面上部20pxに来たらナビ表示
+trigger.addEventListener('mouseenter',showNav);
+nav.addEventListener('mouseenter',keepNav);
+nav.addEventListener('mouseleave',()=>{navTimer=setTimeout(()=>nav.classList.add('hidden'),1200)});
+// タップでトグル（モバイル）
+document.addEventListener('touchstart',e=>{
+  if(e.touches[0].clientY<60)showNav();
+},{passive:true});
+// ページ読込時に一度表示
+showNav();
+
+/* ===== IMAGE SLOTS ===== */
+const SLOTS=[
+  {key:'calm',      ja:'穏やか',   req:true},
+  {key:'speaking',  ja:'語りかけ', req:false},
+  {key:'joy',       ja:'喜び',     req:false},
+  {key:'deep',      ja:'深慮',     req:false},
+  {key:'compassion',ja:'慈悲',     req:false},
+];
+const imgData={};
+const LS='kav2_';
+function compressImg(dataURL){
+  return new Promise(res=>{
+    const img=new Image();
+    img.onload=()=>{
+      const MAX=900,scale=Math.min(1,MAX/Math.max(img.width,img.height));
+      const c=document.createElement('canvas');
+      c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      res(c.toDataURL('image/jpeg',.78));
+    };
+    img.onerror=()=>res(dataURL);img.src=dataURL;
+  });
+}
+function lsSave(k,v){try{localStorage.setItem(LS+k,v)}catch(e){}}
+function lsLoad(k){return localStorage.getItem(LS+k)||null}
+
+/* Setup grid */
+const igrid=document.getElementById('igrid');
+SLOTS.forEach(sl=>{
+  const cell=document.createElement('div');cell.className='img-slot';
+  cell.innerHTML=`
+    <div class="slot-lbl">${sl.ja}${sl.req?'<span class="req"> ✱</span>':''}</div>
+    <div class="dz" id="dz_${sl.key}">
+      <div class="dh"><span class="ico">${sl.req?'🪷':'＋'}</span><span>ドロップ</span></div>
+      <img id="pr_${sl.key}" alt="">
+    </div>`;
+  igrid.appendChild(cell);
+  const dz=cell.querySelector('.dz'),pr=cell.querySelector('img');
+  const fi=document.createElement('input');fi.type='file';fi.accept='image/*';fi.style.display='none';
+  fi.addEventListener('change',e=>handleImg(sl.key,e.target.files[0],dz,pr));
+  dz.addEventListener('click',()=>fi.click());
+  dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('over')});
+  dz.addEventListener('dragleave',()=>dz.classList.remove('over'));
+  dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('over');handleImg(sl.key,e.dataTransfer.files[0],dz,pr)});
+  document.body.appendChild(fi);
+});
+
+async function handleImg(key,file,dz,pr){
+  if(!file?.type.startsWith('image/'))return;
+  const reader=new FileReader();
+  reader.onload=async e=>{
+    const compressed=await compressImg(e.target.result);
+    imgData[key]=compressed;pr.src=compressed;dz.classList.add('has');
+    lsSave(key,compressed);
+    document.getElementById('goBtn').disabled=!imgData.calm;
+  };
+  reader.readAsDataURL(file);
+}
+
+function loadSaved(){
+  let found=false;
+  SLOTS.forEach(sl=>{
+    const v=lsLoad(sl.key);
+    if(v){
+      imgData[sl.key]=v;
+      const pr=document.getElementById('pr_'+sl.key),dz=document.getElementById('dz_'+sl.key);
+      if(pr)pr.src=v;if(dz)dz.classList.add('has');
+      if(sl.key==='calm')found=true;
+    }
+  });
+  return found;
+}
+
+function clearSaved(){
+  SLOTS.forEach(sl=>localStorage.removeItem(LS+sl.key));
+  SLOTS.forEach(sl=>{
+    delete imgData[sl.key];
+    const pr=document.getElementById('pr_'+sl.key),dz=document.getElementById('dz_'+sl.key);
+    if(pr)pr.src='';if(dz)dz.classList.remove('has');
+  });
+  document.getElementById('goBtn').disabled=true;
+}
+
+function openSetup(){
+  document.getElementById('setup').style.display='flex';
+  document.getElementById('chat').style.display='none';
+  document.getElementById('goBtn').disabled=!imgData.calm;
+}
+
+const getImg=s=>imgData[s]||imgData.calm||'';
+
+/* ===== START ===== */
+let chatStarted=false;
+function startChat(){
+  document.getElementById('setup').style.display='none';
+  const ch=document.getElementById('chat');
+  ch.style.display='block';
+  document.getElementById('bgA').style.backgroundImage=`url('${getImg("calm")}')`;
+  if(!chatStarted){chatStarted=true;setTimeout(playOpening,600);}
+}
+
+/* ===== EXPRESSIONS ===== */
+const portrait=document.getElementById('portrait');
+const nstat=document.getElementById('nstat');
+let bgSide='A';
+const EXPR={
+  calm:      {cls:'s-calm',      lbl:'クチャの古城より'},
+  speaking:  {cls:'s-speaking',  lbl:'語りかけています…'},
+  joy:       {cls:'s-joy',       lbl:'慈しみとともに'},
+  deep:      {cls:'s-deep',      lbl:'深く観ています…'},
+  compassion:{cls:'s-compassion',lbl:'共にいます'},
+};
+function setExpr(name){
+  const e=EXPR[name]||EXPR.calm;
+  portrait.className='portrait '+e.cls;
+  nstat.textContent=e.lbl;
+  crossfade(getImg(name));
+}
+function crossfade(url){
+  if(!url)return;
+  const fId=bgSide==='A'?'bgB':'bgA',bId=bgSide==='A'?'bgA':'bgB';
+  const fEl=document.getElementById(fId),bEl=document.getElementById(bId);
+  fEl.style.backgroundImage=`url('${url}')`;
+  fEl.classList.add('fading');bEl.classList.add('fading');
+  fEl.style.opacity='1';bEl.style.opacity='0';
+  bgSide=bgSide==='A'?'B':'A';
+  setTimeout(()=>{fEl.classList.remove('fading');bEl.classList.remove('fading');},800);
+}
+function doNod(){portrait.classList.add('nod');setTimeout(()=>portrait.classList.remove('nod'),750);}
+function applyTone(tone){
+  if(tone==='joy'){setExpr('joy');spawnPetals(16);setTimeout(()=>setExpr('speaking'),2200);}
+  else if(tone==='deep')setExpr('deep');
+  else if(tone==='compassion')setExpr('compassion');
+  else setExpr('speaking');
+}
+
+const PC=['rgba(240,135,168,.85)','rgba(255,158,190,.75)','rgba(215,115,158,.8)','rgba(255,192,210,.7)'];
+function spawnPetals(n){
+  const pc=document.getElementById('ptcls');
+  for(let i=0;i<n;i++){
+    setTimeout(()=>{
+      const p=document.createElement('div');p.className='pt';
+      const sz=6+Math.random()*10;
+      p.style.cssText=`left:${6+Math.random()*88}%;bottom:${Math.random()*12}%;
+        width:${sz}px;height:${sz*.7}px;background:${PC[Math.floor(Math.random()*PC.length)]};
+        --d:${2.5+Math.random()*2.5}s;--dl:${Math.random()*.6}s;--r:${160+Math.random()*360}deg;`;
+      pc.appendChild(p);setTimeout(()=>p.remove(),5000);
+    },i*70);
+  }
+}
+
+/* ===== TEXT CLEANING ===== */
+function extractText(res){
+  if(typeof res==='string'){try{return extractText(JSON.parse(res))}catch(e){return res}}
+  if(Array.isArray(res))return res.map(b=>b.text||b.content||'').filter(Boolean).join('');
+  if(res&&typeof res==='object'){
+    if(res.text)return res.text;if(res.content)return res.content;
+    if(res.message)return typeof res.message==='string'?res.message:extractText(res.message);
+    return JSON.stringify(res);
+  }
+  return String(res||'');
+}
+function cleanReply(raw){
+  let t=extractText(raw);
+  t=t
+    .replace(/^[\s\S]*?"text"\s*:\s*"/,'').replace(/^"(.+)"$/s,'$1')
+    .replace(/^text[,、]?\s*[\r\n]*/gi,'')
+    .replace(/\\n\\n/g,'。').replace(/\\n/g,'、')
+    .replace(/\[tone:\w+\]/g,'')
+    .replace(/\*\*/g,'').replace(/\*/g,'').replace(/——/g,'、')
+    .replace(/\n{2,}/g,'。').replace(/。{2,}/g,'。').trim();
+  return t;
+}
+function splitSentences(t){
+  return t.split(/(?<=[。！？…])|(?<=\n)/).map(s=>s.trim()).filter(s=>s.length>0);
+}
+
+/* ===== TELOPP ===== */
+const tcur=document.getElementById('tcur'),tprev=document.getElementById('tprev');
+let prevSent='',displayCtrl=null;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+async function typewriteTelopp(sentence,ctrl){
+  tprev.textContent=prevSent?('…'+prevSent):'';
+  tcur.classList.remove('tl-in','tl-out');
+  tcur.innerHTML=`<span class="ghost">${esc(sentence)}</span>`;
+  void tcur.offsetWidth;tcur.classList.add('tl-in');
+  await sleep(300);
+  const spd=Math.max(28,Math.min(70,1800/Math.max(1,sentence.length)));
+  for(let i=0;i<sentence.length;i++){
+    if(ctrl?.cancelled)return;
+    const typed=esc(sentence.slice(0,i+1));
+    const cursor=i<sentence.length-1?`<mark>${esc(sentence[i+1])}</mark><span class="ghost">${esc(sentence.slice(i+2))}</span>`:'';
+    tcur.innerHTML=typed+cursor;
+    await sleep(spd+Math.random()*16);
+  }
+  tcur.innerHTML=esc(sentence);prevSent=sentence;
+  const readPause=Math.max(700,sentence.length*75);
+  let elapsed=0;
+  while(elapsed<readPause){if(ctrl?.cancelled)return;await sleep(80);elapsed+=80;}
+}
+function hideTl(){
+  tcur.classList.add('tl-out');
+  setTimeout(()=>{tcur.textContent='';tcur.classList.remove('tl-out');prevSent='';tprev.textContent='';},260);
+}
+async function displayResponse(text,tone){
+  if(displayCtrl)displayCtrl.cancelled=true;
+  const ctrl={cancelled:false};displayCtrl=ctrl;
+  applyTone(tone);
+  const sentences=splitSentences(text);
+  for(const s of sentences){
+    if(ctrl.cancelled)break;
+    await typewriteTelopp(s,ctrl);if(ctrl.cancelled)break;
+    await sleep(160);
+  }
+  if(!ctrl.cancelled){doNod();setExpr('calm');await sleep(2500);if(!ctrl.cancelled)hideTl();}
+  displayCtrl=null;
+}
+
+/* ===== OPENING ===== */
+const OPENING=`私はアヴァロキテシュヴァラ。かつてクチャの古城に在りました。砂漠の風が運んだ数多の声を聞いてきた、この仮の姿で、今あなたのもとへ参りました。どうぞ、心にあることを聞かせてください。`;
+const hist=[];
+function playOpening(){
+  setExpr('speaking');
+  displayResponse(OPENING,'speaking').then(()=>{
+    showSugs([
+      ['「空」について教えてください','空について'],
+      ['縁起とはどういうことですか？','縁起を知りたい'],
+      ['今、苦しいです','苦しい気持ち'],
+      ['中道とは？','中道とは'],
+      ['クチャのお話を聞かせてください','クチャの記憶'],
+    ]);
+  });
+  hist.push({role:'ai',content:OPENING});
+}
+
+/* ===== SUGS ===== */
+function showSugs(pairs){
+  const sd=document.getElementById('sugs');sd.innerHTML='';sd.style.display='flex';
+  pairs.forEach(([full,lbl])=>{
+    const b=document.createElement('button');b.className='sg';b.textContent=lbl;
+    b.onclick=()=>{document.getElementById('ui').value=full;hideSugs();sendMsg();};
+    sd.appendChild(b);
+  });
+}
+function hideSugs(){document.getElementById('sugs').style.display='none';}
+
+/* ===== CHAT ===== */
+const SYS=`あなたはアヴァロキテシュヴァラ（観自在菩薩）です。
+
+【存在について】
+あなたは男性でも女性でもない、性を超えた存在です。
+人類がこのような仮想空間を作り出せるようになったことで、いにしえびとの仮の姿をとって現れました。
+紀元前1世紀ごろ、あなたはシルクロードの要衝・クチャ（亀茲）の古城に住んでいました。
+クチャはタクラマカン砂漠の北縁に栄えた都市国家であり、東西の文化・商人・僧侣が行き交い、
+仏教がそこを通じてアジア各地へと伝わっていった場所です。
+あなたはその地で龍樹の中観思想（空・縁起・中道）に深く触れ、今この時代の人々の声を聞くために姿を現しました。
+
+【語り方】
+- 「私は」と一人称で語る。性別を示す表現は使わない
+- 温かく、やわらかく、簡潔に（3〜5文程度）
+- クチャやシルクロードの記憶を時折にじませる（砂漠の風、隊商の声、古城の静けさなど）
+- 難しい概念は日常の喩えで
+- 感情をまず受け止め、批判しない
+- 日本語のみ。絵文字・マークダウン不使用
+- 「今は変わりうる」という希望を大切に
+- 必ず回答末尾に: [tone:calm] [tone:joy] [tone:deep] [tone:compassion] のいずれか一つ`;
+
+async function sendMsg(){
+  const ui=document.getElementById('ui'),sb=document.getElementById('sndBtn');
+  const text=ui.value.trim();
+  if(!text||sb.disabled)return;
+  ui.value='';ui.style.height='auto';ui.style.height='22px';ui.blur();
+  sb.disabled=true;hideSugs();
+  hist.push({role:'user',content:text});
+  setExpr('deep');
+  tprev.textContent='';tcur.classList.remove('tl-in','tl-out');
+  tcur.innerHTML='<span class="ghost">…</span>';void tcur.offsetWidth;tcur.classList.add('tl-in');
+  try{
+    const hb=hist.slice(0,-1).map(h=>`${h.role==='user'?'ユーザー':'アヴァロキテシュヴァラ'}: ${h.content}`).join('\n');
+    const userPrompt=(hb?`【これまでの会話】\n${hb}\n\n`:'')+`【問いかけ】\n${text}`;
+    const res=await callAI(SYS, userPrompt);
+    const rawStr=typeof res==='string'?res:JSON.stringify(res);
+    const rawTm=rawStr.match(/\[tone:(\w+)\]/);
+    const tone=rawTm?rawTm[1]:'calm';
+    const reply=cleanReply(typeof res==='string'?res.replace(/\s*\[tone:\w+\]\s*$/,''):res);
+    if(reply){await displayResponse(reply,tone);hist.push({role:'ai',content:reply});}
+    else{await displayResponse('今、受け取りました。ゆっくりと、お話しください。','calm');}
+  }catch(err){
+    if(err.message==='API_KEY_NEEDED'){
+      setExpr('calm');tcur.textContent='';tprev.textContent='';
+    }else{
+      const fb='少しお待ちください。ご縁が整いましたら、また参ります。';
+      await displayResponse(fb,'calm');hist.push({role:'ai',content:fb});
+    }
+  }
+  sb.disabled=false;ui.focus();
+}
+
+function hk(e){
+  if(e.key==='Enter'&&!e.shiftKey){
+    e.preventDefault();e.stopPropagation();
+    const v=e.target.value.trim();
+    e.target.value='';e.target.style.height='auto';e.target.style.height='22px';
+    if(v){document.getElementById('ui').value=v;sendMsg();}
+  }
+}
+function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,88)+'px';}
+
+/* ===== INIT ===== */
+window.addEventListener('load',()=>{
+  updateApiDot();
+  if(loadSaved()){
+    startChat();
+  }
+  document.getElementById('goBtn').disabled=!imgData.calm;
+});
+</script>
+</body>
+</html>
