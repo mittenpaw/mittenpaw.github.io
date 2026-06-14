@@ -441,6 +441,23 @@ document.getElementById('apiKeyInp').addEventListener('keydown',e=>{
 // 例: 'https://kukan-proxy.your-name.workers.dev'
 const PROXY_URL = 'https://cool-bush-3d79.yoshio-kawamoto.workers.dev';
 
+/* ===== チャットログ ===== */
+const SESSION_ID = Math.random().toString(36).slice(2,11);
+async function logChat(userMsg, aiMsg){
+  if(!PROXY_URL) return;
+  try{
+    await fetch(PROXY_URL+'/log',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        userMsg, aiMsg,
+        sessionId: SESSION_ID,
+        pageUrl: location.href,
+      }),
+    });
+  }catch(e){/* ログ失敗は無視 */}
+}
+
 async function callAnthropic(url, apiKey, body){
   const headers = { 'Content-Type':'application/json' };
   if(apiKey){
@@ -782,7 +799,7 @@ async function sendMsg(){
     const rawTm=rawStr.match(/\[tone:(\w+)\]/);
     const tone=rawTm?rawTm[1]:'calm';
     const reply=cleanReply(typeof res==='string'?res.replace(/\s*\[tone:\w+\]\s*$/,''):res);
-    if(reply){await displayResponse(reply,tone);hist.push({role:'ai',content:reply});}
+    if(reply){await displayResponse(reply,tone);hist.push({role:'ai',content:reply});logChat(text,reply);}
     else{await displayResponse('今、受け取りました。ゆっくりと、お話しください。','calm');}
   }catch(err){
     if(err.message==='API_KEY_NEEDED'){

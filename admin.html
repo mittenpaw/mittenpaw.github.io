@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理ダッシュボード – 真照寺 時空の対話</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Meiryo UI','メイリオ',sans-serif;background:#1a1005;color:#e8d5b0;min-height:100vh}
+:root{
+  --gold:#c9962a;--gl:#f0d080;--dark:#120a02;
+  --card:#1e1408;--border:rgba(201,150,42,.2);
+}
+
+/* ── ログイン画面 ── */
+#loginScreen{
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;padding:24px;
+}
+.login-box{
+  background:linear-gradient(160deg,#1e1408,#120a02);
+  border:1px solid var(--border);border-radius:16px;
+  padding:40px 36px;width:min(400px,100%);
+  display:flex;flex-direction:column;gap:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+.login-box h1{font-size:18px;color:var(--gl);letter-spacing:.15em;text-align:center}
+.login-box p{font-size:12px;color:rgba(200,165,100,.6);text-align:center;line-height:1.7}
+.login-box input{
+  width:100%;padding:11px 14px;border-radius:10px;
+  background:rgba(255,255,255,.06);border:1px solid var(--border);
+  color:var(--gl);font-size:14px;font-family:'Meiryo UI',sans-serif;
+  outline:none;transition:border-color .2s;
+}
+.login-box input:focus{border-color:var(--gold)}
+.login-btn{
+  width:100%;padding:12px;border-radius:10px;
+  background:linear-gradient(135deg,#d4a030,#7a4e08);
+  color:#fff;border:none;font-size:14px;cursor:pointer;
+  font-family:'Meiryo UI',sans-serif;letter-spacing:.05em;
+  transition:opacity .15s;
+}
+.login-btn:hover{opacity:.9}
+.login-err{font-size:12px;color:#e07070;text-align:center;min-height:16px}
+
+/* ── ダッシュボード ── */
+#dashboard{display:none}
+header{
+  background:linear-gradient(180deg,#1e1408,#120a02);
+  border-bottom:1px solid var(--border);
+  padding:14px 24px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+header h1{font-size:16px;color:var(--gl);letter-spacing:.1em}
+header .meta{font-size:11px;color:rgba(200,165,100,.5)}
+.logout-btn{
+  background:none;border:1px solid var(--border);color:rgba(200,165,100,.6);
+  border-radius:6px;padding:5px 12px;font-size:11px;cursor:pointer;
+  font-family:'Meiryo UI',sans-serif;transition:all .15s;
+}
+.logout-btn:hover{border-color:var(--gold);color:var(--gl)}
+
+main{max-width:1200px;margin:0 auto;padding:24px 20px}
+
+/* ── 統計カード ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:28px}
+.stat-card{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:18px 16px;text-align:center;
+}
+.stat-card .num{font-size:32px;font-weight:bold;color:var(--gl);line-height:1}
+.stat-card .lbl{font-size:11px;color:rgba(200,165,100,.6);margin-top:6px;letter-spacing:.05em}
+
+/* ── チャートグリッド ── */
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-bottom:28px}
+.chart-card{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:20px 18px;
+}
+.chart-card h3{font-size:13px;color:var(--gl);letter-spacing:.08em;margin-bottom:14px}
+.chart-wrap{position:relative;height:220px}
+
+/* ── 会話一覧 ── */
+.section-title{
+  font-size:14px;color:var(--gl);letter-spacing:.1em;
+  margin-bottom:14px;padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
+.toolbar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.search-inp{
+  flex:1;min-width:200px;padding:8px 12px;border-radius:8px;
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  color:var(--gl);font-size:13px;font-family:'Meiryo UI',sans-serif;outline:none;
+}
+.search-inp:focus{border-color:var(--gold)}
+.export-btn{
+  padding:8px 16px;border-radius:8px;
+  background:rgba(201,150,42,.15);border:1px solid var(--border);
+  color:var(--gl);font-size:12px;cursor:pointer;
+  font-family:'Meiryo UI',sans-serif;transition:all .15s;white-space:nowrap;
+}
+.export-btn:hover{background:rgba(201,150,42,.25);border-color:var(--gold)}
+
+.count-info{font-size:11px;color:rgba(200,165,100,.5);margin-bottom:10px}
+
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:rgba(201,150,42,.08)}
+th{padding:10px 12px;text-align:left;color:rgba(200,165,100,.7);
+   letter-spacing:.04em;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid rgba(201,150,42,.07);vertical-align:top;line-height:1.6}
+tr:hover td{background:rgba(201,150,42,.04)}
+.td-time{color:rgba(200,165,100,.5);white-space:nowrap;font-size:11px}
+.td-user{color:#f0d5a0;max-width:260px}
+.td-ai{color:rgba(200,165,100,.75);max-width:340px}
+.td-session{color:rgba(200,165,100,.3);font-size:10px;font-family:monospace}
+.expand-btn{
+  background:none;border:none;color:rgba(200,165,100,.4);
+  cursor:pointer;font-size:10px;padding:2px 6px;border-radius:4px;
+  white-space:nowrap;transition:color .15s;
+}
+.expand-btn:hover{color:var(--gl)}
+.truncate{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+
+.pagination{display:flex;gap:8px;align-items:center;margin-top:18px;justify-content:center;flex-wrap:wrap}
+.pg-btn{
+  padding:6px 14px;border-radius:6px;border:1px solid var(--border);
+  background:none;color:rgba(200,165,100,.7);font-size:12px;cursor:pointer;
+  font-family:'Meiryo UI',sans-serif;transition:all .15s;
+}
+.pg-btn:hover,.pg-btn.active{background:rgba(201,150,42,.18);border-color:var(--gold);color:var(--gl)}
+.pg-btn:disabled{opacity:.3;cursor:default}
+.pg-info{font-size:11px;color:rgba(200,165,100,.45)}
+
+.loading{text-align:center;padding:40px;color:rgba(200,165,100,.4);letter-spacing:.1em}
+.empty{text-align:center;padding:40px;color:rgba(200,165,100,.3);font-size:13px}
+</style>
+</head>
+<body>
+
+<!-- ログイン画面 -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>🪷 管理ダッシュボード</h1>
+    <p>真照寺 時空の対話<br>チャットログ・傾向分析</p>
+    <input type="password" id="secretInp" placeholder="管理パスワード" autocomplete="current-password">
+    <button class="login-btn" onclick="doLogin()">ログイン</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- ダッシュボード -->
+<div id="dashboard">
+  <header>
+    <h1>🪷 時空の対話 — 管理ダッシュボード</h1>
+    <div style="display:flex;align-items:center;gap:16px">
+      <span class="meta" id="lastUpdate"></span>
+      <button class="logout-btn" onclick="doLogout()">ログアウト</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 統計カード -->
+    <div class="stats">
+      <div class="stat-card"><div class="num" id="statTotal">—</div><div class="lbl">総会話数</div></div>
+      <div class="stat-card"><div class="num" id="statToday">—</div><div class="lbl">今日</div></div>
+      <div class="stat-card"><div class="num" id="statWeek">—</div><div class="lbl">今週</div></div>
+      <div class="stat-card"><div class="num" id="statSessions">—</div><div class="lbl">ユニークユーザー</div></div>
+      <div class="stat-card"><div class="num" id="statAvgLen">—</div><div class="lbl">平均文字数（質問）</div></div>
+    </div>
+
+    <!-- チャート -->
+    <div class="charts">
+      <div class="chart-card">
+        <h3>🕐 時間帯別会話数</h3>
+        <div class="chart-wrap"><canvas id="chartHour"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>📅 日別会話数（直近30日）</h3>
+        <div class="chart-wrap"><canvas id="chartDaily"></canvas></div>
+      </div>
+      <div class="chart-card" style="grid-column:1/-1">
+        <h3>🔑 キーワード頻度（上位20語）</h3>
+        <div class="chart-wrap" style="height:260px"><canvas id="chartKeyword"></canvas></div>
+      </div>
+    </div>
+
+    <!-- 会話一覧 -->
+    <div class="section-title">会話一覧</div>
+    <div class="toolbar">
+      <input class="search-inp" id="searchInp" type="text" placeholder="キーワードで絞り込み…" oninput="filterTable()">
+      <button class="export-btn" onclick="exportCSV()">📥 CSVエクスポート</button>
+    </div>
+    <div class="count-info" id="countInfo"></div>
+    <div id="tableWrap"><div class="loading">読み込み中…</div></div>
+    <div class="pagination" id="pagination"></div>
+  </main>
+</div>
+
+<script>
+const WORKER = 'https://cool-bush-3d79.yoshio-kawamoto.workers.dev';
+const PAGE_SIZE = 30;
+let secret = '';
+let allData = [];
+let filtered = [];
+let currentPage = 1;
+let charts = {};
+
+// ── ログイン ─────────────────────────────────────────────────────────
+document.getElementById('secretInp').addEventListener('keydown', e => {
+  if(e.key === 'Enter') doLogin();
+});
+
+async function doLogin(){
+  const inp = document.getElementById('secretInp');
+  const err = document.getElementById('loginErr');
+  err.textContent = '';
+  secret = inp.value.trim();
+  if(!secret){ err.textContent = 'パスワードを入力してください'; return; }
+
+  try{
+    const r = await fetch(`${WORKER}/logs?secret=${encodeURIComponent(secret)}&limit=1`);
+    if(r.status === 401){ err.textContent = 'パスワードが正しくありません'; return; }
+    if(!r.ok) throw new Error('サーバーエラー');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    await loadData();
+  }catch(e){
+    err.textContent = '接続エラー: ' + e.message;
+  }
+}
+
+function doLogout(){
+  secret = ''; allData = []; filtered = [];
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('secretInp').value = '';
+}
+
+// ── データ取得 ────────────────────────────────────────────────────────
+async function loadData(){
+  let all = [], cursor = undefined;
+  while(true){
+    const url = `${WORKER}/logs?secret=${encodeURIComponent(secret)}&limit=1000` +
+                (cursor ? `&cursor=${encodeURIComponent(cursor)}` : '');
+    const r = await fetch(url);
+    const json = await r.json();
+    all = all.concat(json.entries || []);
+    if(json.complete || !json.cursor) break;
+    cursor = json.cursor;
+  }
+  allData = all;
+  filtered = all;
+  document.getElementById('lastUpdate').textContent =
+    '最終更新: ' + new Date().toLocaleTimeString('ja-JP');
+  renderStats();
+  renderCharts();
+  renderTable();
+}
+
+// ── 統計 ──────────────────────────────────────────────────────────────
+function renderStats(){
+  const now = new Date();
+  const todayStr = now.toISOString().slice(0,10);
+  const weekAgo = new Date(now - 7*24*3600*1000).toISOString();
+
+  const total = allData.length;
+  const today = allData.filter(d => d.timestamp.startsWith(todayStr)).length;
+  const week  = allData.filter(d => d.timestamp >= weekAgo).length;
+  const sessions = new Set(allData.map(d => d.sessionId)).size;
+  const avgLen = total ? Math.round(allData.reduce((s,d) => s + (d.userMsg||'').length, 0) / total) : 0;
+
+  document.getElementById('statTotal').textContent    = total.toLocaleString();
+  document.getElementById('statToday').textContent    = today.toLocaleString();
+  document.getElementById('statWeek').textContent     = week.toLocaleString();
+  document.getElementById('statSessions').textContent = sessions.toLocaleString();
+  document.getElementById('statAvgLen').textContent   = avgLen + '字';
+}
+
+// ── チャート ──────────────────────────────────────────────────────────
+const chartDefaults = {
+  color: 'rgba(200,165,100,.7)',
+  plugins: { legend: { display: false } },
+  scales: {
+    x: { ticks: { color: 'rgba(200,165,100,.55)', font:{size:10} },
+         grid: { color: 'rgba(201,150,42,.08)' } },
+    y: { ticks: { color: 'rgba(200,165,100,.55)', font:{size:10} },
+         grid: { color: 'rgba(201,150,42,.08)' }, beginAtZero: true },
+  },
+};
+
+function goldBar(alpha=0.6){
+  return { backgroundColor:`rgba(201,150,42,${alpha})`, borderColor:'rgba(201,150,42,.85)', borderWidth:1 };
+}
+
+function renderCharts(){
+  // 時間帯別
+  const hourCounts = Array(24).fill(0);
+  allData.forEach(d => {
+    const h = new Date(d.timestamp).getHours();
+    hourCounts[h]++;
+  });
+  if(charts.hour) charts.hour.destroy();
+  charts.hour = new Chart(document.getElementById('chartHour'), {
+    type:'bar',
+    data:{ labels: Array.from({length:24},(_,i)=>i+'時'),
+           datasets:[{...goldBar(), data:hourCounts}] },
+    options:{ ...chartDefaults, responsive:true, maintainAspectRatio:false }
+  });
+
+  // 日別（直近30日）
+  const days = {};
+  const today = new Date();
+  for(let i=29;i>=0;i--){
+    const d = new Date(today - i*86400000);
+    days[d.toISOString().slice(0,10)] = 0;
+  }
+  allData.forEach(d => {
+    const key = d.timestamp.slice(0,10);
+    if(key in days) days[key]++;
+  });
+  if(charts.daily) charts.daily.destroy();
+  charts.daily = new Chart(document.getElementById('chartDaily'), {
+    type:'line',
+    data:{ labels: Object.keys(days).map(k=>k.slice(5)),
+           datasets:[{ ...goldBar(0.25),
+             data: Object.values(days),
+             fill:true, tension:.3,
+             borderColor:'rgba(201,150,42,.8)', pointBackgroundColor:'rgba(201,150,42,.9)' }] },
+    options:{ ...chartDefaults, responsive:true, maintainAspectRatio:false }
+  });
+
+  // キーワード頻度
+  const stopWords = new Set([
+    'です','ます','した','ある','いる','する','れる','られ','って',
+    'から','まで','ので','には','では','とは','また','この','その','あの',
+    'これ','それ','あれ','どの','など','もの','こと','ため','という',
+    'について','ください','おり','なり','ただ','さらに','また','そして',
+    'ため','なぜ','どう','どの','どん','どれ','に','の','は','が','を',
+    'て','で','と','も','や','か','ね','よ','わ',
+  ]);
+  const freq = {};
+  allData.forEach(d => {
+    const text = (d.userMsg || '');
+    // 2文字以上の語を抽出（簡易）
+    const words = text.match(/[ぁ-鿿゠-ヿ･-ﾟa-zA-Z]{2,}/g) || [];
+    words.forEach(w => {
+      if(!stopWords.has(w) && w.length >= 2){
+        freq[w] = (freq[w]||0) + 1;
+      }
+    });
+  });
+  const top20 = Object.entries(freq)
+    .sort((a,b) => b[1]-a[1]).slice(0,20);
+  if(charts.keyword) charts.keyword.destroy();
+  charts.keyword = new Chart(document.getElementById('chartKeyword'), {
+    type:'bar',
+    data:{
+      labels: top20.map(([w]) => w),
+      datasets:[{ ...goldBar(), data: top20.map(([,c]) => c) }]
+    },
+    options:{
+      ...chartDefaults,
+      indexAxis:'y',
+      responsive:true, maintainAspectRatio:false,
+      scales:{
+        x:{ ...chartDefaults.scales.x },
+        y:{ ...chartDefaults.scales.y, ticks:{...chartDefaults.scales.y.ticks, font:{size:12}} }
+      }
+    }
+  });
+}
+
+// ── テーブル ──────────────────────────────────────────────────────────
+function filterTable(){
+  const q = document.getElementById('searchInp').value.trim().toLowerCase();
+  filtered = q
+    ? allData.filter(d =>
+        (d.userMsg||'').toLowerCase().includes(q) ||
+        (d.aiMsg||'').toLowerCase().includes(q))
+    : allData;
+  currentPage = 1;
+  renderTable();
+}
+
+function renderTable(){
+  const total = filtered.length;
+  document.getElementById('countInfo').textContent =
+    `${total.toLocaleString()} 件${allData.length !== total ? '（全'+allData.length+'件中）' : ''}`;
+
+  const start = (currentPage-1)*PAGE_SIZE;
+  const page  = filtered.slice(start, start+PAGE_SIZE);
+
+  if(total === 0){
+    document.getElementById('tableWrap').innerHTML = '<div class="empty">データがありません</div>';
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  let html = `<table>
+    <thead><tr>
+      <th>日時</th><th>質問</th><th>応答</th><th>セッション</th>
+    </tr></thead><tbody>`;
+  page.forEach((d,i) => {
+    const dt = new Date(d.timestamp).toLocaleString('ja-JP',{
+      month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+    const uid = 'row'+(start+i);
+    html += `<tr>
+      <td class="td-time">${dt}</td>
+      <td class="td-user"><div class="truncate" id="${uid}u">${esc(d.userMsg)}</div>
+        <button class="expand-btn" onclick="toggle('${uid}u',this)">▼</button></td>
+      <td class="td-ai"><div class="truncate" id="${uid}a">${esc(d.aiMsg)}</div>
+        <button class="expand-btn" onclick="toggle('${uid}a',this)">▼</button></td>
+      <td class="td-session">${(d.sessionId||'').slice(0,8)}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('tableWrap').innerHTML = html;
+
+  // ページネーション
+  const totalPages = Math.ceil(total/PAGE_SIZE);
+  let pg = '';
+  if(totalPages > 1){
+    pg += `<button class="pg-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹ 前</button>`;
+    const range = pageRange(currentPage, totalPages);
+    range.forEach(p => {
+      if(p === '…') pg += `<span class="pg-info">…</span>`;
+      else pg += `<button class="pg-btn${p===currentPage?' active':''}" onclick="goPage(${p})">${p}</button>`;
+    });
+    pg += `<button class="pg-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>次 ›</button>`;
+    pg += `<span class="pg-info">${currentPage} / ${totalPages} ページ</span>`;
+  }
+  document.getElementById('pagination').innerHTML = pg;
+}
+
+function pageRange(cur, total){
+  if(total <= 7) return Array.from({length:total},(_,i)=>i+1);
+  const r = [1];
+  if(cur > 3) r.push('…');
+  for(let p=Math.max(2,cur-1);p<=Math.min(total-1,cur+1);p++) r.push(p);
+  if(cur < total-2) r.push('…');
+  r.push(total);
+  return r;
+}
+
+function goPage(p){
+  if(p<1||p>Math.ceil(filtered.length/PAGE_SIZE)) return;
+  currentPage = p;
+  renderTable();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggle(id, btn){
+  const el = document.getElementById(id);
+  const collapsed = el.classList.toggle('truncate');
+  btn.textContent = collapsed ? '▼' : '▲';
+}
+
+// ── CSVエクスポート ───────────────────────────────────────────────────
+function exportCSV(){
+  const rows = [['日時','質問','応答','セッションID']];
+  filtered.forEach(d => {
+    rows.push([
+      d.timestamp,
+      '"'+(d.userMsg||'').replace(/"/g,'""')+'"',
+      '"'+(d.aiMsg||'').replace(/"/g,'""')+'"',
+      d.sessionId||'',
+    ]);
+  });
+  const csv = '﻿' + rows.map(r=>r.join(',')).join('\r\n');
+  const blob = new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `kukan_chat_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+function esc(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+</body>
+</html>
