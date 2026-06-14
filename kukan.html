@@ -852,9 +852,8 @@ function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,
 /* ===== INIT ===== */
 window.addEventListener('load',()=>{
   updateApiDot();
-  if(loadSaved()){
-    startChat();
-  }
+  loadSaved();
+  startChat();
   document.getElementById('goBtn').disabled=!imgData.calm;
 });
 </script>
