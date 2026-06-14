@@ -250,15 +250,15 @@ body{background:#050200}
 
 /* ── テロップ（画像上に重なるオーバーレイ） ── */
 .tzone{
-  position:absolute;bottom:54px;left:0;right:0;z-index:11;
-  min-height:80px;max-height:132px;
-  background:linear-gradient(180deg,rgba(4,1,0,0) 0%,rgba(8,3,0,.88) 30%,rgba(10,4,0,.96) 100%);
-  display:flex;align-items:center;padding:8px 20px 8px;
+  position:absolute;bottom:60px;left:0;right:0;z-index:11;
+  min-height:100px;max-height:180px;
+  background:linear-gradient(180deg,rgba(4,1,0,0) 0%,rgba(8,3,0,.88) 25%,rgba(10,4,0,.96) 100%);
+  display:flex;align-items:flex-end;padding:12px 20px 10px;
   pointer-events:none;
 }
-.tscroll{position:relative;width:100%;min-height:58px;display:flex;align-items:center}
-.tprev{font-size:16px;color:rgba(200,170,110,.3);text-shadow:0 1px 3px rgba(0,0,0,.8);letter-spacing:.04em;
-  position:absolute;top:0;left:0;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.tscroll{position:relative;width:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:4px}
+.tprev{font-size:15px;color:rgba(200,170,110,.35);text-shadow:0 1px 3px rgba(0,0,0,.8);letter-spacing:.04em;
+  width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
 .tcur{font-size:22px;line-height:1.65;color:#f2eacc;
   text-shadow:0 0 8px rgba(0,0,0,1),0 1px 3px rgba(0,0,0,1);
   letter-spacing:.07em;font-weight:500;width:100%}
