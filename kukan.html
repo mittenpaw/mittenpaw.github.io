@@ -159,7 +159,7 @@ body{background:#050200}
   position:absolute;inset:0;overflow:hidden;background:#050200;
 }
 .bg-layer{position:absolute;inset:0;background-size:contain;background-position:center 10%;background-repeat:no-repeat;will-change:opacity,transform}
-.bg-a{z-index:1;opacity:1}.bg-b{z-index:2;opacity:0}
+.bg-a{z-index:1;opacity:.5}.bg-b{z-index:2;opacity:0}
 .bg-layer.fading{transition:opacity .75s ease}
 
 /* State animations */
@@ -628,7 +628,7 @@ function openSetup(){
   document.getElementById('goBtn').disabled=!imgData.calm;
 }
 
-const getImg=s=>imgData[s]||imgData.calm||'';
+const getImg=s=>imgData[s]||imgData.calm||'images/kyo.png';
 
 /* ===== START ===== */
 let chatStarted=false;
@@ -663,7 +663,7 @@ function crossfade(url){
   const fEl=document.getElementById(fId),bEl=document.getElementById(bId);
   fEl.style.backgroundImage=`url('${url}')`;
   fEl.classList.add('fading');bEl.classList.add('fading');
-  fEl.style.opacity='1';bEl.style.opacity='0';
+  fEl.style.opacity='.5';bEl.style.opacity='0';
   bgSide=bgSide==='A'?'B':'A';
   setTimeout(()=>{fEl.classList.remove('fading');bEl.classList.remove('fading');},800);
 }
