@@ -12,50 +12,26 @@ html,body{height:100%;overflow:hidden;
 body{background:#050200}
 
 /* =====================================================
-   オーバーレイナビ（自動隠れ）
+   標準ヘッダー（indexに合わせた固定ナビ）
    ===================================================== */
-.site-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  height:52px;
-  background:linear-gradient(180deg,rgba(6,3,0,.92) 0%,rgba(4,2,0,.6) 100%);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(201,150,42,.2);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 18px 0 20px;
-  transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .4s ease;
-}
-.site-nav.hidden{transform:translateY(-100%);opacity:0}
-
-.nav-logo{text-decoration:none;display:flex;flex-direction:column;line-height:1.2;flex-shrink:0}
-.nav-logo .jp{font-size:14px;font-weight:bold;color:var(--gl);letter-spacing:.1em}
-.nav-logo .en{font-size:8.5px;color:rgba(240,208,128,.45);letter-spacing:.18em}
-
-/* タイトルバッジ（ナビ中央） */
-.nav-badge{
-  display:flex;align-items:center;gap:8px;
-  position:absolute;left:50%;transform:translateX(-50%);
-}
-.nav-badge-rule{width:28px;height:1px}
-.nav-badge-rule.l{background:linear-gradient(90deg,transparent,rgba(201,150,42,.65))}
-.nav-badge-rule.r{background:linear-gradient(90deg,rgba(201,150,42,.65),transparent)}
-.nav-badge-title{font-size:13.5px;color:var(--gl);letter-spacing:.2em;font-weight:bold;white-space:nowrap;text-shadow:0 0 16px rgba(201,150,42,.5)}
-.nav-badge-lotus{font-size:11px;opacity:.65}
-
-.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.nav-links{display:flex;gap:1px;align-items:center}
-.nav-links a{font-size:10px;color:rgba(240,208,128,.6);text-decoration:none;
-  padding:3px 6px;border-radius:4px;letter-spacing:.04em;white-space:nowrap;transition:all .15s}
-.nav-links a:hover{background:rgba(201,150,42,.14);color:var(--gl)}
-.nav-links a.cur{color:var(--gl);border-bottom:1.5px solid var(--gold)}
-@media(max-width:680px){.nav-links{display:none}}
-
+header{position:fixed;top:0;left:0;right:0;z-index:200;background:#3a2510;box-shadow:0 2px 8px rgba(0,0,0,.5)}
+.header-inner{padding:0 16px;display:flex;align-items:center;gap:12px;height:52px}
+.logo{font-size:1.1rem;font-weight:700;color:#f0d080;white-space:nowrap;text-decoration:none;
+  font-family:'Yu Mincho','游明朝',serif;letter-spacing:.1em;flex-shrink:0}
+.logo small{display:block;font-size:.55rem;color:#c8a060;letter-spacing:.05em;font-weight:normal}
+.header-nav{flex:1;overflow-x:auto}
+.header-nav ul{list-style:none;display:flex;gap:2px;white-space:nowrap}
+.header-nav a{color:#e8d5b0;text-decoration:none;font-size:13px;padding:6px 8px;
+  display:block;border-radius:4px;transition:background .2s,color .2s;letter-spacing:.05em}
+.header-nav a:hover,.header-nav a.cur{background:#c8902a;color:#fff}
+.header-tools{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .nav-setup-btn{
-  width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.45);
-  border:1px solid rgba(201,150,42,.25);color:rgba(240,208,128,.7);font-size:12px;
+  width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);
+  border:1px solid rgba(201,150,42,.35);color:rgba(240,208,128,.8);font-size:12px;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:all .15s;backdrop-filter:blur(4px);flex-shrink:0;
+  transition:all .15s;flex-shrink:0;
 }
-.nav-setup-btn:hover{background:rgba(0,0,0,.7);border-color:var(--gold);transform:scale(1.1)}
+.nav-setup-btn:hover{background:rgba(201,150,42,.2);border-color:var(--gold);transform:scale(1.1)}
 
 /* APIキーモーダル */
 #apiModal{
@@ -106,8 +82,6 @@ body{background:#050200}
 .api-dot.ok{background:#70e080;box-shadow:0 0 5px #70e080;border-color:transparent}
 .api-dot.ng{background:#e07070;box-shadow:0 0 5px #e07070;border-color:transparent}
 
-/* ナビ感知ゾーン（トップ20px） */
-.nav-trigger{position:fixed;top:0;left:0;right:0;height:20px;z-index:199}
 
 /* =====================================================
    セットアップ（モーダル）
@@ -150,7 +124,7 @@ body{background:#050200}
    ===================================================== */
 #chat{
   display:none;
-  position:fixed;inset:0;
+  position:fixed;top:52px;left:0;right:0;bottom:0;
   flex-direction:column;
 }
 
@@ -311,31 +285,32 @@ textarea::placeholder{color:#b8a070}
 </head>
 <body>
 
-<!-- ===== ナビゲーション（オーバーレイ・自動隠れ） ===== -->
-<nav class="site-nav" id="siteNav">
-  <a class="nav-logo" href="https://mittenpaw.github.io/index.html">
-    <span class="jp">真照寺</span>
-    <span class="en">Shinsho-ji Temple</span>
-  </a>
-  <div class="nav-badge">
-    <div class="nav-badge-rule l"></div>
-    <span class="nav-badge-lotus">🪷</span>
-    <span class="nav-badge-title">仮想時空対話</span>
-    <span class="nav-badge-lotus">🪷</span>
-    <div class="nav-badge-rule r"></div>
-  </div>
-  <div class="nav-right">
-    <div class="nav-links">
-      <a href="https://mittenpaw.github.io/index.html">ホーム</a>
-      <a href="https://mittenpaw.github.io/teaching.html">法話・教え</a>
-      <a href="https://mittenpaw.github.io/masters.html">偉大な師たち</a>
-      <a href="https://mittenpaw.github.io/kissui.html">釈吉瑞</a>
-      <a href="https://mittenpaw.github.io/butten.html">仏典を紐解く</a>
+<!-- ===== ヘッダー（indexと共通） ===== -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">真照寺<small>Shinsho-ji Temple</small></a>
+    <nav class="header-nav"><ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="about.html">お寺の紹介</a></li>
+      <li><a href="teaching.html">法話・教え</a></li>
+      <li><a href="events.html">行事案内</a></li>
+      <li><a href="news.html">お知らせ</a></li>
+      <li><a href="masters.html">偉大な師たち</a></li>
+      <li><a href="sougi.html">葬儀・法事</a></li>
+      <li><a href="ohaka.html">お墓・納骨</a></li>
+      <li><a href="opentemple.html">オープンテンプル</a></li>
+      <li><a href="otogi.html">お伽噺</a></li>
+      <li><a href="kissui.html">釈吉瑞</a></li>
+      <li><a href="kyogaku.html">大切な遺産</a></li>
+      <li><a href="butten.html">仏典を紐解く</a></li>
+      <li><a href="kukan.html" class="cur">時空の対話</a></li>
+    </ul></nav>
+    <div class="header-tools">
+      <div class="api-dot" id="apiDot" title="APIキーの状態" onclick="openApiModal()" style="cursor:pointer"></div>
+      <button class="nav-setup-btn" onclick="openSetup()" title="画像を設定">⚙</button>
     </div>
-    <div class="api-dot" id="apiDot" title="APIキーの状態" onclick="openApiModal()" style="cursor:pointer"></div>
-    <button class="nav-setup-btn" onclick="openSetup()" title="画像を設定">⚙</button>
   </div>
-</nav>
+</header>
 
 <!-- ===== APIキーモーダル ===== -->
 <div id="apiModal">
@@ -354,8 +329,6 @@ textarea::placeholder{color:#b8a070}
   </div>
 </div>
 
-<!-- ナビ感知ゾーン -->
-<div class="nav-trigger" id="navTrigger"></div>
 
 <!-- ===== セットアップ（モーダル） ===== -->
 <div id="setup">
@@ -518,26 +491,7 @@ async function callAI(systemPrompt, userPrompt){
   return await callAnthropic('https://api.anthropic.com/v1/messages', apiKey, body);
 }
 
-/* ===== ナビ自動隠れ ===== */
-const nav=document.getElementById('siteNav');
-const trigger=document.getElementById('navTrigger');
-let navTimer=null;
-function showNav(){
-  nav.classList.remove('hidden');
-  clearTimeout(navTimer);
-  navTimer=setTimeout(()=>nav.classList.add('hidden'),3500);
-}
-function keepNav(){clearTimeout(navTimer);}
-// マウスが画面上部20pxに来たらナビ表示
-trigger.addEventListener('mouseenter',showNav);
-nav.addEventListener('mouseenter',keepNav);
-nav.addEventListener('mouseleave',()=>{navTimer=setTimeout(()=>nav.classList.add('hidden'),1200)});
-// タップでトグル（モバイル）
-document.addEventListener('touchstart',e=>{
-  if(e.touches[0].clientY<60)showNav();
-},{passive:true});
-// ページ読込時に一度表示
-showNav();
+/* ===== ナビ（標準ヘッダー） ===== */
 
 /* ===== IMAGE SLOTS ===== */
 const SLOTS=[
@@ -628,7 +582,7 @@ function openSetup(){
   document.getElementById('goBtn').disabled=!imgData.calm;
 }
 
-const getImg=s=>imgData[s]||imgData.calm||'';
+const getImg=s=>imgData[s]||imgData.calm||'images/kannon.png';
 
 /* ===== START ===== */
 let chatStarted=false;
