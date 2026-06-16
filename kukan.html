@@ -308,7 +308,6 @@ textarea::placeholder{color:#b8a070}
     </ul></nav>
     <div class="header-tools">
       <div class="api-dot" id="apiDot" title="APIキーの状態" onclick="openApiModal()" style="cursor:pointer"></div>
-      <button class="nav-setup-btn" onclick="openSetup()" title="画像を設定">⚙</button>
     </div>
   </div>
 </header>
@@ -337,7 +336,7 @@ textarea::placeholder{color:#b8a070}
   <p class="sub">表情ごとに画像を登録します。<strong style="color:var(--gl)">穏やか</strong>のみ必須。<br>他はオプション（未設定は穏やかで代用）</p>
   <div class="img-grid" id="igrid"></div>
   <div class="btn-row">
-    <button class="btn-go" id="goBtn" disabled onclick="startChat()">対話を始める</button>
+    <button class="btn-go" id="goBtn" disabled onclick="startChat()" style="display:none">対話を始める</button>
     <button class="clear-btn" onclick="clearSaved()">保存データを消去</button>
   </div>
 </div>
@@ -374,6 +373,9 @@ textarea::placeholder{color:#b8a070}
   </div>
   <!-- 入力 -->
   <div class="izone">
+    <div style="font-size:10px;color:#9a7a50;letter-spacing:.04em;margin-bottom:5px;text-align:center;line-height:1.6;">
+      ※ AI チャットで回答される内容は、宗派や寺院の意見を代弁するものではありません。
+    </div>
     <div class="sugs" id="sugs" style="display:none"></div>
     <div class="iwrap">
       <textarea id="ui" placeholder="心にあることをお話しください…" rows="1"
