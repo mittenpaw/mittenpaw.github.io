@@ -89,7 +89,7 @@ header{position:fixed;top:0;left:0;right:0;z-index:200;background:#3a2510;box-sh
 #setup{
   position:fixed;inset:0;z-index:180;
   background:radial-gradient(ellipse at 50% 35%,rgba(30,16,3,.96) 0%,rgba(3,1,0,.98) 100%);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  display:none;flex-direction:column;align-items:center;justify-content:center;
   padding:80px 20px 24px;gap:14px;overflow-y:auto;
 }
 #setup h2{font-size:18px;color:var(--gl);letter-spacing:.12em;text-align:center;text-shadow:0 0 20px rgba(201,150,42,.5)}
@@ -306,9 +306,6 @@ textarea::placeholder{color:#b8a070}
       <li><a href="kukan.html" class="cur">時空の対話</a></li>
       <li><a href="rekishi.html">仏教史跡地図</a></li>
     </ul></nav>
-    <div class="header-tools">
-      <div class="api-dot" id="apiDot" title="APIキーの状態" onclick="openApiModal()" style="cursor:pointer"></div>
-    </div>
   </div>
 </header>
 
