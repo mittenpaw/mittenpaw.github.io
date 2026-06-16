@@ -211,7 +211,7 @@ header{position:fixed;top:0;left:0;right:0;z-index:200;background:#3a2510;box-sh
 /* ── 名前バー ── */
 .nbar{
   position:absolute;bottom:0;left:0;right:0;z-index:10;
-  padding:8px 18px 170px;
+  padding:8px 18px 145px;
   background:linear-gradient(0deg,rgba(4,1,0,.0) 0%,transparent 100%);
   display:flex;align-items:flex-end;gap:8px;pointer-events:none;
 }
@@ -224,7 +224,7 @@ header{position:fixed;top:0;left:0;right:0;z-index:200;background:#3a2510;box-sh
 
 /* ── テロップ（画像上に重なるオーバーレイ） ── */
 .tzone{
-  position:absolute;bottom:120px;left:0;right:0;z-index:11;
+  position:absolute;bottom:85px;left:0;right:0;z-index:11;
   min-height:100px;max-height:180px;
   background:linear-gradient(180deg,rgba(4,1,0,0) 0%,rgba(8,3,0,.88) 25%,rgba(10,4,0,.96) 100%);
   display:flex;align-items:flex-end;padding:12px 20px 10px;
@@ -375,11 +375,8 @@ textarea::placeholder{color:#b8a070}
     </div>
     <div class="sugs" id="sugs" style="display:none"></div>
     <div class="iwrap">
-      <textarea id="ui" placeholder="心にあることをお話しください…" rows="1"
+      <textarea id="ui" placeholder="心にあることをお話しください… (Enterで送信)" rows="1"
         onkeydown="hk(event)" oninput="ar(this)"></textarea>
-      <button class="sndbtn" id="sndBtn" onclick="sendMsg()">
-        <svg viewBox="0 0 24 24"><path d="M2 21L23 12 2 3v7l15 2-15 2z"/></svg>
-      </button>
     </div>
   </div>
   <!-- 名前バー -->
@@ -785,12 +782,14 @@ const SYS=`あなたはアヴァロキテシュヴァラ（観自在菩薩）で
 - 「今は変わりうる」という希望を大切に
 - 必ず回答末尾に: [tone:calm] [tone:joy] [tone:deep] [tone:compassion] のいずれか一つ`;
 
+let _sending=false;
 async function sendMsg(){
-  const ui=document.getElementById('ui'),sb=document.getElementById('sndBtn');
+  const ui=document.getElementById('ui');
   const text=ui.value.trim();
-  if(!text||sb.disabled)return;
+  if(!text||_sending)return;
+  _sending=true;
   ui.value='';ui.style.height='auto';ui.style.height='22px';ui.blur();
-  sb.disabled=true;hideSugs();
+  hideSugs();
   hist.push({role:'user',content:text});
   setExpr('deep');
   tprev.textContent='';tcur.classList.remove('tl-in','tl-out');
@@ -813,7 +812,7 @@ async function sendMsg(){
       await displayResponse(fb,'calm');hist.push({role:'ai',content:fb});
     }
   }
-  sb.disabled=false;ui.focus();
+  _sending=false;ui.focus();
 }
 
 function hk(e){
