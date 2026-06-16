@@ -375,8 +375,11 @@ textarea::placeholder{color:#b8a070}
     </div>
     <div class="sugs" id="sugs" style="display:none"></div>
     <div class="iwrap">
-      <textarea id="ui" placeholder="心にあることをお話しください… (Enterで送信)" rows="1"
+      <textarea id="ui" placeholder="心にあることをお話しください…" rows="1"
         onkeydown="hk(event)" oninput="ar(this)"></textarea>
+      <button class="sndbtn" id="sndbtn" onclick="sendMsg()" title="送信">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+      </button>
     </div>
   </div>
   <!-- 名前バー -->
