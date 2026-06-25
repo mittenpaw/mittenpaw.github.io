@@ -605,22 +605,26 @@
         </div>
       </div>
 
-      <form class="contact-form" id="contactForm" onsubmit="submitContact(event)">
+      <form class="contact-form" action="https://formsubmit.co/takusuisan.shinshoji@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="お問い合わせ（真照寺ウェブサイトより）">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://mittenpaw.github.io/index.html#contact">
+        <input type="hidden" name="_template" value="table">
         <div class="form-row">
           <label>お名前<span class="required">※必須</span></label>
-          <input type="text" id="cf-name" placeholder="例：山田 花子" maxlength="40" required>
+          <input type="text" name="お名前" placeholder="例：山田 花子" maxlength="40" required>
         </div>
         <div class="form-row">
           <label>メールアドレスまたは電話番号<span class="required">※必須</span></label>
-          <input type="text" id="cf-contact" placeholder="例：hanako@example.com　または　090-0000-0000" maxlength="60" required>
+          <input type="text" name="連絡先" placeholder="例：hanako@example.com　または　090-0000-0000" maxlength="60" required>
         </div>
         <div class="form-row">
           <label>件名</label>
-          <input type="text" id="cf-subject" placeholder="例：お盆法要について、葬儀のご相談　など" maxlength="80">
+          <input type="text" name="件名" placeholder="例：お盆法要について、葬儀のご相談　など" maxlength="80">
         </div>
         <div class="form-row">
           <label>お問い合わせ内容<span class="required">※必須</span></label>
-          <textarea id="cf-body" placeholder="ご質問・ご相談の内容をご記入ください。（500文字以内）" maxlength="500" required></textarea>
+          <textarea name="お問い合わせ内容" placeholder="ご質問・ご相談の内容をご記入ください。（500文字以内）" maxlength="500" required></textarea>
         </div>
         <div class="form-privacy">
           <details class="privacy-toggle">
@@ -717,22 +721,6 @@
   </div>
 </footer>
 
-<script>
-function submitContact(e) {
-  e.preventDefault();
-  var name    = document.getElementById('cf-name').value.trim();
-  var contact = document.getElementById('cf-contact').value.trim();
-  var subject = document.getElementById('cf-subject').value.trim();
-  var body    = document.getElementById('cf-body').value.trim();
-  if (!name || !contact || !body) return;
-  var mailBody = 'お名前：' + name + '\n連絡先：' + contact + '\n\n' + body;
-  var mailSubject = subject || 'お問い合わせ（真照寺ウェブサイトより）';
-  var mailto = 'mailto:takusuisan.shinshoji@gmail.com'
-    + '?subject=' + encodeURIComponent(mailSubject)
-    + '&body='    + encodeURIComponent(mailBody);
-  window.location.href = mailto;
-}
-</script>
 
 </body>
 </html>
