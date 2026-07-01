@@ -151,6 +151,41 @@ body { font-family: var(--font-main); background: var(--col-light); color: var(-
   .bg-white { background: #fff; }
   .bg-green { background: #f0f4ee; }
 
+  /* 永代供養墓セクション */
+  .eitai-intro {
+    background: linear-gradient(135deg, var(--col-main) 0%, var(--col-accent) 100%);
+    color: #fff; border-radius: var(--radius); padding: 36px 40px;
+    margin-bottom: 40px; text-align: center;
+  }
+  .eitai-intro h3 { font-family: var(--font-serif); font-size: 20px; letter-spacing: .2em; margin-bottom: 10px; }
+  .eitai-intro p { font-size: 14px; line-height: 1.9; opacity: .92; }
+  .eitai-price {
+    display: inline-block; margin-top: 16px;
+    background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.4);
+    border-radius: var(--radius); padding: 10px 32px;
+    font-family: var(--font-serif); font-size: 22px; letter-spacing: .1em;
+  }
+  .eitai-price small { font-size: 13px; opacity: .85; display: block; margin-bottom: 2px; letter-spacing: .05em; }
+  .eitai-reasons { display: grid; gap: 18px; margin-top: 8px; }
+  .eitai-reason {
+    background: #fff; border: 1px solid #e8ddd0; border-radius: var(--radius);
+    padding: 22px 26px; display: flex; gap: 18px; align-items: flex-start;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .eitai-reason:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(60,30,0,.1); }
+  .eitai-num {
+    flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--col-main), var(--col-accent));
+    color: #fff; font-family: var(--font-serif); font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+  .eitai-reason h4 {
+    font-family: var(--font-serif); font-size: 16px; color: var(--col-main);
+    margin-bottom: 8px; letter-spacing: .08em;
+  }
+  .eitai-reason p { font-size: 14px; color: #5a4530; line-height: 1.9; margin: 0; }
+
   footer { background: var(--col-dark); color: #c8b89a; padding: 48px 24px 24px; }
   .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 32px; border-bottom: 1px solid rgba(200,184,154,.2); }
   .footer-brand p { margin-top: 12px; font-size: 13px; line-height: 1.8; color: #a89880; }
@@ -384,6 +419,73 @@ body { font-family: var(--font-main); background: var(--col-light); color: var(-
 
     <div class="note-box">
       <strong>🔔 真照寺からのご案内：</strong>どの形式をお選びになる場合も、ご納骨に際しては法要（納骨式）をお勤めします。「どれが自分たちに合っているかわからない」という方も、ぜひお気軽にご相談ください。ご家族の状況を伺いながら、一緒に考えます。
+    </div>
+  </div>
+</div>
+
+<!-- 永代供養墓 -->
+<div class="bg-warm">
+  <div class="section">
+    <div class="section-title">
+      <h2><span class="section-num">③</span>永代供養墓のご案内</h2>
+      <p>真照寺では、後継者の有無にかかわらず、どなたも安心して永遠の安らぎの地を確保していただける永代供養墓をご用意しております。</p>
+    </div>
+
+    <div class="eitai-intro">
+      <h3>なぜ永代供養墓が選ばれるのか</h3>
+      <p>少子化・核家族化が進む現代において、「お墓の継承者がいない」「子どもに負担をかけたくない」というご要望に応える供養の形です。</p>
+      <div class="eitai-price">
+        <small>初期費用のみ</small>
+        500,000円（税込）
+      </div>
+    </div>
+
+    <div class="eitai-reasons">
+
+      <div class="eitai-reason">
+        <div class="eitai-num">1</div>
+        <div>
+          <h4>継承者不要・墓じまいの心配がない</h4>
+          <p>永代供養墓とは、さまざまな事情でお墓の継承が難しくなってしまった場合に、お寺や霊園が親族に代わって故人を手厚く管理・供養を行ってくれるお墓です。利用期間が決まったうえで購入するため、お子様やご親戚の後継者がいなくても安心して利用できます。後継者が途絶えても無縁墓化せず、将来の墓じまいの手続きや費用を家族に残さずに済みます。</p>
+        </div>
+      </div>
+
+      <div class="eitai-reason">
+        <div class="eitai-num">2</div>
+        <div>
+          <h4>管理の手間・年間管理費が不要な場合が多い</h4>
+          <p>お墓の管理は永代供養墓の管理者が毎日行ってくれるため、お墓参り時の草むしりなどをせずに済む点も人気の理由です。実際、年間管理料が不要な永代供養墓もあり、残された家族に経済的・心理的な負担を残さない安心材料になっています。</p>
+        </div>
+      </div>
+
+      <div class="eitai-reason">
+        <div class="eitai-num">3</div>
+        <div>
+          <h4>費用を抑えられる</h4>
+          <p>一般墓より初期費用が抑えられ、少人数で利用する場合、一般的な石のお墓より永代供養墓の方が安くすむことが多く、価格設定が一区画単位ではなく利用人数ごとになっている点も特徴です。</p>
+        </div>
+      </div>
+
+      <div class="eitai-reason">
+        <div class="eitai-num">4</div>
+        <div>
+          <h4>生前予約ができる</h4>
+          <p>生前のお申込みが7割を超えている霊園もあり、元気なうちに自分の供養先を決めておきたいというニーズに応えています。</p>
+        </div>
+      </div>
+
+      <div class="eitai-reason">
+        <div class="eitai-num">5</div>
+        <div>
+          <h4>宗教・宗派を問わないケースが多い</h4>
+          <p>都筑港北霊園や都筑まどか霊園など、区内の民営霊園の多くは宗教不問で受け入れており、幅広い層が利用しやすくなっています。</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note-box" style="margin-top:32px;">
+      <strong>🔔 ご相談はお気軽に：</strong>永代供養墓についてのご不明な点やご要望は、住職が丁寧にご説明いたします。生前のご予約も承っておりますので、どうぞお気軽にお問い合わせください。
     </div>
   </div>
 </div>
