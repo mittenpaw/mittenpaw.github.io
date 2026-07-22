@@ -1,37 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
-  <!-- 背景 -->
-  <rect width="400" height="400" fill="#111"/>
+  <!-- 背景透過 -->
 
-  <!-- 太陽 -->
-  <circle cx="200" cy="130" r="42" fill="none" stroke="white" stroke-width="6"/>
-  <circle cx="200" cy="130" r="28" fill="white"/>
+  <!-- 波 1（上） -->
+  <path d="M0 140 Q50 118 100 140 Q150 162 200 140 Q250 118 300 140 Q350 162 400 140"
+        fill="none" stroke="#3a2510" stroke-width="8" stroke-linecap="round"/>
 
-  <!-- 陽光の反射（水面） -->
-  <line x1="200" y1="175" x2="200" y2="210" stroke="white" stroke-width="5" stroke-linecap="round"/>
-  <line x1="185" y1="180" x2="175" y2="215" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
-  <line x1="215" y1="180" x2="225" y2="215" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
-  <line x1="168" y1="190" x2="150" y2="222" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="232" y1="190" x2="250" y2="222" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="152" y1="202" x2="128" y2="230" stroke="white" stroke-width="2" stroke-linecap="round"/>
-  <line x1="248" y1="202" x2="272" y2="230" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <!-- 波1の水面反射 -->
+  <line x1="55"  y1="134" x2="80"  y2="134" stroke="#c8902a" stroke-width="3.5" stroke-linecap="round" opacity="0.85"/>
+  <line x1="170" y1="134" x2="200" y2="134" stroke="#c8902a" stroke-width="4"   stroke-linecap="round" opacity="0.9"/>
+  <line x1="220" y1="134" x2="238" y2="134" stroke="#c8902a" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="310" y1="134" x2="340" y2="134" stroke="#c8902a" stroke-width="3"   stroke-linecap="round" opacity="0.8"/>
 
-  <!-- 水平線 -->
-  <line x1="30" y1="240" x2="370" y2="240" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- 波 2（中） -->
+  <path d="M0 210 Q50 188 100 210 Q150 232 200 210 Q250 188 300 210 Q350 232 400 210"
+        fill="none" stroke="#3a2510" stroke-width="9" stroke-linecap="round"/>
 
-  <!-- 波 1 -->
-  <path d="M20 270 Q70 252 120 270 Q170 288 220 270 Q270 252 320 270 Q355 282 380 270"
-        fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+  <!-- 波2の水面反射 -->
+  <line x1="30"  y1="203" x2="62"  y2="203" stroke="#c8902a" stroke-width="4"   stroke-linecap="round" opacity="0.9"/>
+  <line x1="80"  y1="203" x2="98"  y2="203" stroke="#c8902a" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="148" y1="203" x2="190" y2="203" stroke="#c8902a" stroke-width="5"   stroke-linecap="round" opacity="0.95"/>
+  <line x1="210" y1="203" x2="230" y2="203" stroke="#c8902a" stroke-width="3"   stroke-linecap="round" opacity="0.75"/>
+  <line x1="290" y1="203" x2="330" y2="203" stroke="#c8902a" stroke-width="4"   stroke-linecap="round" opacity="0.85"/>
+  <line x1="355" y1="203" x2="385" y2="203" stroke="#c8902a" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
 
-  <!-- 波 2 -->
-  <path d="M20 305 Q65 288 110 305 Q155 322 200 305 Q245 288 290 305 Q335 322 380 305"
-        fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <!-- 波 3（下） -->
+  <path d="M0 285 Q50 263 100 285 Q150 307 200 285 Q250 263 300 285 Q350 307 400 285"
+        fill="none" stroke="#3a2510" stroke-width="10" stroke-linecap="round"/>
 
-  <!-- 波 3 -->
-  <path d="M20 338 Q60 323 100 338 Q140 353 180 338 Q220 323 260 338 Q300 353 340 338 Q365 328 380 338"
-        fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <!-- 波3の水面反射 -->
+  <line x1="15"  y1="277" x2="55"  y2="277" stroke="#c8902a" stroke-width="4"   stroke-linecap="round" opacity="0.85"/>
+  <line x1="75"  y1="277" x2="95"  y2="277" stroke="#c8902a" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+  <line x1="130" y1="277" x2="175" y2="277" stroke="#c8902a" stroke-width="5.5" stroke-linecap="round" opacity="0.95"/>
+  <line x1="200" y1="277" x2="225" y2="277" stroke="#c8902a" stroke-width="3"   stroke-linecap="round" opacity="0.75"/>
+  <line x1="265" y1="277" x2="315" y2="277" stroke="#c8902a" stroke-width="4.5" stroke-linecap="round" opacity="0.9"/>
+  <line x1="345" y1="277" x2="390" y2="277" stroke="#c8902a" stroke-width="3"   stroke-linecap="round" opacity="0.75"/>
 
-  <!-- 白波 -->
-  <path d="M30 268 Q50 263 70 268" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
-  <path d="M160 268 Q185 263 210 268" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
-  <path d="M300 268 Q325 263 350 268" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  <!-- 小さな輝き（ダイヤモンドグリッター） -->
+  <circle cx="190" cy="200" r="4" fill="#f0c040" opacity="0.9"/>
+  <circle cx="152" cy="200" r="2.5" fill="#f0c040" opacity="0.8"/>
+  <circle cx="228" cy="200" r="2" fill="#f0c040" opacity="0.7"/>
+  <circle cx="148" cy="274" r="5" fill="#f0c040" opacity="0.95"/>
+  <circle cx="175" cy="274" r="3" fill="#f0c040" opacity="0.8"/>
+  <circle cx="300" cy="274" r="3.5" fill="#f0c040" opacity="0.85"/>
 </svg>
