@@ -1,51 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
-  <!-- 夕焼け空 -->
-  <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#c8602a"/>
-      <stop offset="60%" stop-color="#e8a050"/>
-      <stop offset="100%" stop-color="#f0c878"/>
-    </linearGradient>
-    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#4a6080"/>
-      <stop offset="100%" stop-color="#2a3a50"/>
-    </linearGradient>
-  </defs>
-
-  <!-- 空 -->
-  <rect width="400" height="180" fill="url(#sky)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- 背景 -->
+  <rect width="400" height="400" fill="#111"/>
 
   <!-- 太陽 -->
-  <circle cx="200" cy="130" r="38" fill="#f8d060" opacity="0.92"/>
-  <circle cx="200" cy="130" r="28" fill="#fce880" opacity="0.85"/>
+  <circle cx="200" cy="130" r="42" fill="none" stroke="white" stroke-width="6"/>
+  <circle cx="200" cy="130" r="28" fill="white"/>
 
-  <!-- 光の帯（水面） -->
-  <ellipse cx="200" cy="200" rx="60" ry="8" fill="#f8d060" opacity="0.5"/>
-  <ellipse cx="200" cy="210" rx="44" ry="5" fill="#f8d060" opacity="0.35"/>
-  <ellipse cx="200" cy="220" rx="30" ry="3" fill="#f8d060" opacity="0.2"/>
+  <!-- 陽光の反射（水面） -->
+  <line x1="200" y1="175" x2="200" y2="210" stroke="white" stroke-width="5" stroke-linecap="round"/>
+  <line x1="185" y1="180" x2="175" y2="215" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="215" y1="180" x2="225" y2="215" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="168" y1="190" x2="150" y2="222" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="232" y1="190" x2="250" y2="222" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="152" y1="202" x2="128" y2="230" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <line x1="248" y1="202" x2="272" y2="230" stroke="white" stroke-width="2" stroke-linecap="round"/>
 
-  <!-- 海 -->
-  <rect y="168" width="400" height="132" fill="url(#sea)"/>
+  <!-- 水平線 -->
+  <line x1="30" y1="240" x2="370" y2="240" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
 
   <!-- 波 1 -->
-  <path d="M0 185 Q50 172 100 185 Q150 198 200 185 Q250 172 300 185 Q350 198 400 185 L400 200 L0 200 Z"
-        fill="#5a7a9a" opacity="0.7"/>
+  <path d="M20 270 Q70 252 120 270 Q170 288 220 270 Q270 252 320 270 Q355 282 380 270"
+        fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
 
   <!-- 波 2 -->
-  <path d="M0 205 Q40 193 90 205 Q140 217 190 205 Q240 193 290 205 Q340 217 400 205 L400 220 L0 220 Z"
-        fill="#4a6880" opacity="0.75"/>
+  <path d="M20 305 Q65 288 110 305 Q155 322 200 305 Q245 288 290 305 Q335 322 380 305"
+        fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/>
 
   <!-- 波 3 -->
-  <path d="M0 225 Q50 214 100 225 Q150 236 200 225 Q250 214 300 225 Q350 236 400 225 L400 240 L0 240 Z"
-        fill="#3a5870" opacity="0.8"/>
+  <path d="M20 338 Q60 323 100 338 Q140 353 180 338 Q220 323 260 338 Q300 353 340 338 Q365 328 380 338"
+        fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
 
-  <!-- 白波の線 -->
-  <path d="M10 183 Q35 177 60 183 Q85 189 110 183" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
-  <path d="M150 183 Q175 177 200 183 Q225 189 250 183" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
-  <path d="M290 183 Q320 177 355 183" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
-  <path d="M20 203 Q55 197 85 203 Q115 209 145 203" stroke="white" stroke-width="1.2" fill="none" opacity="0.4"/>
-  <path d="M220 203 Q255 197 290 203 Q325 209 360 203" stroke="white" stroke-width="1.2" fill="none" opacity="0.4"/>
-
-  <!-- 水平線のきらめき -->
-  <line x1="0" y1="168" x2="400" y2="168" stroke="#f0c060" stroke-width="1" opacity="0.6"/>
+  <!-- 白波 -->
+  <path d="M30 268 Q50 263 70 268" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  <path d="M160 268 Q185 263 210 268" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  <path d="M300 268 Q325 263 350 268" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
 </svg>
