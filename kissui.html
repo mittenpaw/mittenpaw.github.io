@@ -278,12 +278,40 @@
   }
 
   /* コーナー見出し */
-  .corner-heading { text-align: center; padding: 8px 24px 0; }
+  .corner-heading { text-align: center; padding: 8px 24px 0; scroll-margin-top: 80px; }
   .corner-heading h2 {
     font-family: var(--font-serif); font-size: clamp(22px, 3.5vw, 32px);
     letter-spacing: .2em; color: var(--col-main);
   }
   .corner-heading p { margin-top: 8px; color: var(--col-gray); font-size: 13px; letter-spacing: .1em; }
+
+  /* コーナー選択（ページ上部） */
+  .corner-nav {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    background: var(--col-accent);
+  }
+  .corner-nav-card {
+    background: var(--col-dark); color: #f0dfc0; text-decoration: none;
+    text-align: center; padding: 36px 24px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    transition: background .2s, transform .2s;
+  }
+  .corner-nav-card:hover { background: #2a1810; transform: translateY(-2px); }
+  .corner-nav-icon { font-size: 34px; line-height: 1; }
+  .corner-nav-card h2 {
+    font-family: var(--font-serif); font-size: clamp(20px, 3vw, 26px);
+    letter-spacing: .2em; color: var(--col-accent); margin-top: 4px;
+  }
+  .corner-nav-card p { font-size: 13px; color: #c8b89a; max-width: 320px; line-height: 1.7; }
+  .corner-nav-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--col-accent); letter-spacing: .15em; margin-top: 6px;
+  }
+  .corner-nav-arrow { display: inline-block; transition: transform .2s; }
+  .corner-nav-card:hover .corner-nav-arrow { transform: translateY(3px); }
+  @media (max-width: 680px) {
+    .corner-nav { grid-template-columns: 1fr; }
+  }
 
 
   .bg-warm { background: #f0e8d8; }
@@ -339,6 +367,22 @@
   <p class="hero-sub">Śākyamaṅgalaḥ</p>
 </div>
 
+<!-- コーナー選択 -->
+<div class="corner-nav">
+  <a href="#corner-essay" class="corner-nav-card">
+    <span class="corner-nav-icon">📝</span>
+    <h2>エッセイ</h2>
+    <p>釈吉瑞が綴る、現代を生きる智慧のエッセイ集</p>
+    <span class="corner-nav-cta">読む<span class="corner-nav-arrow">↓</span></span>
+  </a>
+  <a href="#corner-otogi" class="corner-nav-card">
+    <span class="corner-nav-icon">📜</span>
+    <h2>お伽噺</h2>
+    <p>仏の教えが息づく物語</p>
+    <span class="corner-nav-cta">読む<span class="corner-nav-arrow">↓</span></span>
+  </a>
+</div>
+
 <!-- 著者プロフィール -->
 <div class="author-bar">
   <div class="author-inner">
@@ -353,7 +397,7 @@
   </div>
 </div>
 
-<div class="corner-heading">
+<div class="corner-heading" id="corner-essay">
   <h2>エッセイ</h2>
 </div>
 
@@ -683,7 +727,7 @@
 
 </div><!-- /main -->
 
-<div class="corner-heading">
+<div class="corner-heading" id="corner-otogi">
   <h2>お伽噺</h2>
   <p>仏の教えが息づく物語</p>
 </div>
