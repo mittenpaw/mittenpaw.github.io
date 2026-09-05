@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>釈吉瑞こぼれ話 – 真照寺</title>
+<title>釈吉瑞：note – 真照寺</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -38,32 +38,24 @@
   .hero-deco { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--col-accent), transparent); margin: 16px auto; }
   .page-hero .hero-sub { color: #c8a870; font-size: 13px; letter-spacing: .15em; position: relative; }
 
-  /* 著者プロフィール */
-  .author-bar {
-    background: #fff; border-bottom: 2px solid #e8ddd0;
-    box-shadow: 0 2px 8px rgba(60,30,0,.06);
+  /* ヒーロー内ハンコアイコン */
+  .hero-title-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px; flex-wrap: wrap; position: relative;
   }
-  .author-inner {
-    max-width: 960px; margin: 0 auto; padding: 24px 24px;
-    display: flex; align-items: center; gap: 20px;
-  }
-  .author-icon {
-    width: 72px; height: 72px; border-radius: 50%;
+  .hero-hanko {
+    width: 92px; height: 92px; border-radius: 50%;
     overflow: hidden; flex-shrink: 0;
     border: 3px solid var(--col-accent);
     background: #e8ddd0;
+    box-shadow: 0 4px 16px rgba(0,0,0,.3);
     display: flex; align-items: center; justify-content: center;
   }
-  .author-icon img { width: 100%; height: 100%; object-fit: cover; }
-  .author-icon .icon-placeholder {
-    font-family: var(--font-serif); font-size: 22px; color: var(--col-main);
+  .hero-hanko img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-hanko .icon-placeholder {
+    font-family: var(--font-serif); font-size: 28px; color: var(--col-main);
     letter-spacing: .05em;
   }
-  .author-info h2 {
-    font-family: var(--font-serif); font-size: 20px;
-    letter-spacing: .15em; color: var(--col-main); margin-bottom: 4px;
-  }
-  .author-info p { font-size: 14px; color: var(--col-gray); line-height: 1.7; }
 
   /* INDEXバー */
   .index-bar {
@@ -332,7 +324,6 @@
     .essay-body-inner { padding: 24px 18px; }
     .story-body-inner { padding: 24px 20px; }
     .index-bar { top: 0; }
-    .author-inner { flex-direction: column; text-align: center; }
   }
 </style>
 </head>
@@ -362,7 +353,13 @@
 
 <!-- ページヒーロー -->
 <div class="page-hero">
-  <h1>釈吉瑞こぼれ話</h1>
+  <div class="hero-title-row">
+    <div class="hero-hanko">
+      <img src="images/kissui.png" alt="吉瑞" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <span class="icon-placeholder" style="display:none;">吉</span>
+    </div>
+    <h1>釈吉瑞：note</h1>
+  </div>
   <div class="hero-deco"></div>
   <p class="hero-sub">Śākyamaṅgalaḥ</p>
 </div>
@@ -381,20 +378,6 @@
     <p>仏の教えが息づく物語</p>
     <span class="corner-nav-cta">読む<span class="corner-nav-arrow">↓</span></span>
   </a>
-</div>
-
-<!-- 著者プロフィール -->
-<div class="author-bar">
-  <div class="author-inner">
-    <div class="author-icon">
-      <img src="images/kissui.png" alt="釈吉瑞" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-      <span class="icon-placeholder" style="display:none;">釈</span>
-    </div>
-    <div class="author-info">
-      <h2>釈吉瑞</h2>
-      <p>真照寺衆徒 釈吉瑞のエッセイ集です。</p>
-    </div>
-  </div>
 </div>
 
 <div class="corner-heading" id="corner-essay">
