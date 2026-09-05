@@ -105,11 +105,36 @@
   footer ul li a:hover { color: var(--col-accent); }
   .footer-bottom { max-width: 1100px; margin: 20px auto 0; text-align: center; font-size: 12px; color: #6a5840; }
 
+  /* プログラムグリッド */
+  .program-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+  }
+  .program-card {
+    background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+    border: 1px solid #e8ddd0; overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .program-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(60,30,0,.15); }
+  .program-card-header {
+    padding: 16px 20px 12px;
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    color: #f0dfc0;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .program-num {
+    font-family: var(--font-serif); font-size: 22px;
+    color: var(--col-accent); flex-shrink: 0;
+  }
+  .program-card-header h3 { font-family: var(--font-serif); font-size: 17px; letter-spacing: .1em; }
+  .program-card-body { padding: 18px 20px; }
+  .program-card-body p { font-size: 14px; color: #5a4530; line-height: 1.9; }
+
   @media (max-width: 768px) {
 .footer-inner { grid-template-columns: 1fr; }
     .events-timeline::before { left: 44px; }
     .event-date-col { width: 40px; }
     .event-month { font-size: 16px; }
+    .program-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -127,7 +152,6 @@
       <li><a href="masters.html">偉大な師たち</a></li>
       <li><a href="sougi.html">葬儀・法事</a></li>
       <li><a href="ohaka.html">お墓・納骨</a></li>
-      <li><a href="opentemple.html">オープンテンプル</a></li>
       <li><a href="otogi.html">お伽噺</a></li>
       <li><a href="kissui.html">釈吉瑞</a></li>
       <li><a href="kyogaku.html">大切な遺産</a></li>
@@ -142,6 +166,54 @@
 <div class="page-hero">
   <h1>🗓️ 行事案内</h1>
   <p>年間行事・定期イベントのご案内</p>
+</div>
+
+<!-- プログラム -->
+<div class="bg-white">
+  <div class="section">
+    <div class="section-title">
+      <h2>体験プログラム</h2>
+      <p>※ プログラムは回によってテーマや構成を変えてまいります。</p>
+    </div>
+    <div class="program-grid">
+      <div class="program-card">
+        <div class="program-card-header">
+          <div class="program-num">壱</div>
+          <h3>サンスクリット読経体験</h3>
+        </div>
+        <div class="program-card-body">
+          <p>仏教のキーワードが詰まった『般若心経』をサンスクリット語で体感。ご自身のお名前をデーヴァナーガリーで書いてみませんか。</p>
+        </div>
+      </div>
+      <div class="program-card">
+        <div class="program-card-header">
+          <div class="program-num">弐</div>
+          <h3>瞑想（静座と呼吸）</h3>
+        </div>
+        <div class="program-card-body">
+          <p>静寂なお寺の空間で、椅子に座って瞑想。呼吸や姿勢、意識のはたらきについてご説明します。</p>
+        </div>
+      </div>
+      <div class="program-card">
+        <div class="program-card-header">
+          <div class="program-num">参</div>
+          <h3>AIで読み解く古代の智慧</h3>
+        </div>
+        <div class="program-card-body">
+          <p>釈迦や龍樹のサンスクリット原典をAIを活用して読み解き、現代の言葉で理解します。</p>
+        </div>
+      </div>
+      <div class="program-card">
+        <div class="program-card-header">
+          <div class="program-num">四</div>
+          <h3>三分説法</h3>
+        </div>
+        <div class="program-card-body">
+          <p>仏教は答えを与えません。皆さまの気づきのお手伝いを。短い説法のあとは、お茶をしながら自由に語らえる場を。</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- 年間行事 -->
