@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://shinshoji.org/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://shinshoji.org/about.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shinshoji.org/teaching.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://shinshoji.org/events.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shinshoji.org/news.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://shinshoji.org/masters.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shinshoji.org/sougi.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://shinshoji.org/ohaka.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://shinshoji.org/opentemple.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shinshoji.org/otogi.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shinshoji.org/kissui.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shinshoji.org/kyogaku.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shinshoji.org/butten.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://shinshoji.org/kyo.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://shinshoji.org/kukan.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://shinshoji.org/rekishi.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://shinshoji.org/shinshu.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+</urlset>
