@@ -383,6 +383,21 @@
   .btn-submit:hover {
     transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,61,30,.35);
   }
+  .btn-submit:disabled {
+    opacity: .6; cursor: default; transform: none; box-shadow: none;
+  }
+  .form-status {
+    display: none; margin-top: 20px; padding: 14px 20px;
+    border-radius: var(--radius); font-size: 14px; line-height: 1.7;
+    text-align: center;
+  }
+  .form-status.is-visible { display: block; }
+  .form-status.is-success {
+    background: #eef4ea; color: var(--col-green); border: 1px solid #cfe0c6;
+  }
+  .form-status.is-error {
+    background: #faf0ec; color: var(--col-main); border: 1px solid #e8cdbf;
+  }
 
   /* ---- レスポンシブ ---- */
   @media (max-width: 768px) {
@@ -601,7 +616,7 @@
         </div>
       </div>
 
-      <form class="contact-form" action="https://formsubmit.co/takusuisan.shinshoji@gmail.com" method="POST">
+      <form id="contact-form" class="contact-form" action="https://formsubmit.co/takusuisan.shinshoji@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="お問い合わせ（真照寺ウェブサイトより）">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="https://mittenpaw.github.io/index.html#contact">
@@ -679,6 +694,7 @@
         <div class="form-submit">
           <button type="submit" class="btn-submit">個人情報の取り扱いに同意し、送信</button>
         </div>
+        <div class="form-status" id="contact-form-status" role="status" aria-live="polite"></div>
       </form>
     </div>
   </div>
@@ -717,6 +733,61 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  var statusBox = document.getElementById('contact-form-status');
+  var submitBtn = form.querySelector('.btn-submit');
+  var submitBtnDefaultText = submitBtn ? submitBtn.textContent : '';
+
+  function showStatus(kind, message) {
+    if (!statusBox) return;
+    statusBox.textContent = message;
+    statusBox.className = 'form-status is-visible is-' + kind;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = '送信中…';
+    }
+    showStatus('sending', '送信しています…');
+    statusBox.className = 'form-status is-visible';
+
+    var emailEndpoint = form.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+    var payload = {};
+    new FormData(form).forEach(function (value, key) {
+      payload[key] = value;
+    });
+
+    fetch(emailEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (res) { return res.json().catch(function () { return {}; }); })
+      .then(function (data) {
+        if (data && (data.success === 'true' || data.success === true)) {
+          showStatus('success', 'お問い合わせを受け付けました。ご連絡ありがとうございます。折り返しご連絡させていただきます。');
+          form.reset();
+        } else {
+          showStatus('error', '恐れ入りますが、送信がうまく完了しませんでした。お手数ですが、お電話（045-941-9736）またはメール（takusuisan.shinshoji@gmail.com）にて直接ご連絡ください。');
+        }
+      })
+      .catch(function () {
+        showStatus('error', '恐れ入りますが、送信がうまく完了しませんでした。お手数ですが、お電話（045-941-9736）またはメール（takusuisan.shinshoji@gmail.com）にて直接ご連絡ください。');
+      })
+      .finally(function () {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitBtnDefaultText;
+        }
+      });
+  });
+})();
+</script>
 
 </body>
 </html>
