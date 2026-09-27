@@ -78,6 +78,9 @@
   nav ul { list-style: none; display: flex; gap: 2px; white-space: nowrap; }
   nav a { color: #e8d5b0; text-decoration: none; font-size: 13px; padding: 6px 8px; display: block; border-radius: 4px; transition: background .2s, color .2s; letter-spacing: .05em; }
   nav a:hover, nav a.active { background: var(--col-accent); color: #fff; }
+  .lang-links { display: flex; gap: 4px; flex-shrink: 0; }
+  .lang-links a { color: #e8d5b0; font-size: 12px; padding: 4px 8px; border: 1px solid #c8a060; border-radius: 4px; white-space: nowrap; transition: background .2s, color .2s; }
+  .lang-links a:hover { background: var(--col-accent); border-color: var(--col-accent); color: #fff; }
 
   /* ---- ヒーローセクション ---- */
   .hero {
@@ -463,6 +466,10 @@
       <li><a href="kukan.html">時空の対話</a></li>
       <li><a href="rekishi.html">仏教史跡地図</a></li>
     </ul></nav>
+    <div class="lang-links">
+      <a href="https://english.higashihonganji.or.jp/history/" target="_blank" rel="noopener" lang="en">English</a>
+      <a href="https://higashihonganji.org.br" target="_blank" rel="noopener" lang="pt">Português</a>
+    </div>
   </div>
 </header>
 
